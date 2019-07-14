@@ -10,6 +10,7 @@ Todo::Todo(QWidget *parent)
 	ui.doneBtn->setDisabled(true);
 
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
+	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
 }
 
 void Todo::OnClickAddBtn()
@@ -61,6 +62,11 @@ void Todo::addTodo(toDoData todo)
 	ui.todoListWidget->setItemWidget(item, chkBox);
 
 	connect(chkBox, &QCheckBox::stateChanged, this, &Todo::OnClickListItem);
+}
+
+void Todo::OnClickDoneBtn()
+{
+	
 }
 
 void Todo::resizeEvent(QResizeEvent *e)
