@@ -156,7 +156,7 @@
     <enum>Qt::Vertical</enum>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="deadLineBtn">
    <property name="geometry">
     <rect>
      <x>390</x>
@@ -166,7 +166,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>날짜</string>
    </property>
   </widget>
  </widget>

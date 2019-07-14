@@ -37,7 +37,7 @@ public:
     QFrame *line_4;
     QFrame *line_5;
     QFrame *line_6;
-    QPushButton *pushButton;
+    QPushButton *deadLineBtn;
 
     void setupUi(QWidget *ToDoDlg)
     {
@@ -91,9 +91,9 @@ public:
         line_6->setGeometry(QRect(480, 90, 20, 161));
         line_6->setFrameShape(QFrame::VLine);
         line_6->setFrameShadow(QFrame::Sunken);
-        pushButton = new QPushButton(ToDoDlg);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(390, 100, 93, 28));
+        deadLineBtn = new QPushButton(ToDoDlg);
+        deadLineBtn->setObjectName(QStringLiteral("deadLineBtn"));
+        deadLineBtn->setGeometry(QRect(390, 100, 93, 28));
 
         retranslateUi(ToDoDlg);
 
@@ -106,7 +106,7 @@ public:
         toDoLabel->setText(QApplication::translate("ToDoDlg", "\355\225\240 \354\235\274", Q_NULLPTR));
         detailLabel->setText(QApplication::translate("ToDoDlg", "\354\203\201\354\204\270\353\202\264\354\232\251", Q_NULLPTR));
         okBtn->setText(QApplication::translate("ToDoDlg", "\355\231\225\354\235\270", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("ToDoDlg", "PushButton", Q_NULLPTR));
+        deadLineBtn->setText(QApplication::translate("ToDoDlg", "\353\202\240\354\247\234", Q_NULLPTR));
     } // retranslateUi
 
 };
