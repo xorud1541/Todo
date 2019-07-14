@@ -2,13 +2,13 @@
 #include "TodoDlg.h"
 
 #include <QCheckbox>
-
+#include <QFont>
 Todo::Todo(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 
-	connect(ui.AddBtn, &QPushButton::clicked, this, &Todo::onClickAddBtn);
+	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::onClickAddBtn);
 }
 
 void Todo::onClickAddBtn()
@@ -28,7 +28,13 @@ void Todo::addTodo(toDoData todo)
 {
 	QListWidgetItem* item = new QListWidgetItem(ui.listWidget);
 	QCheckBox* chkBox = new QCheckBox(this);
+
+	QFont font;
+	font.setPointSize(15);
 	chkBox->setText(todo.title);
+	chkBox->setFont(font);
+	chkBox->setStyleSheet("padding-left : 10px");
+	item->setSizeHint(QSize(50, 30));
 
 	ui.listWidget->setItemWidget(item, chkBox);
 }

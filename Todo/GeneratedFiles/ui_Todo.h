@@ -29,7 +29,8 @@ class Ui_TodoClass
 public:
     QWidget *centralWidget;
     QListWidget *listWidget;
-    QPushButton *AddBtn;
+    QPushButton *addBtn;
+    QPushButton *doneBtn;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -38,15 +39,18 @@ public:
     {
         if (TodoClass->objectName().isEmpty())
             TodoClass->setObjectName(QStringLiteral("TodoClass"));
-        TodoClass->resize(401, 312);
+        TodoClass->resize(401, 406);
         centralWidget = new QWidget(TodoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         listWidget = new QListWidget(centralWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setGeometry(QRect(10, 70, 381, 181));
-        AddBtn = new QPushButton(centralWidget);
-        AddBtn->setObjectName(QStringLiteral("AddBtn"));
-        AddBtn->setGeometry(QRect(332, 10, 61, 41));
+        addBtn = new QPushButton(centralWidget);
+        addBtn->setObjectName(QStringLiteral("addBtn"));
+        addBtn->setGeometry(QRect(260, 10, 61, 41));
+        doneBtn = new QPushButton(centralWidget);
+        doneBtn->setObjectName(QStringLiteral("doneBtn"));
+        doneBtn->setGeometry(QRect(330, 10, 61, 41));
         TodoClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(TodoClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -67,7 +71,8 @@ public:
     void retranslateUi(QMainWindow *TodoClass)
     {
         TodoClass->setWindowTitle(QApplication::translate("TodoClass", "Todo", Q_NULLPTR));
-        AddBtn->setText(QApplication::translate("TodoClass", "\354\266\224\352\260\200", Q_NULLPTR));
+        addBtn->setText(QApplication::translate("TodoClass", "\354\266\224\352\260\200", Q_NULLPTR));
+        doneBtn->setText(QApplication::translate("TodoClass", "\354\231\204\353\243\214", Q_NULLPTR));
     } // retranslateUi
 
 };
