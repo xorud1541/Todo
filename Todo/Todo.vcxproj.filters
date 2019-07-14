@@ -39,12 +39,18 @@
     <ClCompile Include="TodoDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TodoListWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Todo.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="TodoDlg.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="TodoListWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

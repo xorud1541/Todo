@@ -14,7 +14,7 @@
    <string>Todo</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QListWidget" name="listWidget">
+   <widget class="TodoListWidget" name="todoListWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -72,6 +72,13 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>TodoListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">TodoListWidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="Todo.qrc"/>
  </resources>

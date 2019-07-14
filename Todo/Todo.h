@@ -1,7 +1,9 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+
 #include "ui_Todo.h"
+
 typedef struct toDoData_
 {
 	QString title;
@@ -14,8 +16,8 @@ class Todo : public QMainWindow
 public:
 	Todo(QWidget *parent = Q_NULLPTR);
 
-	void onClickAddBtn();
-
+	void OnClickAddBtn();
+	void OnClickListItem(int);
 protected:
 	void resizeEvent(QResizeEvent*);
 

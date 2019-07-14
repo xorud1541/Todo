@@ -1,17 +1,18 @@
 #include "Todo.h"
 #include "TodoDlg.h"
-
+#include "TodoListWidget.h"
 #include <QCheckbox>
 #include <QFont>
 Todo::Todo(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	ui.doneBtn->setDisabled(true);
 
-	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::onClickAddBtn);
+	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 }
 
-void Todo::onClickAddBtn()
+void Todo::OnClickAddBtn()
 {
 	TodoDlg todoDlg;
 	if (todoDlg.exec() == QDialog::Accepted)
@@ -24,9 +25,30 @@ void Todo::onClickAddBtn()
 	}
 }
 
+void Todo::OnClickListItem(int state)
+{
+	int checkedCnt = ui.todoListWidget->GetCheckedCnt();
+	QCheckBox* chkBox = (QCheckBox*)sender();
+	
+	if (chkBox->checkState() == Qt::CheckState::Checked)
+	{
+		checkedCnt++;
+		if (checkedCnt > 0) ui.doneBtn->setDisabled(false);
+	}
+	else
+	{
+		if (checkedCnt > 0)
+		{
+			checkedCnt--;
+			if (checkedCnt == 0) ui.doneBtn->setDisabled(true);
+		}
+	}
+	
+	ui.todoListWidget->SetCheckedCnt(checkedCnt);
+}
 void Todo::addTodo(toDoData todo)
 {
-	QListWidgetItem* item = new QListWidgetItem(ui.listWidget);
+	QListWidgetItem* item = new QListWidgetItem(ui.todoListWidget);
 	QCheckBox* chkBox = new QCheckBox(this);
 
 	QFont font;
@@ -34,15 +56,17 @@ void Todo::addTodo(toDoData todo)
 	chkBox->setText(todo.title);
 	chkBox->setFont(font);
 	chkBox->setStyleSheet("padding-left : 10px");
-	item->setSizeHint(QSize(50, 30));
+	item->setSizeHint(QSize(200, 30));
 
-	ui.listWidget->setItemWidget(item, chkBox);
+	ui.todoListWidget->setItemWidget(item, chkBox);
+
+	connect(chkBox, &QCheckBox::stateChanged, this, &Todo::OnClickListItem);
 }
 
 void Todo::resizeEvent(QResizeEvent *e)
 {
 	const int bottomMargin = 50;
 	int height = this->height();
-	QRect listRect = ui.listWidget->geometry();
-	ui.listWidget->setFixedHeight(height - listRect.top() - bottomMargin);
+	QRect listRect = ui.todoListWidget->geometry();
+	ui.todoListWidget->setFixedHeight(height - listRect.top() - bottomMargin);
 }

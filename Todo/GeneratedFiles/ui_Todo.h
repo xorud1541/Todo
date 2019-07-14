@@ -14,13 +14,13 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include <TodoListWidget.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -28,7 +28,7 @@ class Ui_TodoClass
 {
 public:
     QWidget *centralWidget;
-    QListWidget *listWidget;
+    TodoListWidget *todoListWidget;
     QPushButton *addBtn;
     QPushButton *doneBtn;
     QMenuBar *menuBar;
@@ -42,9 +42,9 @@ public:
         TodoClass->resize(401, 406);
         centralWidget = new QWidget(TodoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        listWidget = new QListWidget(centralWidget);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-        listWidget->setGeometry(QRect(10, 70, 381, 181));
+        todoListWidget = new TodoListWidget(centralWidget);
+        todoListWidget->setObjectName(QStringLiteral("todoListWidget"));
+        todoListWidget->setGeometry(QRect(10, 70, 381, 181));
         addBtn = new QPushButton(centralWidget);
         addBtn->setObjectName(QStringLiteral("addBtn"));
         addBtn->setGeometry(QRect(260, 10, 61, 41));
