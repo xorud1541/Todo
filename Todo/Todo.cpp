@@ -38,3 +38,11 @@ void Todo::addTodo(toDoData todo)
 
 	ui.listWidget->setItemWidget(item, chkBox);
 }
+
+void Todo::resizeEvent(QResizeEvent *e)
+{
+	const int bottomMargin = 50;
+	int height = this->height();
+	QRect listRect = ui.listWidget->geometry();
+	ui.listWidget->setFixedHeight(height - listRect.top() - bottomMargin);
+}

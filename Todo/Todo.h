@@ -15,8 +15,11 @@ public:
 	Todo(QWidget *parent = Q_NULLPTR);
 
 	void onClickAddBtn();
-private:
 
+protected:
+	void resizeEvent(QResizeEvent*);
+
+private:
 	void addTodo(toDoData);
 
 
