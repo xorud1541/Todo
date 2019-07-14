@@ -32,13 +32,19 @@ public:
     QLabel *detailLabel;
     QTextEdit *detailEdit;
     QPushButton *okBtn;
+    QFrame *line_2;
+    QFrame *line_3;
+    QFrame *line_4;
+    QFrame *line_5;
+    QFrame *line_6;
+    QPushButton *pushButton;
 
     void setupUi(QWidget *ToDoDlg)
     {
         if (ToDoDlg->objectName().isEmpty())
             ToDoDlg->setObjectName(QStringLiteral("ToDoDlg"));
         ToDoDlg->setWindowModality(Qt::ApplicationModal);
-        ToDoDlg->resize(508, 317);
+        ToDoDlg->resize(501, 317);
         toDoEdit = new QLineEdit(ToDoDlg);
         toDoEdit->setObjectName(QStringLiteral("toDoEdit"));
         toDoEdit->setGeometry(QRect(90, 20, 281, 31));
@@ -56,10 +62,38 @@ public:
         detailLabel->setGeometry(QRect(10, 80, 64, 15));
         detailEdit = new QTextEdit(ToDoDlg);
         detailEdit->setObjectName(QStringLiteral("detailEdit"));
-        detailEdit->setGeometry(QRect(10, 120, 361, 181));
+        detailEdit->setGeometry(QRect(10, 110, 361, 191));
         okBtn = new QPushButton(ToDoDlg);
         okBtn->setObjectName(QStringLiteral("okBtn"));
-        okBtn->setGeometry(QRect(390, 267, 101, 31));
+        okBtn->setGeometry(QRect(390, 270, 91, 31));
+        line_2 = new QFrame(ToDoDlg);
+        line_2->setObjectName(QStringLiteral("line_2"));
+        line_2->setGeometry(QRect(390, 80, 91, 20));
+        line_2->setFrameShape(QFrame::HLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+        line_3 = new QFrame(ToDoDlg);
+        line_3->setObjectName(QStringLiteral("line_3"));
+        line_3->setGeometry(QRect(0, 0, 118, 3));
+        line_3->setFrameShape(QFrame::HLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+        line_4 = new QFrame(ToDoDlg);
+        line_4->setObjectName(QStringLiteral("line_4"));
+        line_4->setGeometry(QRect(390, 240, 91, 20));
+        line_4->setFrameShape(QFrame::HLine);
+        line_4->setFrameShadow(QFrame::Sunken);
+        line_5 = new QFrame(ToDoDlg);
+        line_5->setObjectName(QStringLiteral("line_5"));
+        line_5->setGeometry(QRect(370, 90, 20, 161));
+        line_5->setFrameShape(QFrame::VLine);
+        line_5->setFrameShadow(QFrame::Sunken);
+        line_6 = new QFrame(ToDoDlg);
+        line_6->setObjectName(QStringLiteral("line_6"));
+        line_6->setGeometry(QRect(480, 90, 20, 161));
+        line_6->setFrameShape(QFrame::VLine);
+        line_6->setFrameShadow(QFrame::Sunken);
+        pushButton = new QPushButton(ToDoDlg);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(390, 100, 93, 28));
 
         retranslateUi(ToDoDlg);
 
@@ -68,10 +102,11 @@ public:
 
     void retranslateUi(QWidget *ToDoDlg)
     {
-        ToDoDlg->setWindowTitle(QApplication::translate("ToDoDlg", "To-Do", Q_NULLPTR));
+        ToDoDlg->setWindowTitle(QApplication::translate("ToDoDlg", "TODO", Q_NULLPTR));
         toDoLabel->setText(QApplication::translate("ToDoDlg", "\355\225\240 \354\235\274", Q_NULLPTR));
         detailLabel->setText(QApplication::translate("ToDoDlg", "\354\203\201\354\204\270\353\202\264\354\232\251", Q_NULLPTR));
         okBtn->setText(QApplication::translate("ToDoDlg", "\355\231\225\354\235\270", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("ToDoDlg", "PushButton", Q_NULLPTR));
     } // retranslateUi
 
 };

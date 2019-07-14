@@ -81,7 +81,7 @@ public:
 
     void retranslateUi(QMainWindow *TodoClass)
     {
-        TodoClass->setWindowTitle(QApplication::translate("TodoClass", "Todo", Q_NULLPTR));
+        TodoClass->setWindowTitle(QApplication::translate("TodoClass", "TODO", Q_NULLPTR));
         addBtn->setText(QApplication::translate("TodoClass", "\354\266\224\352\260\200", Q_NULLPTR));
         doneBtn->setText(QApplication::translate("TodoClass", "\354\231\204\353\243\214", Q_NULLPTR));
         dateLabel->setText(QApplication::translate("TodoClass", "\353\202\240\354\247\234(\354\232\224\354\235\274)", Q_NULLPTR));
