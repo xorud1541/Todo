@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -31,6 +32,7 @@ public:
     TodoListWidget *todoListWidget;
     QPushButton *addBtn;
     QPushButton *doneBtn;
+    QLabel *dateLabel;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -51,6 +53,15 @@ public:
         doneBtn = new QPushButton(centralWidget);
         doneBtn->setObjectName(QStringLiteral("doneBtn"));
         doneBtn->setGeometry(QRect(330, 10, 61, 41));
+        dateLabel = new QLabel(centralWidget);
+        dateLabel->setObjectName(QStringLiteral("dateLabel"));
+        dateLabel->setGeometry(QRect(20, 14, 181, 31));
+        QFont font;
+        font.setFamily(QStringLiteral("Agency FB"));
+        font.setPointSize(16);
+        font.setBold(true);
+        font.setWeight(75);
+        dateLabel->setFont(font);
         TodoClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(TodoClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -73,6 +84,7 @@ public:
         TodoClass->setWindowTitle(QApplication::translate("TodoClass", "Todo", Q_NULLPTR));
         addBtn->setText(QApplication::translate("TodoClass", "\354\266\224\352\260\200", Q_NULLPTR));
         doneBtn->setText(QApplication::translate("TodoClass", "\354\231\204\353\243\214", Q_NULLPTR));
+        dateLabel->setText(QApplication::translate("TodoClass", "\353\202\240\354\247\234(\354\232\224\354\235\274)", Q_NULLPTR));
     } // retranslateUi
 
 };

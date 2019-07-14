@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Todo</string>
+   <string>TODO</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="TodoListWidget" name="todoListWidget">
@@ -48,6 +48,27 @@
     </property>
     <property name="text">
      <string>완료</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="dateLabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>14</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Agency FB</family>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>날짜(요일)</string>
     </property>
    </widget>
   </widget>
