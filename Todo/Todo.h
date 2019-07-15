@@ -3,11 +3,7 @@
 #include <QtWidgets/QMainWindow>
 
 #include "ui_Todo.h"
-
-typedef struct toDoData_
-{
-	QString title;
-} toDoData;
+#include "TodoData.h"
 
 class Todo : public QMainWindow
 {
@@ -19,11 +15,12 @@ public:
 	void OnClickAddBtn();
 	void OnClickDoneBtn();
 	void OnClickListItem(int);
+
 protected:
 	void resizeEvent(QResizeEvent*);
 
 private:
-	void addTodo(toDoData);
+	void addTodo(TodoData);
 
 
 private:
