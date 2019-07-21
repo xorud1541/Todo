@@ -1,16 +1,22 @@
 #include "Todo.h"
 #include "TodoDlg.h"
 #include "TodoListWidget.h"
+#include "DateManager.h"
 
 #include <QCheckbox>
 #include <QFont>
-#include <QDatetime>
+#include <QDate>
 
 Todo::Todo(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	ui.doneBtn->setDisabled(false);
+
+	DateManager date(this);
+	QString dateStr = QString("%0(%1)").arg(date.GetDay()).arg(date.GetWeek());
+
+	ui.dateLabel->setText(dateStr);
 
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);

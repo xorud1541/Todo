@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QDate>
 
 #include "ui_Todo.h"
 #include "TodoData.h"
@@ -19,8 +20,6 @@ protected:
 	void resizeEvent(QResizeEvent *e);
 	void closeEvent(QCloseEvent *e);
 	void showEvent(QShowEvent* e);
-
-
 
 private:
 	Ui::TodoClass ui;

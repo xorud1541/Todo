@@ -45,6 +45,9 @@
     <ClCompile Include="ProjectManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Todo.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ProjectManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="DateManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
