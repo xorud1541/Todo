@@ -14,13 +14,12 @@ public:
 
 	void OnClickAddBtn();
 	void OnClickDoneBtn();
-	void OnClickListItem(int);
 
 protected:
-	void resizeEvent(QResizeEvent*);
+	void resizeEvent(QResizeEvent *e);
+	void closeEvent(QCloseEvent *e);
+	void showEvent(QShowEvent* e);
 
-private:
-	void addTodo(TodoData);
 
 
 private:

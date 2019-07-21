@@ -14,7 +14,6 @@ Todo::Todo(QWidget *parent)
 
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
-
 }
 
 void Todo::OnClickAddBtn()
@@ -26,26 +25,10 @@ void Todo::OnClickAddBtn()
 
 		data.SetTitle(todoDlg.getTodoTitle());
  
-		addTodo(data);
+		ui.todoListWidget->AddTodo(data);
 	}
 }
 
-void Todo::addTodo(TodoData todo)
-{
-	QListWidgetItem* item = new QListWidgetItem(ui.todoListWidget);
-	QCheckBox* chkBox = new QCheckBox(this);
-
-	QFont font;
-	font.setPointSize(15);
-	chkBox->setText(todo.GetTitle());
-	chkBox->setFont(font);
-	chkBox->setStyleSheet("padding-left : 10px");
-	item->setSizeHint(QSize(200, 30));
-
-	//item data Ãß°¡
-	ui.todoListWidget->setItemWidget(item, chkBox);
-	connect(chkBox, &QCheckBox::stateChanged, ui.todoListWidget, &TodoListWidget::OnClickListItem);
-}
 
 void Todo::OnClickDoneBtn()
 {
@@ -58,4 +41,14 @@ void Todo::resizeEvent(QResizeEvent *e)
 	int height = this->height();
 	QRect listRect = ui.todoListWidget->geometry();
 	ui.todoListWidget->setFixedHeight(height - listRect.top() - bottomMargin);
+}
+
+void Todo::closeEvent(QCloseEvent* e)
+{
+	ui.todoListWidget->CloseWindow();
+}
+
+void Todo::showEvent(QShowEvent* e)
+{
+	ui.todoListWidget->ShowWindow();
 }

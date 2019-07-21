@@ -42,6 +42,9 @@
     <ClCompile Include="TodoListWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProjectManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Todo.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="TodoListWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ProjectManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
