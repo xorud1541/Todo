@@ -43,10 +43,20 @@ void Todo::OnClickDoneBtn()
 
 void Todo::resizeEvent(QResizeEvent *e)
 {
-	const int bottomMargin = 50;
+	const int tabBottomMargin = 20;
+	const int listBottomMargin = tabBottomMargin + 50;
 	int height = this->height();
+	int width = this->width();
 	QRect listRect = ui.todoListWidget->geometry();
-	ui.todoListWidget->setFixedHeight(height - listRect.top() - bottomMargin);
+	QRect tabRect = ui.tabWidget->geometry();
+
+	ui.tabWidget->setFixedHeight(height - tabRect.top() - tabBottomMargin);
+	ui.tabWidget->setFixedWidth(width);
+
+	ui.todoListWidget->setFixedHeight(height - listRect.top() - listBottomMargin);
+	ui.todoListWidget->setFixedWidth(width - 10);
+
+	ui.horizontalWidget->setFixedWidth(width - 10);
 }
 
 void Todo::closeEvent(QCloseEvent* e)
