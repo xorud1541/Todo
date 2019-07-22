@@ -76,7 +76,7 @@ public:
         sizePolicy.setHeightForWidth(horizontalWidget->sizePolicy().hasHeightForWidth());
         horizontalWidget->setSizePolicy(sizePolicy);
         buttonLayout = new QHBoxLayout(horizontalWidget);
-        buttonLayout->setSpacing(0);
+        buttonLayout->setSpacing(4);
         buttonLayout->setContentsMargins(11, 11, 11, 11);
         buttonLayout->setObjectName(QStringLiteral("buttonLayout"));
         buttonLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
@@ -101,7 +101,15 @@ public:
         sizePolicy.setHeightForWidth(addBtn->sizePolicy().hasHeightForWidth());
         addBtn->setSizePolicy(sizePolicy);
         addBtn->setMinimumSize(QSize(0, 0));
-        addBtn->setMaximumSize(QSize(70, 50));
+        addBtn->setMaximumSize(QSize(50, 40));
+        addBtn->setAcceptDrops(false);
+        addBtn->setAutoFillBackground(false);
+        QIcon icon;
+        icon.addFile(QStringLiteral("image/add_icon.png"), QSize(), QIcon::Normal, QIcon::On);
+        addBtn->setIcon(icon);
+        addBtn->setIconSize(QSize(50, 40));
+        addBtn->setCheckable(false);
+        addBtn->setFlat(true);
 
         buttonLayout->addWidget(addBtn);
 
@@ -109,7 +117,15 @@ public:
         doneBtn->setObjectName(QStringLiteral("doneBtn"));
         sizePolicy.setHeightForWidth(doneBtn->sizePolicy().hasHeightForWidth());
         doneBtn->setSizePolicy(sizePolicy);
-        doneBtn->setMaximumSize(QSize(70, 50));
+        doneBtn->setMaximumSize(QSize(50, 40));
+        doneBtn->setAcceptDrops(false);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral("image/done_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        doneBtn->setIcon(icon1);
+        doneBtn->setIconSize(QSize(37, 40));
+        doneBtn->setCheckable(false);
+        doneBtn->setAutoDefault(false);
+        doneBtn->setFlat(true);
 
         buttonLayout->addWidget(doneBtn);
 
@@ -132,6 +148,7 @@ public:
         retranslateUi(TodoClass);
 
         tabWidget->setCurrentIndex(0);
+        doneBtn->setDefault(false);
 
 
         QMetaObject::connectSlotsByName(TodoClass);
@@ -141,8 +158,8 @@ public:
     {
         TodoClass->setWindowTitle(QApplication::translate("TodoClass", "TODO", Q_NULLPTR));
         dateLabel->setText(QApplication::translate("TodoClass", "\353\202\240\354\247\234(\354\232\224\354\235\274)", Q_NULLPTR));
-        addBtn->setText(QApplication::translate("TodoClass", "\354\266\224\352\260\200", Q_NULLPTR));
-        doneBtn->setText(QApplication::translate("TodoClass", "\354\231\204\353\243\214", Q_NULLPTR));
+        addBtn->setText(QString());
+        doneBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("TodoClass", "\355\225\240 \354\235\274", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("TodoClass", "\354\231\204\353\243\214\355\225\234 \354\235\274", Q_NULLPTR));
     } // retranslateUi
