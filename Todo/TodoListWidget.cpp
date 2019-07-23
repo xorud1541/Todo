@@ -19,8 +19,6 @@ TodoListWidget::~TodoListWidget()
 	dataMap.clear();
 }
 
-
-
 void TodoListWidget::DeleteDoneItem()
 {
 	int i = 0;
