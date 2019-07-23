@@ -66,5 +66,6 @@ void Todo::closeEvent(QCloseEvent* e)
 
 void Todo::showEvent(QShowEvent* e)
 {
-	ui.todoListWidget->ShowWindow();
+	if(ui.todoListWidget->loadFile == false)
+		ui.todoListWidget->ShowWindow();
 }

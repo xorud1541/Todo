@@ -22,6 +22,8 @@ public:
 
 	QMap<QListWidgetItem*, TodoData>& GetDataMap() { return dataMap; };
 
+	static bool loadFile;
+
 private:
 	QMap<QListWidgetItem*, TodoData> dataMap;
 	int checkedCnt_;

@@ -5,6 +5,8 @@
 #include <QVector>
 #include <QFile>
 
+bool TodoListWidget::loadFile = false;
+
 TodoListWidget::TodoListWidget(QWidget* parent)
 	:QListWidget(parent),
 	checkedCnt_(0)
@@ -81,9 +83,14 @@ void TodoListWidget::ShowWindow()
 {
 	QFile file("setting");
 	if (!file.exists()) return;
-		
-	ProjectManager manager;
-	manager.LoadTodoList(this);
+	
+	if (!loadFile)
+	{
+		ProjectManager manager;
+		manager.LoadTodoList(this);
+
+		loadFile = true;
+	}
 }
 
 void TodoListWidget::OnClickListItem(int state)
