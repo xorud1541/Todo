@@ -69,6 +69,7 @@ public:
         todoListWidget = new TodoListWidget(tab);
         todoListWidget->setObjectName(QStringLiteral("todoListWidget"));
         todoListWidget->setGeometry(QRect(0, 60, 401, 671));
+        todoListWidget->setDragDropMode(QAbstractItemView::NoDragDrop);
         todoListWidget->setResizeMode(QListView::Adjust);
         horizontalWidget = new QWidget(tab);
         horizontalWidget->setObjectName(QStringLiteral("horizontalWidget"));

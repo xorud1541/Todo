@@ -12,7 +12,9 @@ public:
 	~TodoDlg();
 
 	void OnClickOkBtn();
-	QString getTodoTitle();
+	QString GetTodoTitle() { return title_; };
+	void SetTodoTitle(QString title) { title_ = title; };
+
 private:
 	Ui::ToDoDlg ui;
 

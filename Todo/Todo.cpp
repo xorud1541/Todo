@@ -29,7 +29,7 @@ void Todo::OnClickAddBtn()
 	{
 		TodoData data;
 
-		data.SetTitle(todoDlg.getTodoTitle());
+		data.SetTitle(todoDlg.GetTodoTitle());
  
 		ui.todoListWidget->AddTodo(data);
 	}

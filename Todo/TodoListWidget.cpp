@@ -1,5 +1,6 @@
 #include "TodoListWidget.h"
 #include "ProjectManager.h"
+#include "TodoDlg.h"
 
 #include <QCheckbox>
 #include <QVector>
@@ -11,7 +12,10 @@ TodoListWidget::TodoListWidget(QWidget* parent)
 	:QListWidget(parent),
 	checkedCnt_(0)
 {
-
+	font_.setPointSize(15);
+	font_.setStrikeOut(false);
+	
+	connect(this, &QListWidget::itemDoubleClicked, this, &TodoListWidget::OnDbClickListItem);
 }
 
 TodoListWidget::~TodoListWidget()
@@ -24,8 +28,7 @@ void TodoListWidget::DeleteDoneItem()
 	int i = 0;
 	for (;i < count();)
 	{
-		QCheckBox* chkBox = (QCheckBox*)itemWidget(item(i));
-		if (chkBox->isChecked())
+		if (dataMap[item(i)].IsChecked())
 		{
 			dataMap.remove(item(i));
 			takeItem(i);
@@ -40,26 +43,17 @@ void TodoListWidget::DeleteDoneItem()
 	checkedCnt_ = 0;
 }
 
-void TodoListWidget::AddTodo(const TodoData& todo)
+void TodoListWidget::AddTodo(TodoData& todo)
 {
 	QListWidgetItem* item = new QListWidgetItem(this);
-	QCheckBox* chkBox = new QCheckBox(this);
 
-	chkBox->setText(todo.GetTitle());
-
-	//폰트 설정
-	QFont font;
-	font.setPointSize(15);
-	chkBox->setFont(font);
-
-	//style 변경
-	chkBox->setStyleSheet("padding-left : 10px");
-	item->setSizeHint(QSize(200, 30));
+	item->setText(todo.GetTitle());
+	item->setFont(font_);
+	todo.SetChecked(false);
 
 	//item data 추가
-	setItemWidget(item, chkBox);
+	addItem(item);
 	dataMap.insert(item, todo);
-	connect(chkBox, &QCheckBox::stateChanged, this, &TodoListWidget::OnClickListItem);
 }
 
 void TodoListWidget::CloseWindow()
@@ -91,19 +85,19 @@ void TodoListWidget::ShowWindow()
 	}
 }
 
-void TodoListWidget::OnClickListItem(int state)
+void TodoListWidget::OnDbClickListItem(QListWidgetItem* item)
 {
-	QCheckBox* chkBox = (QCheckBox*)sender();
-
-	if (chkBox->checkState() == Qt::CheckState::Checked)
+	TodoData& data = dataMap[item];
+	if (data.IsChecked())
 	{
-		checkedCnt_++;
+		font_.setStrikeOut(false);
+		data.SetChecked(false);
 	}
 	else
 	{
-		if (checkedCnt_ > 0)
-		{
-			checkedCnt_--;
-		}
+		font_.setStrikeOut(true);
+		data.SetChecked(true);
 	}
+
+	item->setFont(font_);
 }

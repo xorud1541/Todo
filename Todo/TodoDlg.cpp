@@ -28,8 +28,4 @@ void TodoDlg::OnClickOkBtn()
 	QDialog::close();
 }
 
-QString TodoDlg::getTodoTitle()
-{
-	return title_;
-}
 

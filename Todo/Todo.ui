@@ -54,6 +54,9 @@
         <height>671</height>
        </rect>
       </property>
+      <property name="dragDropMode">
+       <enum>QAbstractItemView::NoDragDrop</enum>
+      </property>
       <property name="resizeMode">
        <enum>QListView::Adjust</enum>
       </property>

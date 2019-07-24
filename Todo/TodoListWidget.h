@@ -14,9 +14,10 @@ public:
 	int GetCheckedCnt() { return checkedCnt_;  };
 	void SetCheckedCnt(int cnt) { checkedCnt_ = cnt;};
 
-	void OnClickListItem(int);
+	void OnDbClickListItem(QListWidgetItem* item);
+
 	void DeleteDoneItem();
-	void AddTodo(const TodoData& todo);
+	void AddTodo(TodoData& todo);
 	void CloseWindow();
 	void ShowWindow();
 
@@ -26,6 +27,7 @@ public:
 
 private:
 	QMap<QListWidgetItem*, TodoData> dataMap;
+	QFont font_;
 	int checkedCnt_;
 };
 
