@@ -6,6 +6,9 @@ DateManager::DateManager(QObject* parent)
 {
 	date_ = QDate::currentDate();
 	day_ = date_.day();
+	year_ = date_.year();
+	month_ = date_.month();
+
 	int week = date_.dayOfWeek();
 	switch (week)
 	{

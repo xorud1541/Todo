@@ -6,6 +6,7 @@
 #include <QCheckbox>
 #include <QFont>
 #include <QDate>
+#include <QVector>
 
 Todo::Todo(QWidget *parent)
 	: QMainWindow(parent)
@@ -35,10 +36,16 @@ void Todo::OnClickAddBtn()
 	}
 }
 
-
 void Todo::OnClickDoneBtn()
 {
-	ui.todoListWidget->DeleteDoneItem();
+	QVector<TodoData> doneData;
+	ui.todoListWidget->DeleteDoneItem(doneData);
+
+	if (!doneData.isEmpty())
+	{
+		ui.doneTreeWidget->AddDoneItem(doneData);
+	}
+
 }
 
 void Todo::resizeEvent(QResizeEvent *e)
@@ -55,6 +62,9 @@ void Todo::resizeEvent(QResizeEvent *e)
 
 	ui.todoListWidget->setFixedHeight(height - listRect.top() - listBottomMargin);
 	ui.todoListWidget->setFixedWidth(width - 10);
+
+	ui.doneTreeWidget->setFixedHeight(height - listRect.top() - listBottomMargin);
+	ui.doneTreeWidget->setFixedWidth(width - 10);
 
 	ui.horizontalWidget->setFixedWidth(width - 10);
 }

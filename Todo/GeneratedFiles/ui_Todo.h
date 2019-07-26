@@ -24,7 +24,8 @@
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
-#include <TodoListWidget.h>
+#include "DoneTreeWidget.h"
+#include "TodoListWidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -33,7 +34,7 @@ class Ui_TodoClass
 public:
     QWidget *centralWidget;
     QTabWidget *tabWidget;
-    QWidget *tab;
+    QWidget *todoTab;
     TodoListWidget *todoListWidget;
     QWidget *horizontalWidget;
     QHBoxLayout *buttonLayout;
@@ -41,7 +42,8 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *addBtn;
     QPushButton *doneBtn;
-    QWidget *tab_2;
+    QWidget *doneTab;
+    DoneTreeWidget *doneTreeWidget;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -50,28 +52,28 @@ public:
     {
         if (TodoClass->objectName().isEmpty())
             TodoClass->setObjectName(QStringLiteral("TodoClass"));
-        TodoClass->resize(410, 837);
+        TodoClass->resize(462, 837);
         centralWidget = new QWidget(TodoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(0, -1, 411, 771));
+        tabWidget->setGeometry(QRect(0, -1, 411, 751));
         tabWidget->setTabPosition(QTabWidget::North);
         tabWidget->setTabShape(QTabWidget::Rounded);
         tabWidget->setElideMode(Qt::ElideLeft);
-        tab = new QWidget();
-        tab->setObjectName(QStringLiteral("tab"));
+        todoTab = new QWidget();
+        todoTab->setObjectName(QStringLiteral("todoTab"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(tab->sizePolicy().hasHeightForWidth());
-        tab->setSizePolicy(sizePolicy);
-        todoListWidget = new TodoListWidget(tab);
+        sizePolicy.setHeightForWidth(todoTab->sizePolicy().hasHeightForWidth());
+        todoTab->setSizePolicy(sizePolicy);
+        todoListWidget = new TodoListWidget(todoTab);
         todoListWidget->setObjectName(QStringLiteral("todoListWidget"));
         todoListWidget->setGeometry(QRect(0, 60, 401, 671));
         todoListWidget->setDragDropMode(QAbstractItemView::NoDragDrop);
         todoListWidget->setResizeMode(QListView::Adjust);
-        horizontalWidget = new QWidget(tab);
+        horizontalWidget = new QWidget(todoTab);
         horizontalWidget->setObjectName(QStringLiteral("horizontalWidget"));
         horizontalWidget->setGeometry(QRect(0, 10, 401, 41));
         sizePolicy.setHeightForWidth(horizontalWidget->sizePolicy().hasHeightForWidth());
@@ -130,14 +132,33 @@ public:
 
         buttonLayout->addWidget(doneBtn);
 
-        tabWidget->addTab(tab, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QStringLiteral("tab_2"));
-        tabWidget->addTab(tab_2, QString());
+        tabWidget->addTab(todoTab, QString());
+        doneTab = new QWidget();
+        doneTab->setObjectName(QStringLiteral("doneTab"));
+        doneTreeWidget = new DoneTreeWidget(doneTab);
+        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
+        __qtreewidgetitem->setText(0, QStringLiteral("1"));
+        doneTreeWidget->setHeaderItem(__qtreewidgetitem);
+        doneTreeWidget->setObjectName(QStringLiteral("doneTreeWidget"));
+        doneTreeWidget->setGeometry(QRect(-5, 1, 401, 721));
+        doneTreeWidget->setRootIsDecorated(true);
+        doneTreeWidget->setUniformRowHeights(false);
+        doneTreeWidget->setItemsExpandable(true);
+        doneTreeWidget->setSortingEnabled(false);
+        doneTreeWidget->setAnimated(false);
+        doneTreeWidget->setAllColumnsShowFocus(false);
+        doneTreeWidget->setWordWrap(false);
+        doneTreeWidget->setHeaderHidden(true);
+        doneTreeWidget->setColumnCount(1);
+        doneTreeWidget->header()->setVisible(false);
+        doneTreeWidget->header()->setCascadingSectionResizes(false);
+        doneTreeWidget->header()->setHighlightSections(false);
+        doneTreeWidget->header()->setProperty("showSortIndicator", QVariant(false));
+        tabWidget->addTab(doneTab, QString());
         TodoClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(TodoClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 410, 26));
+        menuBar->setGeometry(QRect(0, 0, 462, 26));
         TodoClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(TodoClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -161,8 +182,8 @@ public:
         dateLabel->setText(QApplication::translate("TodoClass", "\353\202\240\354\247\234(\354\232\224\354\235\274)", Q_NULLPTR));
         addBtn->setText(QString());
         doneBtn->setText(QString());
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("TodoClass", "\355\225\240 \354\235\274", Q_NULLPTR));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("TodoClass", "\354\231\204\353\243\214\355\225\234 \354\235\274", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(todoTab), QApplication::translate("TodoClass", "\355\225\240 \354\235\274", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(doneTab), QApplication::translate("TodoClass", "\354\231\204\353\243\214\355\225\234 \354\235\274", Q_NULLPTR));
     } // retranslateUi
 
 };

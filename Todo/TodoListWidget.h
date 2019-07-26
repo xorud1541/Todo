@@ -3,6 +3,8 @@
 
 #include <QListwidget>
 #include <QMap>
+#include <QVector>
+
 class TodoListWidget : public QListWidget
 {
 	Q_OBJECT
@@ -16,7 +18,7 @@ public:
 
 	void OnDbClickListItem(QListWidgetItem* item);
 
-	void DeleteDoneItem();
+	void DeleteDoneItem(QVector<TodoData>& done);
 	void AddTodo(TodoData& todo);
 	void CloseWindow();
 	void ShowWindow();
@@ -24,6 +26,9 @@ public:
 	QMap<QListWidgetItem*, TodoData>& GetDataMap() { return dataMap; };
 
 	static bool loadFile;
+
+protected:
+	void keyPressEvent(QKeyEvent* e);
 
 private:
 	QMap<QListWidgetItem*, TodoData> dataMap;

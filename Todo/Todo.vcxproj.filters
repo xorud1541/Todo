@@ -48,6 +48,9 @@
     <ClCompile Include="DateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DoneTreeWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Todo.h">
@@ -63,6 +66,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="DateManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="DoneTreeWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -28,4 +28,10 @@ void TodoDlg::OnClickOkBtn()
 	QDialog::close();
 }
 
+void TodoDlg::SetTodoTitle(QString title)
+{
+	title_ = title;
+
+	ui.toDoEdit->setText(title_);
+}
 

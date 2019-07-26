@@ -5,6 +5,8 @@
 #include <QCheckbox>
 #include <QVector>
 #include <QFile>
+#include <QShortcut>
+#include <QKeyEvent>
 
 bool TodoListWidget::loadFile = false;
 
@@ -13,7 +15,6 @@ TodoListWidget::TodoListWidget(QWidget* parent)
 	checkedCnt_(0)
 {
 	font_.setPointSize(15);
-	font_.setStrikeOut(false);
 	
 	connect(this, &QListWidget::itemDoubleClicked, this, &TodoListWidget::OnDbClickListItem);
 }
@@ -23,13 +24,15 @@ TodoListWidget::~TodoListWidget()
 	dataMap.clear();
 }
 
-void TodoListWidget::DeleteDoneItem()
+
+void TodoListWidget::DeleteDoneItem(QVector<TodoData>& doneData)
 {
 	int i = 0;
 	for (;i < count();)
 	{
 		if (dataMap[item(i)].IsChecked())
 		{
+			doneData.push_back(dataMap[item(i)]);
 			dataMap.remove(item(i));
 			takeItem(i);
 
@@ -43,12 +46,29 @@ void TodoListWidget::DeleteDoneItem()
 	checkedCnt_ = 0;
 }
 
+void TodoListWidget::keyPressEvent(QKeyEvent* e)
+{
+	if (e->key() == Qt::Key_Return)
+	{
+		QListWidgetItem* item = currentItem();
+		TodoData& data = dataMap[item];
+
+		TodoDlg todoDlg;
+		todoDlg.SetTodoTitle(data.GetTitle());
+
+		todoDlg.exec();
+	}
+}
+
 void TodoListWidget::AddTodo(TodoData& todo)
 {
 	QListWidgetItem* item = new QListWidgetItem(this);
 
+	QFont font;
+	font.setPointSize(15);
+	font.setStrikeOut(false);
 	item->setText(todo.GetTitle());
-	item->setFont(font_);
+	item->setFont(font);
 	todo.SetChecked(false);
 
 	//item data Ãß°¡
@@ -70,6 +90,7 @@ void TodoListWidget::CloseWindow()
 		manager.SaveTodoList(data);
 	}
 }
+
 
 void TodoListWidget::ShowWindow()
 {
