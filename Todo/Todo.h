@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QDate>
 
+#include "DateManager.h"
 #include "ui_Todo.h"
 #include "TodoData.h"
 
@@ -12,9 +13,10 @@ class Todo : public QMainWindow
 
 public:
 	Todo(QWidget *parent = Q_NULLPTR);
-
+	~Todo();
 	void OnClickAddBtn();
 	void OnClickDoneBtn();
+	void OnClickDoneTab(int index);
 
 protected:
 	void resizeEvent(QResizeEvent *e);
@@ -23,4 +25,6 @@ protected:
 
 private:
 	Ui::TodoClass ui;
+	
+	DateManager* dateMng;
 };

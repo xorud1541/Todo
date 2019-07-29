@@ -82,12 +82,11 @@ void TodoListWidget::CloseWindow()
 	if (file.exists())
 		file.remove();
 
-	ProjectManager manager;
 	for (int i = 0; i < count(); i++)
 	{
 		QListWidgetItem* witem = item(i);
 		TodoData data = dataMap[witem];
-		manager.SaveTodoList(data);
+		ProjectManager::GetInstance().SaveTodoList(data);
 	}
 }
 
@@ -99,9 +98,7 @@ void TodoListWidget::ShowWindow()
 	
 	if (!loadFile)
 	{
-		ProjectManager manager;
-		manager.LoadTodoList(this);
-
+		ProjectManager::GetInstance().LoadTodoList(this);
 		loadFile = true;
 	}
 }

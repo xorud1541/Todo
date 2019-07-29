@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>TODO</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>image/icon.png</normaloff>image/icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">

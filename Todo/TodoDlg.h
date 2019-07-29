@@ -15,6 +15,8 @@ public:
 	QString GetTodoTitle() { return title_; };
 	void SetTodoTitle(QString title);
 
+	QString GetTodoDetail() { return detail_; };
+
 private:
 	Ui::ToDoDlg ui;
 

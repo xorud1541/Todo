@@ -45,6 +45,9 @@ public:
             ToDoDlg->setObjectName(QStringLiteral("ToDoDlg"));
         ToDoDlg->setWindowModality(Qt::ApplicationModal);
         ToDoDlg->resize(501, 317);
+        QIcon icon;
+        icon.addFile(QStringLiteral("image/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        ToDoDlg->setWindowIcon(icon);
         toDoEdit = new QLineEdit(ToDoDlg);
         toDoEdit->setObjectName(QStringLiteral("toDoEdit"));
         toDoEdit->setGeometry(QRect(90, 20, 281, 31));

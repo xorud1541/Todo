@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="Todo">
+    <qresource prefix="/Todo">
+        <file>image/icon.png</file>
     </qresource>
 </RCC>

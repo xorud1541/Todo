@@ -16,6 +16,10 @@
   <property name="windowTitle">
    <string>TODO</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>image/icon.png</normaloff>image/icon.png</iconset>
+  </property>
   <widget class="QLineEdit" name="toDoEdit">
    <property name="geometry">
     <rect>

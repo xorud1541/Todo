@@ -1,16 +1,57 @@
 #pragma once
+
 #include <QObject>
+#include <QtSql/qsqldatabase.h>
+
 #include "TodoData.h"
 #include "TodoListWidget.h"
-class ProjectManager : public QObject
+#include "DataAPI.h"
+
+#ifdef _DEBUG
+	#pragma comment(lib, "Qt5Sqld")
+#endif 
+	#pragma comment(lib, "Qt5Sql")
+
+namespace DB
 {
-	Q_OBJECT
+	const QString dbName = "ToDoDB";
+	const QString dbDriver = "QSQLITE";
+	const QString dbPath = "Todo.db";
+}
 
+class ProjectManager : public DataAPI
+{
 public:
-	ProjectManager();
-	~ProjectManager();
+	static ProjectManager& GetInstance()
+	{
+		if (instance == NULL)
+			instance = new ProjectManager();
+		return *instance;
+	}
 
-	static bool SaveTodoList(TodoData& data);
-	static bool LoadTodoList(TodoListWidget* list);
+	bool SaveTodoList(TodoData& data);
+	bool LoadTodoList(TodoListWidget* list);
+
+	virtual API_RETURN Save_Done_Data(
+		const QString& date,
+		const QString& done,
+		const QString& detail);
+
+	virtual API_RETURN Load_Done_Data(
+		QVector<TodoData>& data,
+		bool hasDetail = false);
+
+	void InitDB();
+	void FinDB();
+	bool CreateTable();
+	
+	static bool loadDB;
+
+private:
+	ProjectManager();
+	virtual ~ProjectManager();
+
+	static ProjectManager* instance;
+	QSqlDatabase db_;
 };
 

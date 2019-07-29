@@ -1,5 +1,5 @@
 #include "DateManager.h"
-static QString currentDate = "";
+
 
 DateManager::DateManager(QObject* parent)
 	:QObject(parent)

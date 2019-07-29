@@ -15,7 +15,16 @@ public:
 
 	bool IsChecked() { return checked_; };
 	void SetChecked(bool checked) { checked_ = checked; };
+
+	void SetDetail(QString detail) { detail_ = detail; };
+	QString GetDetail() const { return detail_; };
+
+	QString GetDate() const { return date_; };
+	void SetDate(QString date) { date_ = date; };
+
 private:
 	QString title_;
+	QString detail_;
+	QString date_;
 	bool checked_;
 };

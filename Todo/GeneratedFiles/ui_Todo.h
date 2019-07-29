@@ -53,6 +53,9 @@ public:
         if (TodoClass->objectName().isEmpty())
             TodoClass->setObjectName(QStringLiteral("TodoClass"));
         TodoClass->resize(462, 837);
+        QIcon icon;
+        icon.addFile(QStringLiteral("image/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        TodoClass->setWindowIcon(icon);
         centralWidget = new QWidget(TodoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
@@ -107,9 +110,9 @@ public:
         addBtn->setMaximumSize(QSize(50, 40));
         addBtn->setAcceptDrops(false);
         addBtn->setAutoFillBackground(false);
-        QIcon icon;
-        icon.addFile(QStringLiteral("image/add_icon.png"), QSize(), QIcon::Normal, QIcon::On);
-        addBtn->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral("image/add_icon.png"), QSize(), QIcon::Normal, QIcon::On);
+        addBtn->setIcon(icon1);
         addBtn->setIconSize(QSize(50, 40));
         addBtn->setCheckable(false);
         addBtn->setFlat(true);
@@ -122,9 +125,9 @@ public:
         doneBtn->setSizePolicy(sizePolicy);
         doneBtn->setMaximumSize(QSize(50, 40));
         doneBtn->setAcceptDrops(false);
-        QIcon icon1;
-        icon1.addFile(QStringLiteral("image/done_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        doneBtn->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QStringLiteral("image/done_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        doneBtn->setIcon(icon2);
         doneBtn->setIconSize(QSize(37, 40));
         doneBtn->setCheckable(false);
         doneBtn->setAutoDefault(false);
@@ -140,7 +143,7 @@ public:
         __qtreewidgetitem->setText(0, QStringLiteral("1"));
         doneTreeWidget->setHeaderItem(__qtreewidgetitem);
         doneTreeWidget->setObjectName(QStringLiteral("doneTreeWidget"));
-        doneTreeWidget->setGeometry(QRect(-5, 1, 401, 721));
+        doneTreeWidget->setGeometry(QRect(0, 1, 401, 721));
         doneTreeWidget->setRootIsDecorated(true);
         doneTreeWidget->setUniformRowHeights(false);
         doneTreeWidget->setItemsExpandable(true);

@@ -62,9 +62,6 @@
     <QtMoc Include="TodoListWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="ProjectManager.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="DateManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -89,5 +86,17 @@
     <ClInclude Include="TodoData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataAPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Todo.rc" />
   </ItemGroup>
 </Project>

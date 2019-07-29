@@ -12,6 +12,7 @@ public:
 	~DoneTreeWidget();
 
 	void AddDoneItem(QVector<TodoData>& done);
+	void LoadDoneData(const QVector<TodoData>& data);
 
 private:
 	QTreeWidgetItem* treeParent_;

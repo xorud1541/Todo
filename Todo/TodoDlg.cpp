@@ -16,12 +16,12 @@ TodoDlg::~TodoDlg()
 void TodoDlg::OnClickOkBtn()
 {
 	QString title = ui.toDoEdit->text();
-	//QString detail = ui.textEdit->toPlainText();
+	QString detail = ui.detailEdit->toPlainText();
 
 	if (!title.isEmpty())
 	{
 		title_ = title;
-
+		detail_ = detail;
 		QDialog::accept();
 	}
 

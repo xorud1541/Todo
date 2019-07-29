@@ -1,6 +1,8 @@
 #include "Todo.h"
 #include "TodoDlg.h"
 #include "TodoListWidget.h"
+#include "ProjectManager.h"
+#include "DataAPI.h"
 #include "DateManager.h"
 
 #include <QCheckbox>
@@ -14,13 +16,38 @@ Todo::Todo(QWidget *parent)
 	ui.setupUi(this);
 	ui.doneBtn->setDisabled(false);
 
-	DateManager date(this);
-	QString dateStr = QString("%0(%1)").arg(date.GetDay()).arg(date.GetWeek());
-
+	dateMng = new DateManager(this);
+	QString dateStr = QString("%0(%1)").arg(dateMng->GetDay()).arg(dateMng->GetWeek());
 	ui.dateLabel->setText(dateStr);
+
+	//currentDate_ = dateMng->GetYearToStr() + dateMng->GetMonthToStr() + dateMng->GetDayToStr();
+
+	dateMng->SetCurDate(dateMng->GetYearToStr() + dateMng->GetMonthToStr() + dateMng->GetDayToStr());
 
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
+	connect(ui.tabWidget, &QTabWidget::tabBarClicked, this, &Todo::OnClickDoneTab);
+
+	ProjectManager::GetInstance().InitDB();
+}
+
+Todo::~Todo()
+{
+	ProjectManager::GetInstance().FinDB();
+}
+
+void Todo::OnClickDoneTab(int index)
+{
+	if (index == 1)
+	{
+		if (!ProjectManager::GetInstance().loadDB)
+		{
+			QVector<TodoData> dataFromDB;
+			ProjectManager::GetInstance().Load_Done_Data(dataFromDB);
+			ui.doneTreeWidget->LoadDoneData(dataFromDB);
+		}
+	}
+
 }
 
 void Todo::OnClickAddBtn()
@@ -30,8 +57,10 @@ void Todo::OnClickAddBtn()
 	{
 		TodoData data;
 
+		data.SetDate(dateMng->GetCurDate());
 		data.SetTitle(todoDlg.GetTodoTitle());
- 
+		data.SetDetail(todoDlg.GetTodoDetail());
+
 		ui.todoListWidget->AddTodo(data);
 	}
 }
@@ -43,7 +72,23 @@ void Todo::OnClickDoneBtn()
 
 	if (!doneData.isEmpty())
 	{
-		ui.doneTreeWidget->AddDoneItem(doneData);
+		if(ProjectManager::GetInstance().loadDB)
+			ui.doneTreeWidget->AddDoneItem(doneData);
+
+		for (int i = 0; i < doneData.size(); i++)
+		{
+			TodoData data = doneData[i];
+			QString date = data.GetDate();
+			QString done = data.GetTitle();
+			QString detail = data.GetDetail();
+			if (ProjectManager::GetInstance().Save_Done_Data(date,
+				done,
+				detail) == API_RETURN::SUCCESS)
+			{
+				//do Something
+			}
+			
+		}
 	}
 
 }
