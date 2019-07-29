@@ -35,3 +35,9 @@ void TodoDlg::SetTodoTitle(QString title)
 	ui.toDoEdit->setText(title_);
 }
 
+void TodoDlg::SetTodoDetail(QString detail)
+{
+	detail_ = detail;
+
+	ui.detailEdit->setText(detail_);
+}

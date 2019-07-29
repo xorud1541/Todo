@@ -44,20 +44,20 @@ public:
         if (ToDoDlg->objectName().isEmpty())
             ToDoDlg->setObjectName(QStringLiteral("ToDoDlg"));
         ToDoDlg->setWindowModality(Qt::ApplicationModal);
-        ToDoDlg->resize(501, 317);
+        ToDoDlg->resize(615, 317);
         QIcon icon;
         icon.addFile(QStringLiteral("image/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         ToDoDlg->setWindowIcon(icon);
         toDoEdit = new QLineEdit(ToDoDlg);
         toDoEdit->setObjectName(QStringLiteral("toDoEdit"));
-        toDoEdit->setGeometry(QRect(90, 20, 281, 31));
+        toDoEdit->setGeometry(QRect(90, 20, 401, 31));
         toDoLabel = new QLabel(ToDoDlg);
         toDoLabel->setObjectName(QStringLiteral("toDoLabel"));
         toDoLabel->setGeometry(QRect(10, 24, 64, 21));
         toDoLabel->setAlignment(Qt::AlignCenter);
         line = new QFrame(ToDoDlg);
         line->setObjectName(QStringLiteral("line"));
-        line->setGeometry(QRect(10, 60, 481, 16));
+        line->setGeometry(QRect(10, 60, 591, 16));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
         detailLabel = new QLabel(ToDoDlg);
@@ -65,13 +65,13 @@ public:
         detailLabel->setGeometry(QRect(10, 80, 64, 15));
         detailEdit = new QTextEdit(ToDoDlg);
         detailEdit->setObjectName(QStringLiteral("detailEdit"));
-        detailEdit->setGeometry(QRect(10, 110, 361, 191));
+        detailEdit->setGeometry(QRect(10, 110, 481, 191));
         okBtn = new QPushButton(ToDoDlg);
         okBtn->setObjectName(QStringLiteral("okBtn"));
-        okBtn->setGeometry(QRect(390, 270, 91, 31));
+        okBtn->setGeometry(QRect(510, 270, 91, 31));
         line_2 = new QFrame(ToDoDlg);
         line_2->setObjectName(QStringLiteral("line_2"));
-        line_2->setGeometry(QRect(390, 80, 91, 20));
+        line_2->setGeometry(QRect(510, 80, 91, 20));
         line_2->setFrameShape(QFrame::HLine);
         line_2->setFrameShadow(QFrame::Sunken);
         line_3 = new QFrame(ToDoDlg);
@@ -81,22 +81,22 @@ public:
         line_3->setFrameShadow(QFrame::Sunken);
         line_4 = new QFrame(ToDoDlg);
         line_4->setObjectName(QStringLiteral("line_4"));
-        line_4->setGeometry(QRect(390, 240, 91, 20));
+        line_4->setGeometry(QRect(510, 240, 91, 20));
         line_4->setFrameShape(QFrame::HLine);
         line_4->setFrameShadow(QFrame::Sunken);
         line_5 = new QFrame(ToDoDlg);
         line_5->setObjectName(QStringLiteral("line_5"));
-        line_5->setGeometry(QRect(370, 90, 20, 161));
+        line_5->setGeometry(QRect(490, 90, 20, 161));
         line_5->setFrameShape(QFrame::VLine);
         line_5->setFrameShadow(QFrame::Sunken);
         line_6 = new QFrame(ToDoDlg);
         line_6->setObjectName(QStringLiteral("line_6"));
-        line_6->setGeometry(QRect(480, 90, 20, 161));
+        line_6->setGeometry(QRect(600, 90, 20, 161));
         line_6->setFrameShape(QFrame::VLine);
         line_6->setFrameShadow(QFrame::Sunken);
         deadLineBtn = new QPushButton(ToDoDlg);
         deadLineBtn->setObjectName(QStringLiteral("deadLineBtn"));
-        deadLineBtn->setGeometry(QRect(390, 100, 93, 28));
+        deadLineBtn->setGeometry(QRect(510, 100, 93, 28));
 
         retranslateUi(ToDoDlg);
 

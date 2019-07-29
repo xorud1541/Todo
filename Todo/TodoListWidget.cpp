@@ -55,6 +55,7 @@ void TodoListWidget::keyPressEvent(QKeyEvent* e)
 
 		TodoDlg todoDlg;
 		todoDlg.SetTodoTitle(data.GetTitle());
+		todoDlg.SetTodoDetail(data.GetDetail());
 
 		todoDlg.exec();
 	}

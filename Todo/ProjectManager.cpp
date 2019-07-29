@@ -63,6 +63,7 @@ bool ProjectManager::SaveTodoList(TodoData& data)
 	QString group = data.GetTitle();
 	settings.beginGroup(group);
 	settings.setValue("check", data.IsChecked());
+	settings.setValue("detail", data.GetDetail());
 	settings.endGroup();
 
 	return true;
@@ -84,13 +85,19 @@ bool ProjectManager::LoadTodoList(TodoListWidget* list)
 
 		for (const QString& key : keys)
 		{
-			if (key.compare("check", Qt::CaseInsensitive) == 0)
+			if (key == "check")
 			{
 				QString value = settings.value(key).toString();
 				if (value == "false")
 					data.SetChecked(false);
 				else
 					data.SetChecked(true);
+			}
+			else if (key == "detail")
+			{
+				QString value = settings.value(key).toString();
+				if (!value.isEmpty())
+					data.SetDetail(value);
 			}
 		}
 
