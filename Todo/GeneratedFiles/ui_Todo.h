@@ -75,7 +75,11 @@ public:
         todoListWidget->setObjectName(QStringLiteral("todoListWidget"));
         todoListWidget->setGeometry(QRect(0, 60, 401, 671));
         todoListWidget->setDragDropMode(QAbstractItemView::NoDragDrop);
+        todoListWidget->setProperty("isWrapping", QVariant(false));
         todoListWidget->setResizeMode(QListView::Adjust);
+        todoListWidget->setWordWrap(false);
+        todoListWidget->setSelectionRectVisible(true);
+        todoListWidget->setSortingEnabled(false);
         horizontalWidget = new QWidget(todoTab);
         horizontalWidget->setObjectName(QStringLiteral("horizontalWidget"));
         horizontalWidget->setGeometry(QRect(0, 10, 401, 41));

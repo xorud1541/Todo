@@ -100,8 +100,10 @@ bool ProjectManager::LoadTodoList(TodoListWidget* list)
 					data.SetDetail(value);
 			}
 		}
-
+		keys.clear();
 		list->AddTodo(data);
+
+		settings.endGroup();
 	}
 	return true;
 }

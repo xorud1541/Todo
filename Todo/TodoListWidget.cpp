@@ -57,7 +57,11 @@ void TodoListWidget::keyPressEvent(QKeyEvent* e)
 		todoDlg.SetTodoTitle(data.GetTitle());
 		todoDlg.SetTodoDetail(data.GetDetail());
 
-		todoDlg.exec();
+		if (todoDlg.exec() == QDialog::Accepted)
+		{
+			data.SetTitle(todoDlg.GetTodoTitle());
+			data.SetDetail(todoDlg.GetTodoDetail());
+		}
 	}
 }
 
