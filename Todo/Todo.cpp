@@ -47,7 +47,6 @@ void Todo::OnClickDoneTab(int index)
 			ui.doneTreeWidget->LoadDoneData(dataFromDB);
 		}
 	}
-
 }
 
 void Todo::OnClickAddBtn()
