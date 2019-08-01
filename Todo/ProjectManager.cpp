@@ -16,20 +16,22 @@ ProjectManager::~ProjectManager()
 {
 }
 
-void ProjectManager::InitDB()
+bool ProjectManager::InitDB()
 {
 	db_ = QSqlDatabase::addDatabase(DB::dbDriver);
 	db_.setDatabaseName(DB::dbPath);
 
 	if (!db_.open())
 	{
-		int a = 5; //추가예정
+		return false;
 	}
 
 	if (!CreateTable())
 	{
-		int b = 4; //추가예정
+		return false;
 	}
+
+	return true;
 }
 
 void ProjectManager::FinDB()

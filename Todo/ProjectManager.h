@@ -41,7 +41,7 @@ public:
 		QVector<TodoData>& data,
 		bool hasDetail = false);
 
-	void InitDB();
+	bool InitDB();
 	void FinDB();
 	bool CreateTable();
 	

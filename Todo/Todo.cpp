@@ -9,7 +9,7 @@
 #include <QFont>
 #include <QDate>
 #include <QVector>
-
+#include <QMessageBox>
 Todo::Todo(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -28,7 +28,10 @@ Todo::Todo(QWidget *parent)
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
 	connect(ui.tabWidget, &QTabWidget::tabBarClicked, this, &Todo::OnClickDoneTab);
 
-	ProjectManager::GetInstance().InitDB();
+	if (!ProjectManager::GetInstance().InitDB())
+	{
+		QMessageBox::about(this, "FAIL", "Failed to Create DataBase");
+	}
 }
 
 Todo::~Todo()

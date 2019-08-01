@@ -89,10 +89,10 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectManager.h">
+    <ClInclude Include="DataAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataAPI.h">
+    <ClInclude Include="ProjectManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
