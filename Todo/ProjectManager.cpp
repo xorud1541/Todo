@@ -4,6 +4,7 @@
 #include <QDebug>
 
 #include <QtSql/qsqlquery.h>
+#include <QMessageBox>
 
 ProjectManager* ProjectManager::instance = nullptr;
 bool ProjectManager::loadDB = false;
@@ -16,22 +17,27 @@ ProjectManager::~ProjectManager()
 {
 }
 
-bool ProjectManager::InitDB()
+void ProjectManager::InitDB(const QString& path)
 {
+	appPath_ = path;
 	db_ = QSqlDatabase::addDatabase(DB::dbDriver);
-	db_.setDatabaseName(DB::dbPath);
+	db_.setDatabaseName(QString("%0/%1").arg(appPath_).arg(DB::dbFile));
 
 	if (!db_.open())
 	{
-		return false;
+		QMessageBox msgBox;
+		msgBox.setText("Failed to open DB");
+		msgBox.setStandardButtons(QMessageBox::Ok);
+		msgBox.exec();
 	}
 
 	if (!CreateTable())
 	{
-		return false;
+		QMessageBox msgBox;
+		msgBox.setText("Failed to create DB");
+		msgBox.setStandardButtons(QMessageBox::Ok);
+		msgBox.exec();
 	}
-
-	return true;
 }
 
 void ProjectManager::FinDB()

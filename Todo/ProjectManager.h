@@ -16,7 +16,7 @@ namespace DB
 {
 	const QString dbName = "ToDoDB";
 	const QString dbDriver = "QSQLITE";
-	const QString dbPath = "Todo.db";
+	const QString dbFile = "Todo.db";
 }
 
 class ProjectManager : public DataAPI
@@ -41,7 +41,7 @@ public:
 		QVector<TodoData>& data,
 		bool hasDetail = false);
 
-	bool InitDB();
+	void InitDB(const QString& path);
 	void FinDB();
 	bool CreateTable();
 	
@@ -53,5 +53,6 @@ private:
 
 	static ProjectManager* instance;
 	QSqlDatabase db_;
+	QString appPath_;
 };
 

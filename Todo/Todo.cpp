@@ -27,11 +27,6 @@ Todo::Todo(QWidget *parent)
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
 	connect(ui.tabWidget, &QTabWidget::tabBarClicked, this, &Todo::OnClickDoneTab);
-
-	if (!ProjectManager::GetInstance().InitDB())
-	{
-		QMessageBox::about(this, "FAIL", "Failed to Create DataBase");
-	}
 }
 
 Todo::~Todo()
