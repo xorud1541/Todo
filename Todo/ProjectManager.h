@@ -45,8 +45,6 @@ public:
 	void FinDB();
 	bool CreateTable();
 	
-	static bool loadDB;
-
 private:
 	ProjectManager();
 	virtual ~ProjectManager();

@@ -7,7 +7,6 @@
 #include <QMessageBox>
 
 ProjectManager* ProjectManager::instance = nullptr;
-bool ProjectManager::loadDB = false;
 
 ProjectManager::ProjectManager()
 {
@@ -161,6 +160,5 @@ API_RETURN ProjectManager::Load_Done_Data(QVector<TodoData>& data,
 		data.push_back(dataFromDB);
 	}
 
-	loadDB = true;
 	return API_RETURN::SUCCESS;
 }

@@ -1,8 +1,12 @@
 #include "DateManager.h"
-static QString currentDate = "";
 
-DateManager::DateManager(QObject* parent)
-	:QObject(parent)
+DateManager* DateManager::instance = nullptr;
+DateManager::DateManager()
+{
+	CheckCurrentDate();
+}
+
+void DateManager::CheckCurrentDate()
 {
 	date_ = QDate::currentDate();
 	day_ = date_.day();
@@ -36,6 +40,8 @@ DateManager::DateManager(QObject* parent)
 	default:
 		break;
 	}
+
+	currentStrDate_ = GetYearToStr() + GetMonthToStr() + GetDayToStr();
 }
 
 DateManager::~DateManager()

@@ -10,23 +10,23 @@
 #include <QDate>
 #include <QVector>
 #include <QMessageBox>
+
+#define dateMng		DateManager::GetInstance()
 Todo::Todo(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	ui.doneBtn->setDisabled(false);
-
-	dateMng = new DateManager(this);
-	QString dateStr = QString("%0(%1)").arg(dateMng->GetDay()).arg(dateMng->GetWeek());
+	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());
 	ui.dateLabel->setText(dateStr);
-
-	//currentDate_ = dateMng->GetYearToStr() + dateMng->GetMonthToStr() + dateMng->GetDayToStr();
-
-	dateMng->SetCurDate(dateMng->GetYearToStr() + dateMng->GetMonthToStr() + dateMng->GetDayToStr());
 
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
 	connect(ui.tabWidget, &QTabWidget::tabBarClicked, this, &Todo::OnClickDoneTab);
+
+	QVector<TodoData> dataFromDB;
+	ProjectManager::GetInstance().Load_Done_Data(dataFromDB);
+	ui.doneTreeWidget->LoadDoneData(dataFromDB);
 }
 
 Todo::~Todo()
@@ -36,15 +36,7 @@ Todo::~Todo()
 
 void Todo::OnClickDoneTab(int index)
 {
-	if (index == 1)
-	{
-		if (!ProjectManager::GetInstance().loadDB)
-		{
-			QVector<TodoData> dataFromDB;
-			ProjectManager::GetInstance().Load_Done_Data(dataFromDB);
-			ui.doneTreeWidget->LoadDoneData(dataFromDB);
-		}
-	}
+
 }
 
 void Todo::OnClickAddBtn()
@@ -54,7 +46,7 @@ void Todo::OnClickAddBtn()
 	{
 		TodoData data;
 
-		data.SetDate(dateMng->GetCurDate());
+		data.SetDate(dateMng.GetCurDate());
 		data.SetTitle(todoDlg.GetTodoTitle());
 		data.SetDetail(todoDlg.GetTodoDetail());
 
@@ -69,25 +61,19 @@ void Todo::OnClickDoneBtn()
 
 	if (!doneData.isEmpty())
 	{
-		if(ProjectManager::GetInstance().loadDB)
-			ui.doneTreeWidget->AddDoneItem(doneData);
+		ui.doneTreeWidget->AddDoneItem(doneData);
 
 		for (int i = 0; i < doneData.size(); i++)
 		{
-			TodoData data = doneData[i];
-			QString date = data.GetDate();
-			QString done = data.GetTitle();
-			QString detail = data.GetDetail();
-			if (ProjectManager::GetInstance().Save_Done_Data(date,
-				done,
-				detail) == API_RETURN::SUCCESS)
+			if (ProjectManager::GetInstance().Save_Done_Data(
+				doneData[i].GetDate(),
+				doneData[i].GetTitle(),
+				doneData[i].GetDetail()) == API_RETURN::SUCCESS )
 			{
 				//do Something
 			}
-			
 		}
 	}
-
 }
 
 void Todo::resizeEvent(QResizeEvent *e)
