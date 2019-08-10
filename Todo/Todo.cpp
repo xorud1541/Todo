@@ -11,7 +11,6 @@
 #include <QVector>
 #include <QMessageBox>
 
-#define dateMng		DateManager::GetInstance()
 Todo::Todo(QWidget *parent)
 	: QMainWindow(parent)
 {

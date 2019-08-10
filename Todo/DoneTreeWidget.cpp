@@ -1,5 +1,6 @@
 #include "DoneTreeWidget.h"
 #include "DateManager.h"
+#include "Todo.h"
 
 #include <QFont>
 DoneTreeWidget::DoneTreeWidget(QWidget* parent)
@@ -19,7 +20,7 @@ void DoneTreeWidget::AddDoneItem(QVector<TodoData>& doneData)
 	QFont font;
 	if (treeParent_ == NULL)
 	{
-		QString date = doneData[0].GetDate();
+		QString date = QString::fromLocal8Bit("¿À´Ã");//dateMng.GetCurDate();
 		treeParent_ = new QTreeWidgetItem(this);
 		font.setPointSize(13);
 		treeParent_->setText(0, date);

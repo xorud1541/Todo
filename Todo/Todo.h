@@ -7,6 +7,7 @@
 #include "ui_Todo.h"
 #include "TodoData.h"
 
+#define dateMng		DateManager::GetInstance()
 class Todo : public QMainWindow
 {
 	Q_OBJECT
@@ -25,6 +26,4 @@ protected:
 
 private:
 	Ui::TodoClass ui;
-	
-	DateManager* dateMng;
 };
