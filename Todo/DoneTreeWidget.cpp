@@ -20,12 +20,12 @@ void DoneTreeWidget::AddDoneItem(QVector<TodoData>& doneData)
 	QFont font;
 	if (treeParent_ == NULL)
 	{
-		QString date = QString::fromLocal8Bit("¿À´Ã");//dateMng.GetCurDate();
+		QString date = QString::fromLocal8Bit("¿À´Ã");
 		treeParent_ = new QTreeWidgetItem(this);
 		font.setPointSize(13);
 		treeParent_->setText(0, date);
 		treeParent_->setFont(0, font);
-		addTopLevelItem(treeParent_);
+		insertTopLevelItem(0, treeParent_);
 	}
 
 	for (int i = 0; i < doneData.size(); i++)
@@ -70,7 +70,6 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 		}
 		else
 		{
-			//ºÎ¸ð°¡ ÀÖ°í 
 			if (currentDate.compare(date, Qt::CaseInsensitive) == 0)
 			{
 				QTreeWidgetItem* item = new QTreeWidgetItem(parent);

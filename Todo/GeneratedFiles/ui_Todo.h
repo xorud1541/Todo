@@ -151,7 +151,7 @@ public:
         doneTreeWidget->setRootIsDecorated(true);
         doneTreeWidget->setUniformRowHeights(false);
         doneTreeWidget->setItemsExpandable(true);
-        doneTreeWidget->setSortingEnabled(false);
+        doneTreeWidget->setSortingEnabled(true);
         doneTreeWidget->setAnimated(false);
         doneTreeWidget->setAllColumnsShowFocus(false);
         doneTreeWidget->setWordWrap(false);
@@ -160,7 +160,7 @@ public:
         doneTreeWidget->header()->setVisible(false);
         doneTreeWidget->header()->setCascadingSectionResizes(false);
         doneTreeWidget->header()->setHighlightSections(false);
-        doneTreeWidget->header()->setProperty("showSortIndicator", QVariant(false));
+        doneTreeWidget->header()->setProperty("showSortIndicator", QVariant(true));
         tabWidget->addTab(doneTab, QString());
         TodoClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(TodoClass);
@@ -176,7 +176,7 @@ public:
 
         retranslateUi(TodoClass);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         doneBtn->setDefault(false);
 
 

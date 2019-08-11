@@ -16,16 +16,19 @@ Todo::Todo(QWidget *parent)
 {
 	ui.setupUi(this);
 	ui.doneBtn->setDisabled(false);
+
 	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());
 	ui.dateLabel->setText(dateStr);
-
-	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
-	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
-	connect(ui.tabWidget, &QTabWidget::tabBarClicked, this, &Todo::OnClickDoneTab);
 
 	QVector<TodoData> dataFromDB;
 	ProjectManager::GetInstance().Load_Done_Data(dataFromDB);
 	ui.doneTreeWidget->LoadDoneData(dataFromDB);
+
+	ui.tabWidget->setCurrentIndex(0);
+
+	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
+	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
+	connect(ui.tabWidget, &QTabWidget::tabBarClicked, this, &Todo::OnClickDoneTab);
 }
 
 Todo::~Todo()
