@@ -3,7 +3,11 @@
 DateManager* DateManager::instance = nullptr;
 DateManager::DateManager()
 {
+	timer_ = new QTimer(this);
+	connect(timer_, &QTimer::timeout, this, &DateManager::CheckCurrentDate);
 	CheckCurrentDate();
+
+	timer_->start(600000);
 }
 
 void DateManager::CheckCurrentDate()

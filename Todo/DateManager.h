@@ -1,7 +1,7 @@
 #pragma once
 #include <QDate>
 #include <QObject>
-
+#include <QTimer>
 class DateManager : public QObject
 {
 	Q_OBJECT
@@ -38,5 +38,6 @@ private:
 
 	static DateManager* instance;
 	QString currentStrDate_;
+	QTimer* timer_;
 };
 
