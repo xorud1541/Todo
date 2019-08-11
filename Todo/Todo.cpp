@@ -28,6 +28,7 @@ Todo::Todo(QWidget *parent)
 
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
+	connect(ui.sortBtn, &QPushButton::clicked, this, &Todo::OnClickSortBtn);
 	connect(ui.tabWidget, &QTabWidget::tabBarClicked, this, &Todo::OnClickDoneTab);
 }
 
@@ -76,6 +77,11 @@ void Todo::OnClickDoneBtn()
 			}
 		}
 	}
+}
+
+void Todo::OnClickSortBtn()
+{
+	ui.todoListWidget->SortTodoItems();
 }
 
 void Todo::resizeEvent(QResizeEvent *e)

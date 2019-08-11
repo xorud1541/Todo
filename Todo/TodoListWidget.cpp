@@ -24,6 +24,10 @@ TodoListWidget::~TodoListWidget()
 	dataMap.clear();
 }
 
+void TodoListWidget::SortTodoItems()
+{
+	// sort 하기
+}
 
 void TodoListWidget::DeleteDoneItem(QVector<TodoData>& doneData)
 {
@@ -71,10 +75,15 @@ void TodoListWidget::AddTodo(TodoData& todo)
 
 	QFont font;
 	font.setPointSize(15);
-	font.setStrikeOut(false);
+
 	item->setText(todo.GetTitle());
+	
+	if (todo.IsChecked())
+		font.setStrikeOut(true);
+	else
+		font.setStrikeOut(false);
 	item->setFont(font);
-	todo.SetChecked(false);
+
 
 	//item data 추가
 	addItem(item);

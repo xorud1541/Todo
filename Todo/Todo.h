@@ -17,6 +17,7 @@ public:
 	~Todo();
 	void OnClickAddBtn();
 	void OnClickDoneBtn();
+	void OnClickSortBtn();
 	void OnClickDoneTab(int index);
 
 protected:

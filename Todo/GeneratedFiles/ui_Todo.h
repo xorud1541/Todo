@@ -42,6 +42,7 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *addBtn;
     QPushButton *doneBtn;
+    QPushButton *sortBtn;
     QWidget *doneTab;
     DoneTreeWidget *doneTreeWidget;
     QMenuBar *menuBar;
@@ -139,6 +140,23 @@ public:
 
         buttonLayout->addWidget(doneBtn);
 
+        sortBtn = new QPushButton(horizontalWidget);
+        sortBtn->setObjectName(QStringLiteral("sortBtn"));
+        sizePolicy.setHeightForWidth(sortBtn->sizePolicy().hasHeightForWidth());
+        sortBtn->setSizePolicy(sizePolicy);
+        sortBtn->setMinimumSize(QSize(0, 0));
+        sortBtn->setMaximumSize(QSize(50, 40));
+        sortBtn->setAcceptDrops(false);
+        sortBtn->setAutoFillBackground(false);
+        QIcon icon3;
+        icon3.addFile(QStringLiteral("image/sort_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        sortBtn->setIcon(icon3);
+        sortBtn->setIconSize(QSize(50, 40));
+        sortBtn->setCheckable(false);
+        sortBtn->setFlat(true);
+
+        buttonLayout->addWidget(sortBtn);
+
         tabWidget->addTab(todoTab, QString());
         doneTab = new QWidget();
         doneTab->setObjectName(QStringLiteral("doneTab"));
@@ -176,7 +194,7 @@ public:
 
         retranslateUi(TodoClass);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
         doneBtn->setDefault(false);
 
 
@@ -189,6 +207,7 @@ public:
         dateLabel->setText(QApplication::translate("TodoClass", "\353\202\240\354\247\234(\354\232\224\354\235\274)", Q_NULLPTR));
         addBtn->setText(QString());
         doneBtn->setText(QString());
+        sortBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(todoTab), QApplication::translate("TodoClass", "\355\225\240 \354\235\274", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(doneTab), QApplication::translate("TodoClass", "\354\231\204\353\243\214\355\225\234 \354\235\274", Q_NULLPTR));
     } // retranslateUi
