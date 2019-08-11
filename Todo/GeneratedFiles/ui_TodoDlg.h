@@ -14,11 +14,15 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTextEdit>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -29,22 +33,26 @@ public:
     QLineEdit *toDoEdit;
     QLabel *toDoLabel;
     QFrame *line;
-    QLabel *detailLabel;
-    QTextEdit *detailEdit;
-    QPushButton *okBtn;
-    QFrame *line_2;
     QFrame *line_3;
-    QFrame *line_4;
-    QFrame *line_5;
-    QFrame *line_6;
+    QWidget *centerWidget;
+    QGridLayout *gridLayout;
+    QLabel *detailLabel;
+    QHBoxLayout *horizontalLayout;
+    QTextEdit *detailEdit;
+    QWidget *widget_2;
+    QVBoxLayout *verticalLayout_2;
+    QFrame *line_2;
     QPushButton *deadLineBtn;
+    QFrame *line_4;
+    QSpacerItem *verticalSpacer;
+    QPushButton *okBtn;
 
     void setupUi(QWidget *ToDoDlg)
     {
         if (ToDoDlg->objectName().isEmpty())
             ToDoDlg->setObjectName(QStringLiteral("ToDoDlg"));
         ToDoDlg->setWindowModality(Qt::ApplicationModal);
-        ToDoDlg->resize(615, 317);
+        ToDoDlg->resize(594, 492);
         QIcon icon;
         icon.addFile(QStringLiteral("image/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         ToDoDlg->setWindowIcon(icon);
@@ -57,48 +65,97 @@ public:
         toDoLabel->setAlignment(Qt::AlignCenter);
         line = new QFrame(ToDoDlg);
         line->setObjectName(QStringLiteral("line"));
-        line->setGeometry(QRect(10, 60, 591, 16));
+        line->setGeometry(QRect(10, 60, 581, 16));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(line->sizePolicy().hasHeightForWidth());
+        line->setSizePolicy(sizePolicy);
+        line->setMinimumSize(QSize(400, 0));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
-        detailLabel = new QLabel(ToDoDlg);
-        detailLabel->setObjectName(QStringLiteral("detailLabel"));
-        detailLabel->setGeometry(QRect(10, 80, 64, 15));
-        detailEdit = new QTextEdit(ToDoDlg);
-        detailEdit->setObjectName(QStringLiteral("detailEdit"));
-        detailEdit->setGeometry(QRect(10, 110, 481, 191));
-        okBtn = new QPushButton(ToDoDlg);
-        okBtn->setObjectName(QStringLiteral("okBtn"));
-        okBtn->setGeometry(QRect(510, 270, 91, 31));
-        line_2 = new QFrame(ToDoDlg);
-        line_2->setObjectName(QStringLiteral("line_2"));
-        line_2->setGeometry(QRect(510, 80, 91, 20));
-        line_2->setFrameShape(QFrame::HLine);
-        line_2->setFrameShadow(QFrame::Sunken);
         line_3 = new QFrame(ToDoDlg);
         line_3->setObjectName(QStringLiteral("line_3"));
         line_3->setGeometry(QRect(0, 0, 118, 3));
         line_3->setFrameShape(QFrame::HLine);
         line_3->setFrameShadow(QFrame::Sunken);
-        line_4 = new QFrame(ToDoDlg);
+        centerWidget = new QWidget(ToDoDlg);
+        centerWidget->setObjectName(QStringLiteral("centerWidget"));
+        centerWidget->setGeometry(QRect(10, 70, 581, 421));
+        centerWidget->setMinimumSize(QSize(400, 300));
+        gridLayout = new QGridLayout(centerWidget);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        detailLabel = new QLabel(centerWidget);
+        detailLabel->setObjectName(QStringLiteral("detailLabel"));
+
+        gridLayout->addWidget(detailLabel, 0, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(0);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        detailEdit = new QTextEdit(centerWidget);
+        detailEdit->setObjectName(QStringLiteral("detailEdit"));
+
+        horizontalLayout->addWidget(detailEdit);
+
+        widget_2 = new QWidget(centerWidget);
+        widget_2->setObjectName(QStringLiteral("widget_2"));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
+        widget_2->setSizePolicy(sizePolicy1);
+        widget_2->setMinimumSize(QSize(120, 0));
+        verticalLayout_2 = new QVBoxLayout(widget_2);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        line_2 = new QFrame(widget_2);
+        line_2->setObjectName(QStringLiteral("line_2"));
+        line_2->setFrameShape(QFrame::HLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout_2->addWidget(line_2);
+
+        deadLineBtn = new QPushButton(widget_2);
+        deadLineBtn->setObjectName(QStringLiteral("deadLineBtn"));
+
+        verticalLayout_2->addWidget(deadLineBtn);
+
+        line_4 = new QFrame(widget_2);
         line_4->setObjectName(QStringLiteral("line_4"));
-        line_4->setGeometry(QRect(510, 240, 91, 20));
         line_4->setFrameShape(QFrame::HLine);
         line_4->setFrameShadow(QFrame::Sunken);
-        line_5 = new QFrame(ToDoDlg);
-        line_5->setObjectName(QStringLiteral("line_5"));
-        line_5->setGeometry(QRect(490, 90, 20, 161));
-        line_5->setFrameShape(QFrame::VLine);
-        line_5->setFrameShadow(QFrame::Sunken);
-        line_6 = new QFrame(ToDoDlg);
-        line_6->setObjectName(QStringLiteral("line_6"));
-        line_6->setGeometry(QRect(600, 90, 20, 161));
-        line_6->setFrameShape(QFrame::VLine);
-        line_6->setFrameShadow(QFrame::Sunken);
-        deadLineBtn = new QPushButton(ToDoDlg);
-        deadLineBtn->setObjectName(QStringLiteral("deadLineBtn"));
-        deadLineBtn->setGeometry(QRect(510, 100, 93, 28));
+
+        verticalLayout_2->addWidget(line_4);
+
+        verticalSpacer = new QSpacerItem(20, 260, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+
+        verticalLayout_2->addItem(verticalSpacer);
+
+        okBtn = new QPushButton(widget_2);
+        okBtn->setObjectName(QStringLiteral("okBtn"));
+
+        verticalLayout_2->addWidget(okBtn);
+
+
+        horizontalLayout->addWidget(widget_2);
+
+
+        gridLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
+
+        toDoEdit->raise();
+        toDoLabel->raise();
+        line->raise();
+        line_3->raise();
+        centerWidget->raise();
+        okBtn->raise();
+        deadLineBtn->raise();
+        line_2->raise();
+        line_4->raise();
 
         retranslateUi(ToDoDlg);
+
+        okBtn->setDefault(true);
+
 
         QMetaObject::connectSlotsByName(ToDoDlg);
     } // setupUi
@@ -108,8 +165,8 @@ public:
         ToDoDlg->setWindowTitle(QApplication::translate("ToDoDlg", "TODO", Q_NULLPTR));
         toDoLabel->setText(QApplication::translate("ToDoDlg", "\355\225\240 \354\235\274", Q_NULLPTR));
         detailLabel->setText(QApplication::translate("ToDoDlg", "\354\203\201\354\204\270\353\202\264\354\232\251", Q_NULLPTR));
-        okBtn->setText(QApplication::translate("ToDoDlg", "\355\231\225\354\235\270", Q_NULLPTR));
         deadLineBtn->setText(QApplication::translate("ToDoDlg", "\353\202\240\354\247\234", Q_NULLPTR));
+        okBtn->setText(QApplication::translate("ToDoDlg", "\355\231\225\354\235\270", Q_NULLPTR));
     } // retranslateUi
 
 };

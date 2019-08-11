@@ -1,11 +1,17 @@
 #include "TodoDlg.h"
 
+#include <QFont>
+
 TodoDlg::TodoDlg(QWidget* parent)
 	:QDialog(parent)
 {
 	ui.setupUi(this);
 
 	connect(ui.okBtn, &QPushButton::clicked, this, &TodoDlg::OnClickOkBtn);
+
+	QFont font;
+	font.setPointSize(13);
+	ui.detailEdit->setFont(font);
 }
 
 
@@ -40,4 +46,17 @@ void TodoDlg::SetTodoDetail(QString detail)
 	detail_ = detail;
 
 	ui.detailEdit->setText(detail_);
+}
+
+void TodoDlg::resizeEvent(QResizeEvent* e)
+{
+	int height = this->height();
+	int width = this->width();
+
+	QRect centerW = ui.centerWidget->geometry();
+	QRect okBtn = ui.okBtn->geometry();
+	QRect edit = ui.detailEdit->geometry();
+
+	ui.centerWidget->setFixedWidth(width);
+	ui.centerWidget->setFixedHeight(height - centerW.top() );
 }

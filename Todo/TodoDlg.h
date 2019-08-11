@@ -18,6 +18,9 @@ public:
 	QString GetTodoDetail() { return detail_; };
 	void SetTodoDetail(QString detail);
 
+protected:
+	void resizeEvent(QResizeEvent* e);
+
 private:
 	Ui::ToDoDlg ui;
 
