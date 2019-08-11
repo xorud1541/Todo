@@ -1,5 +1,6 @@
 #include "TodoListWidget.h"
 #include "ProjectManager.h"
+#include "DateManager.h"
 #include "TodoDlg.h"
 
 #include <QCheckbox>
@@ -7,7 +8,7 @@
 #include <QFile>
 #include <QShortcut>
 #include <QKeyEvent>
-
+#define dateMng		DateManager::GetInstance()
 bool TodoListWidget::loadFile = false;
 
 TodoListWidget::TodoListWidget(QWidget* parent)
@@ -49,14 +50,26 @@ void TodoListWidget::SortTodoItems()
 
 }
 
-void TodoListWidget::DeleteDoneItem(QVector<TodoData>& doneData)
+void TodoListWidget::GetDoneItem(QVector<TodoData>& doneData)
+{
+	for (int i = 0; i < count(); i++)
+	{
+		if (dataMap[item(i)].IsChecked())
+		{
+			TodoData data = dataMap[item(i)];
+			data.SetDate(dateMng.GetCurDate());
+			doneData.push_back(data);
+		}
+	}
+}
+
+void TodoListWidget::DeleteDoneItem( )
 {
 	int i = 0;
 	for (;i < count();)
 	{
 		if (dataMap[item(i)].IsChecked())
 		{
-			doneData.push_back(dataMap[item(i)]);
 			dataMap.remove(item(i));
 			takeItem(i);
 
@@ -66,8 +79,6 @@ void TodoListWidget::DeleteDoneItem(QVector<TodoData>& doneData)
 		else
 			i++;
 	}
-
-	checkedCnt_ = 0;
 }
 
 void TodoListWidget::keyPressEvent(QKeyEvent* e)

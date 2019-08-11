@@ -18,7 +18,8 @@ public:
 
 	void OnDbClickListItem(QListWidgetItem* item);
 
-	void DeleteDoneItem(QVector<TodoData>& done);
+	void DeleteDoneItem();
+	void GetDoneItem(QVector<TodoData>& data);
 	void SortTodoItems();
 	void AddTodo(TodoData& todo);
 	void CloseWindow();

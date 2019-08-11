@@ -9,7 +9,6 @@ DoneTreeWidget::DoneTreeWidget(QWidget* parent)
 	treeParent_ = NULL;
 }
 
-
 DoneTreeWidget::~DoneTreeWidget()
 {
 	delete treeParent_;

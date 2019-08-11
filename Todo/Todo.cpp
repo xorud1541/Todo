@@ -49,7 +49,6 @@ void Todo::OnClickAddBtn()
 	{
 		TodoData data;
 
-		data.SetDate(dateMng.GetCurDate());
 		data.SetTitle(todoDlg.GetTodoTitle());
 		data.SetDetail(todoDlg.GetTodoDetail());
 
@@ -60,7 +59,7 @@ void Todo::OnClickAddBtn()
 void Todo::OnClickDoneBtn()
 {
 	QVector<TodoData> doneData;
-	ui.todoListWidget->DeleteDoneItem(doneData);
+	ui.todoListWidget->GetDoneItem(doneData);
 
 	if (!doneData.isEmpty())
 	{
@@ -68,15 +67,20 @@ void Todo::OnClickDoneBtn()
 
 		for (int i = 0; i < doneData.size(); i++)
 		{
-			if (ProjectManager::GetInstance().Save_Done_Data(
+			if (!ProjectManager::GetInstance().Save_Done_Data(
 				doneData[i].GetDate(),
 				doneData[i].GetTitle(),
 				doneData[i].GetDetail()) == API_RETURN::SUCCESS )
 			{
-				//do Something
+				QMessageBox msgBox;
+				msgBox.setText("Failed to Save Data");
+				msgBox.setStandardButtons(QMessageBox::Ok);
+				msgBox.exec();
 			}
 		}
 	}
+
+	ui.todoListWidget->DeleteDoneItem();
 }
 
 void Todo::OnClickSortBtn()
