@@ -26,7 +26,27 @@ TodoListWidget::~TodoListWidget()
 
 void TodoListWidget::SortTodoItems()
 {
-	// sort 하기
+	QVector<QListWidgetItem*> dataVec;
+	for (int i = 0; i < count(); i++)
+	{
+		QListWidgetItem* item = this->item(i);
+		TodoData data = dataMap[item];
+
+		if (data.IsChecked())
+			dataVec.push_back(item);
+		else
+			dataVec.push_front(item);
+	}
+
+	for (int i = 0; i < dataVec.size(); i++)
+		this->takeItem(0);
+	
+	for (int i = 0; i < dataVec.size(); i++)
+	{
+		QListWidgetItem* item = dataVec[i];
+		this->addItem(item);
+	}
+
 }
 
 void TodoListWidget::DeleteDoneItem(QVector<TodoData>& doneData)
@@ -83,7 +103,6 @@ void TodoListWidget::AddTodo(TodoData& todo)
 	else
 		font.setStrikeOut(false);
 	item->setFont(font);
-
 
 	//item data 추가
 	addItem(item);
