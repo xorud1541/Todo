@@ -96,6 +96,7 @@ void TodoListWidget::keyPressEvent(QKeyEvent* e)
 		{
 			data.SetTitle(todoDlg.GetTodoTitle());
 			data.SetDetail(todoDlg.GetTodoDetail());
+			item->setText(todoDlg.GetTodoTitle());
 		}
 	}
 }
