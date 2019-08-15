@@ -54,9 +54,6 @@ public:
         if (TodoClass->objectName().isEmpty())
             TodoClass->setObjectName(QStringLiteral("TodoClass"));
         TodoClass->resize(462, 837);
-        QIcon icon;
-        icon.addFile(QStringLiteral("image/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        TodoClass->setWindowIcon(icon);
         centralWidget = new QWidget(TodoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
@@ -115,9 +112,9 @@ public:
         addBtn->setMaximumSize(QSize(50, 40));
         addBtn->setAcceptDrops(false);
         addBtn->setAutoFillBackground(false);
-        QIcon icon1;
-        icon1.addFile(QStringLiteral("image/add_icon.png"), QSize(), QIcon::Normal, QIcon::On);
-        addBtn->setIcon(icon1);
+        QIcon icon;
+        icon.addFile(QStringLiteral("image/add_icon.png"), QSize(), QIcon::Normal, QIcon::On);
+        addBtn->setIcon(icon);
         addBtn->setIconSize(QSize(50, 40));
         addBtn->setCheckable(false);
         addBtn->setFlat(true);
@@ -130,9 +127,9 @@ public:
         doneBtn->setSizePolicy(sizePolicy);
         doneBtn->setMaximumSize(QSize(50, 40));
         doneBtn->setAcceptDrops(false);
-        QIcon icon2;
-        icon2.addFile(QStringLiteral("image/done_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        doneBtn->setIcon(icon2);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral("image/done_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        doneBtn->setIcon(icon1);
         doneBtn->setIconSize(QSize(37, 40));
         doneBtn->setCheckable(false);
         doneBtn->setAutoDefault(false);
@@ -148,9 +145,9 @@ public:
         sortBtn->setMaximumSize(QSize(50, 40));
         sortBtn->setAcceptDrops(false);
         sortBtn->setAutoFillBackground(false);
-        QIcon icon3;
-        icon3.addFile(QStringLiteral("image/sort_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        sortBtn->setIcon(icon3);
+        QIcon icon2;
+        icon2.addFile(QStringLiteral("image/sort_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        sortBtn->setIcon(icon2);
         sortBtn->setIconSize(QSize(50, 40));
         sortBtn->setCheckable(false);
         sortBtn->setFlat(true);
