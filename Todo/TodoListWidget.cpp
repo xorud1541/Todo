@@ -12,8 +12,7 @@
 bool TodoListWidget::loadFile = false;
 
 TodoListWidget::TodoListWidget(QWidget* parent)
-	:QListWidget(parent),
-	checkedCnt_(0)
+	:QListWidget(parent), currentRow_(-1)
 {
 	font_.setPointSize(15);
 	
@@ -83,7 +82,9 @@ void TodoListWidget::DeleteDoneItem( )
 
 void TodoListWidget::keyPressEvent(QKeyEvent* e)
 {
-	if (e->key() == Qt::Key_Return)
+	switch (e->key())
+	{
+	case Qt::Key_Return:
 	{
 		QListWidgetItem* item = currentItem();
 		TodoData& data = dataMap[item];
@@ -98,6 +99,46 @@ void TodoListWidget::keyPressEvent(QKeyEvent* e)
 			data.SetDetail(todoDlg.GetTodoDetail());
 			item->setText(todoDlg.GetTodoTitle());
 		}
+		break;
+	}
+	case Qt::Key_Up:
+	{
+		if (currentRow_ == -1)
+		{
+			currentRow_ = currentRow() - 1;
+			setCurrentRow(currentRow_, QItemSelectionModel::SelectCurrent);
+		}
+		else if(currentRow_ == 0)
+		{
+			break;
+		}
+		else
+		{
+			currentRow_--;
+			setCurrentRow(currentRow_, QItemSelectionModel::SelectCurrent);
+		}
+		break;
+	}
+	case Qt::Key_Down:
+	{
+		if (currentRow_ == -1)
+		{
+			currentRow_ = currentRow() + 1;
+			setCurrentRow(currentRow_, QItemSelectionModel::SelectCurrent);
+		}
+		else if(currentRow_ == count() - 1)
+		{
+			break;
+		}
+		else
+		{
+			currentRow_++;
+			setCurrentRow(currentRow_, QItemSelectionModel::SelectCurrent);
+		}
+		break;
+	}
+	default:
+		break;
 	}
 }
 

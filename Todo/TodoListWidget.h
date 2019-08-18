@@ -13,9 +13,6 @@ public:
 	TodoListWidget(QWidget* parent);
 	~TodoListWidget();
 
-	int GetCheckedCnt() { return checkedCnt_;  };
-	void SetCheckedCnt(int cnt) { checkedCnt_ = cnt;};
-
 	void OnDbClickListItem(QListWidgetItem* item);
 
 	void DeleteDoneItem();
@@ -35,6 +32,7 @@ protected:
 private:
 	QMap<QListWidgetItem*, TodoData> dataMap;
 	QFont font_;
-	int checkedCnt_;
+
+	int currentRow_;
 };
 
