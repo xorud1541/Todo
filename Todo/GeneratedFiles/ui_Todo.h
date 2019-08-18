@@ -72,7 +72,8 @@ public:
         todoListWidget = new TodoListWidget(todoTab);
         todoListWidget->setObjectName(QStringLiteral("todoListWidget"));
         todoListWidget->setGeometry(QRect(0, 60, 401, 671));
-        todoListWidget->setDragDropMode(QAbstractItemView::NoDragDrop);
+        todoListWidget->setDragDropMode(QAbstractItemView::DragDrop);
+        todoListWidget->setDefaultDropAction(Qt::MoveAction);
         todoListWidget->setProperty("isWrapping", QVariant(false));
         todoListWidget->setResizeMode(QListView::Adjust);
         todoListWidget->setWordWrap(false);

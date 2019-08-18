@@ -55,7 +55,10 @@
        </rect>
       </property>
       <property name="dragDropMode">
-       <enum>QAbstractItemView::NoDragDrop</enum>
+       <enum>QAbstractItemView::DragDrop</enum>
+      </property>
+      <property name="defaultDropAction">
+       <enum>Qt::MoveAction</enum>
       </property>
       <property name="isWrapping" stdset="0">
        <bool>false</bool>
