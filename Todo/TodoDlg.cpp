@@ -1,7 +1,8 @@
 #include "TodoDlg.h"
 
 #include <QFont>
-
+#include <QCurSor>
+#include <QScrollBar>
 TodoDlg::TodoDlg(QWidget* parent)
 	:QDialog(parent)
 {
@@ -10,7 +11,7 @@ TodoDlg::TodoDlg(QWidget* parent)
 	connect(ui.okBtn, &QPushButton::clicked, this, &TodoDlg::OnClickOkBtn);
 
 	QFont font;
-	font.setPointSize(13);
+	font.setPointSize(fontSize);
 	ui.detailEdit->setFont(font);
 }
 
@@ -59,4 +60,9 @@ void TodoDlg::resizeEvent(QResizeEvent* e)
 
 	ui.centerWidget->setFixedWidth(width);
 	ui.centerWidget->setFixedHeight(height - centerW.top() );
+}
+
+void TodoDlg::showEvent(QShowEvent* e)
+{
+	ui.detailEdit->verticalScrollBar()->setValue(ui.detailEdit->verticalScrollBar()->maximum());
 }

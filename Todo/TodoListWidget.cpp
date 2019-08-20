@@ -14,7 +14,7 @@ bool TodoListWidget::loadFile = false;
 TodoListWidget::TodoListWidget(QWidget* parent)
 	:QListWidget(parent), currentRow_(-1)
 {
-	font_.setPointSize(15);
+	font_.setPointSize(fontSize);
 	
 	connect(this, &QListWidget::itemDoubleClicked, this, &TodoListWidget::OnDbClickListItem);
 }
@@ -146,16 +146,13 @@ void TodoListWidget::AddTodo(TodoData& todo)
 {
 	QListWidgetItem* item = new QListWidgetItem(this);
 
-	QFont font;
-	font.setPointSize(15);
-
 	item->setText(todo.GetTitle());
 	
 	if (todo.IsChecked())
-		font.setStrikeOut(true);
+		font_.setStrikeOut(true);
 	else
-		font.setStrikeOut(false);
-	item->setFont(font);
+		font_.setStrikeOut(false);
+	item->setFont(font_);
 
 	//item data Ãß°¡
 	addItem(item);

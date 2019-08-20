@@ -26,6 +26,11 @@ public:
 
 	static bool loadFile;
 
+	enum
+	{
+		fontSize = 13
+	};
+
 protected:
 	void keyPressEvent(QKeyEvent* e);
 
