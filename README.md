@@ -12,10 +12,10 @@
 
 - qt5 설치
     - https://download.qt.io/official_releases/qt/5.9/5.9.1/
-    - qt-opensource-windows-x86-5.9.1.exe (확인필요)
+    - qt-opensource-windows-x86-5.9.1.exe
 
 - qt add-in 설치
     - http://download.qt.io/development_releases/vsaddin/
-    - qt-vsaddin-msvc2017-2.x.x (확인필요)
+    - qt-vsaddin-msvc2017-2.3.2.vsix
 
 
