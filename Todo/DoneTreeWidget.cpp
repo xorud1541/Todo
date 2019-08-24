@@ -10,7 +10,7 @@
 
 DoneTreeWidget::DoneTreeWidget(QWidget* parent)
 	:QTreeWidget(parent)
-	, showDetailAction_("Show Detail", this)
+	, showDetailAction_(QString::fromLocal8Bit("상세보기"), this)
 	, treeParent_(NULL)
 {
 	connect(&showDetailAction_, &QAction::triggered,

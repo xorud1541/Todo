@@ -12,16 +12,21 @@
 bool TodoListWidget::loadFile = false;
 
 TodoListWidget::TodoListWidget(QWidget* parent)
-	:QListWidget(parent), currentRow_(-1)
+	:QListWidget(parent), 
+	currentRow_(-1),
+	showDetailAction_(QString::fromLocal8Bit("상세보기"), this)
 {
 	font_.setPointSize(fontSize);
 	
 	connect(this, &QListWidget::itemDoubleClicked, this, &TodoListWidget::OnDbClickListItem);
+	connect(&showDetailAction_, &QAction::triggered, this, &TodoListWidget::OnShowDetailAction);
+
+	contextMenu_.addAction(&showDetailAction_);
 }
 
 TodoListWidget::~TodoListWidget()
 {
-	dataMap.clear();
+	dataMap_.clear();
 }
 
 void TodoListWidget::SortTodoItems()
@@ -30,7 +35,7 @@ void TodoListWidget::SortTodoItems()
 	for (int i = 0; i < count(); i++)
 	{
 		QListWidgetItem* item = this->item(i);
-		TodoData data = dataMap[item];
+		TodoData data = dataMap_[item];
 
 		if (data.IsChecked())
 			dataVec.push_back(item);
@@ -53,9 +58,9 @@ void TodoListWidget::GetDoneItem(QVector<TodoData>& doneData)
 {
 	for (int i = 0; i < count(); i++)
 	{
-		if (dataMap[item(i)].IsChecked())
+		if (dataMap_[item(i)].IsChecked())
 		{
-			TodoData data = dataMap[item(i)];
+			TodoData data = dataMap_[item(i)];
 			data.SetDate(dateMng.GetCurDate());
 			doneData.push_back(data);
 		}
@@ -67,9 +72,9 @@ void TodoListWidget::DeleteDoneItem( )
 	int i = 0;
 	for (;i < count();)
 	{
-		if (dataMap[item(i)].IsChecked())
+		if (dataMap_[item(i)].IsChecked())
 		{
-			dataMap.remove(item(i));
+			dataMap_.remove(item(i));
 			takeItem(i);
 
 			i = 0;
@@ -87,7 +92,7 @@ void TodoListWidget::keyPressEvent(QKeyEvent* e)
 	case Qt::Key_Return:
 	{
 		QListWidgetItem* item = currentItem();
-		TodoData& data = dataMap[item];
+		TodoData& data = dataMap_[item];
 
 		TodoDlg todoDlg;
 		todoDlg.SetTodoTitle(data.GetTitle());
@@ -142,6 +147,44 @@ void TodoListWidget::keyPressEvent(QKeyEvent* e)
 	}
 }
 
+void TodoListWidget::mouseReleaseEvent(QMouseEvent* e)
+{
+	QListWidget::mouseReleaseEvent(e);
+
+	if (e->button() == Qt::RightButton)
+	{
+		ShowContextMenu(e->globalPos());
+	}
+}
+
+void TodoListWidget::ShowContextMenu(const QPoint& globalPos)
+{
+	int selectedCount = selectedItems().size();
+	if (selectedCount == 0) return;
+
+	showDetailAction_.setEnabled(selectedCount == 1);
+
+	contextMenu_.move(globalPos);
+	contextMenu_.show();
+}
+
+void TodoListWidget::OnShowDetailAction()
+{
+	QListWidgetItem* item = currentItem();
+	TodoData& data = dataMap_[item];
+
+	TodoDlg todoDlg;
+	todoDlg.SetTodoTitle(data.GetTitle());
+	todoDlg.SetTodoDetail(data.GetDetail());
+
+	if (todoDlg.exec() == QDialog::Accepted)
+	{
+		data.SetTitle(todoDlg.GetTodoTitle());
+		data.SetDetail(todoDlg.GetTodoDetail());
+		item->setText(todoDlg.GetTodoTitle());
+	}
+}
+
 void TodoListWidget::AddTodo(TodoData& todo)
 {
 	QListWidgetItem* item = new QListWidgetItem(this);
@@ -156,7 +199,7 @@ void TodoListWidget::AddTodo(TodoData& todo)
 
 	//item data 추가
 	addItem(item);
-	dataMap.insert(item, todo);
+	dataMap_.insert(item, todo);
 }
 
 void TodoListWidget::CloseWindow()
@@ -168,7 +211,7 @@ void TodoListWidget::CloseWindow()
 	for (int i = 0; i < count(); i++)
 	{
 		QListWidgetItem* witem = item(i);
-		TodoData data = dataMap[witem];
+		TodoData data = dataMap_[witem];
 		ProjectManager::GetInstance().SaveTodoList(data);
 	}
 }
@@ -188,7 +231,7 @@ void TodoListWidget::ShowWindow()
 
 void TodoListWidget::OnDbClickListItem(QListWidgetItem* item)
 {
-	TodoData& data = dataMap[item];
+	TodoData& data = dataMap_[item];
 	if (data.IsChecked())
 	{
 		font_.setStrikeOut(false);

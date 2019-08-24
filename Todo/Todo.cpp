@@ -14,7 +14,7 @@
 
 Todo::Todo(QWidget *parent)
 	: QMainWindow(parent)
-	, trayShowAction_("exit", this)
+	, trayShowAction_(QString::fromLocal8Bit("종료하기"), this)
 {
 	ui.setupUi(this);
 	ui.doneBtn->setDisabled(false);

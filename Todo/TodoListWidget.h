@@ -4,7 +4,7 @@
 #include <QListwidget>
 #include <QMap>
 #include <QVector>
-
+#include <QMenu>
 class TodoListWidget : public QListWidget
 {
 	Q_OBJECT
@@ -22,7 +22,7 @@ public:
 	void CloseWindow();
 	void ShowWindow();
 
-	QMap<QListWidgetItem*, TodoData>& GetDataMap() { return dataMap; };
+	QMap<QListWidgetItem*, TodoData>& GetDataMap() { return dataMap_; };
 
 	static bool loadFile;
 
@@ -33,11 +33,17 @@ public:
 
 protected:
 	void keyPressEvent(QKeyEvent* e);
+	void mouseReleaseEvent(QMouseEvent* e);
 
 private:
-	QMap<QListWidgetItem*, TodoData> dataMap;
-	QFont font_;
+	void ShowContextMenu(const QPoint& globalPos);
+	void OnShowDetailAction();
 
+private:
+	QMap<QListWidgetItem*, TodoData> dataMap_;
+	QFont font_;
+	QAction showDetailAction_;
+	QMenu contextMenu_;
 	int currentRow_;
 };
 
