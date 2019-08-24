@@ -41,6 +41,11 @@ public:
 		QVector<TodoData>& data,
 		bool hasDetail = false);
 
+	virtual API_RETURN Load_Done_Data(
+		TodoData& data,
+		QString date,
+		QString done);
+
 	void InitDB(const QString& path);
 	void FinDB();
 	bool CreateTable();

@@ -43,5 +43,11 @@ public:
 		QVector<TodoData>& data,
 		bool hasDetail = false
 	) = 0;
+
+	virtual API_RETURN Load_Done_Data(
+		TodoData& data,
+		QString date,
+		QString done
+	) = 0;
 };
 

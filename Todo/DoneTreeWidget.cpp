@@ -1,12 +1,23 @@
 #include "DoneTreeWidget.h"
 #include "DateManager.h"
+#include "ProjectManager.h"
 #include "Todo.h"
+#include "TodoDlg.h"
 
 #include <QFont>
+#include <QKeyEvent>
+#include <QMouseEvent>
+
 DoneTreeWidget::DoneTreeWidget(QWidget* parent)
 	:QTreeWidget(parent)
+	, showDetailAction_("Show Detail", this)
 {
 	treeParent_ = NULL;
+
+	connect(&showDetailAction_, &QAction::triggered,
+		this, &DoneTreeWidget::OnShowDetailAction);
+
+	contextMenu_.addAction(&showDetailAction_);
 }
 
 DoneTreeWidget::~DoneTreeWidget()
@@ -94,4 +105,66 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 			}
 		}
 	}
+}
+
+void DoneTreeWidget::LoadDetailData(const QTreeWidgetItem& item)
+{
+	QString date = item.parent()->text(0);
+	QString title = item.text(0);
+
+	TodoData data;
+	ProjectManager::GetInstance().Load_Done_Data(data, date, title);
+
+	TodoDlg todoDlg;
+	todoDlg.SetTodoTitle(data.GetTitle());
+	todoDlg.SetTodoDetail(data.GetDetail());
+	
+	QList<QWidget *> widgets = todoDlg.findChildren<QWidget *>();
+	foreach(QWidget* widget, widgets) {
+		if (strcmp(widget->metaObject()->className(), "QTextEdit") == 0)
+		{
+			QTextEdit *t = static_cast<QTextEdit*>(widget);
+			t->setReadOnly(true);
+		}
+		else if (strcmp(widget->metaObject()->className(), "QLineEdit") == 0)
+		{
+			QLineEdit* t = static_cast<QLineEdit*>(widget);
+			t->setReadOnly(true);
+		}
+	}
+
+	todoDlg.exec(); //ReadOnly
+}
+
+void DoneTreeWidget::OnShowDetailAction()
+{
+	QTreeWidgetItem *item = currentItem();
+	if (item)
+		LoadDetailData(*item);
+}
+
+void DoneTreeWidget::mouseReleaseEvent(QMouseEvent* e)
+{
+	QTreeWidget::mouseReleaseEvent(e);
+
+	if (e->button() == Qt::RightButton)
+	{
+		ShowContextMenu(e->globalPos());
+	}
+}
+
+void DoneTreeWidget::ShowContextMenu(const QPoint& globalPos)
+{
+	const QTreeWidgetItem* treeItem = reinterpret_cast<const QTreeWidgetItem*>(itemAt(mapFromGlobal(globalPos)));
+	if (treeItem == nullptr || treeItem->isHidden())
+		return;
+
+	int selectedCount = selectedItems().count();
+	if (selectedCount == 0)
+		return;
+
+	showDetailAction_.setEnabled(selectedCount == 1);
+
+	contextMenu_.move(globalPos);
+	contextMenu_.show();
 }

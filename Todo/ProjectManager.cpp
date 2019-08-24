@@ -162,3 +162,25 @@ API_RETURN ProjectManager::Load_Done_Data(QVector<TodoData>& data,
 
 	return API_RETURN::SUCCESS;
 }
+
+API_RETURN ProjectManager::Load_Done_Data(TodoData& data, QString date,
+	QString done)
+{
+	const QString query = QString("select * from %0 where DATE = \"%1\" and DONE = \"%2\"")
+		.arg(DB::dbName).arg(date).arg(done);
+
+	QSqlQuery selectQuery;
+	if (!selectQuery.exec(query))
+		return API_RETURN::FAIL;
+
+	if (selectQuery.next())
+	{
+		data.SetTitle(selectQuery.value(1).toString());
+		data.SetDetail(selectQuery.value(2).toString());
+		return API_RETURN::SUCCESS;
+	}
+	else
+	{
+		return API_RETURN::FAIL;
+	}
+}
