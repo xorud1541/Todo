@@ -2,6 +2,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QDate>
+#include <QSystemTrayIcon>
+#include <QMenu>
 
 #include "DateManager.h"
 #include "ui_Todo.h"
@@ -18,7 +20,7 @@ public:
 	void OnClickAddBtn();
 	void OnClickDoneBtn();
 	void OnClickSortBtn();
-	void OnClickDoneTab(int index);
+	void OnClickTrayExit();
 
 protected:
 	void resizeEvent(QResizeEvent *e);
@@ -26,5 +28,12 @@ protected:
 	void showEvent(QShowEvent* e);
 
 private:
+	void OnTrayIconClicked(QSystemTrayIcon::ActivationReason);
+
+private:
 	Ui::TodoClass ui;
+
+	QSystemTrayIcon* trayIcon_;
+	QMenu trayIconMenu_;
+	QAction trayShowAction_;
 };

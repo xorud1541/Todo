@@ -11,9 +11,8 @@
 DoneTreeWidget::DoneTreeWidget(QWidget* parent)
 	:QTreeWidget(parent)
 	, showDetailAction_("Show Detail", this)
+	, treeParent_(NULL)
 {
-	treeParent_ = NULL;
-
 	connect(&showDetailAction_, &QAction::triggered,
 		this, &DoneTreeWidget::OnShowDetailAction);
 

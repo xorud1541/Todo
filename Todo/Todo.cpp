@@ -10,9 +10,11 @@
 #include <QDate>
 #include <QVector>
 #include <QMessageBox>
+#include <QCloseEvent>
 
 Todo::Todo(QWidget *parent)
 	: QMainWindow(parent)
+	, trayShowAction_("exit", this)
 {
 	ui.setupUi(this);
 	ui.doneBtn->setDisabled(false);
@@ -26,10 +28,19 @@ Todo::Todo(QWidget *parent)
 
 	ui.tabWidget->setCurrentIndex(0);
 
+	trayIcon_ = new QSystemTrayIcon(this);
+
+	trayIconMenu_.addAction(&trayShowAction_);
+	trayIcon_->setContextMenu(&trayIconMenu_);
+	trayIcon_->setIcon(QIcon("./image/myIcon.ico"));
+	trayIcon_->show();
+
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
 	connect(ui.sortBtn, &QPushButton::clicked, this, &Todo::OnClickSortBtn);
-	connect(ui.tabWidget, &QTabWidget::tabBarClicked, this, &Todo::OnClickDoneTab);
+
+	connect(trayIcon_, &QSystemTrayIcon::activated, this, &Todo::OnTrayIconClicked);
+	connect(&trayShowAction_, &QAction::triggered, this, &Todo::OnClickTrayExit);
 }
 
 Todo::~Todo()
@@ -37,9 +48,25 @@ Todo::~Todo()
 	ProjectManager::GetInstance().FinDB();
 }
 
-void Todo::OnClickDoneTab(int index)
+void Todo::OnClickTrayExit()
 {
+	trayIcon_->hide();
+	trayIcon_ = NULL;
 
+	this->close();
+}
+
+void Todo::OnTrayIconClicked(QSystemTrayIcon::ActivationReason reason)
+{
+	switch (reason)
+	{
+	case QSystemTrayIcon::Context: //¸Þ´º
+		trayIconMenu_.show();
+		break;
+	case QSystemTrayIcon::Trigger:
+		this->show();
+		break;
+	}
 }
 
 void Todo::OnClickAddBtn()
@@ -111,7 +138,11 @@ void Todo::resizeEvent(QResizeEvent *e)
 
 void Todo::closeEvent(QCloseEvent* e)
 {
-	ui.todoListWidget->CloseWindow();
+	if (trayIcon_)
+	{
+		this->hide();
+		e->ignore();
+	}
 }
 
 void Todo::showEvent(QShowEvent* e)
