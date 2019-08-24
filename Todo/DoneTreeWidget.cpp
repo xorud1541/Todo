@@ -138,8 +138,10 @@ void DoneTreeWidget::LoadDetailData(const QTreeWidgetItem& item)
 void DoneTreeWidget::OnShowDetailAction()
 {
 	QTreeWidgetItem *item = currentItem();
+
 	if (item)
-		LoadDetailData(*item);
+		if(item->childCount() == 0)
+			LoadDetailData(*item);
 }
 
 void DoneTreeWidget::mouseReleaseEvent(QMouseEvent* e)
