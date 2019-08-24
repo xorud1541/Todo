@@ -122,15 +122,19 @@ void Todo::resizeEvent(QResizeEvent *e)
 	int height = this->height();
 	int width = this->width();
 	QRect listRect = ui.todoListWidget->geometry();
+	QRect treeRect = ui.doneTreeWidget->geometry();
 	QRect tabRect = ui.tabWidget->geometry();
 
+	//탭 위젯 사이즈 조정
 	ui.tabWidget->setFixedHeight(height - tabRect.top() - tabBottomMargin);
 	ui.tabWidget->setFixedWidth(width);
 
+	//todolist 사이즈 조정
 	ui.todoListWidget->setFixedHeight(height - listRect.top() - listBottomMargin);
 	ui.todoListWidget->setFixedWidth(width - 10);
 
-	ui.doneTreeWidget->setFixedHeight(height - listRect.top() - listBottomMargin);
+	//donetree 사이즈 조정
+	ui.doneTreeWidget->setFixedHeight(height - treeRect.top() - listBottomMargin);
 	ui.doneTreeWidget->setFixedWidth(width - 10);
 
 	ui.horizontalWidget->setFixedWidth(width - 10);

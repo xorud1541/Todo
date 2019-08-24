@@ -17,12 +17,9 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 #include "DoneTreeWidget.h"
 #include "TodoListWidget.h"
@@ -45,30 +42,43 @@ public:
     QPushButton *sortBtn;
     QWidget *doneTab;
     DoneTreeWidget *doneTreeWidget;
-    QMenuBar *menuBar;
-    QToolBar *mainToolBar;
-    QStatusBar *statusBar;
 
     void setupUi(QMainWindow *TodoClass)
     {
         if (TodoClass->objectName().isEmpty())
             TodoClass->setObjectName(QStringLiteral("TodoClass"));
         TodoClass->resize(462, 837);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(TodoClass->sizePolicy().hasHeightForWidth());
+        TodoClass->setSizePolicy(sizePolicy);
+        TodoClass->setMinimumSize(QSize(0, 0));
         centralWidget = new QWidget(TodoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
+        centralWidget->setSizePolicy(sizePolicy);
+        centralWidget->setMinimumSize(QSize(0, 0));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setGeometry(QRect(0, -1, 411, 751));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy1);
+        tabWidget->setMinimumSize(QSize(0, 0));
         tabWidget->setTabPosition(QTabWidget::North);
         tabWidget->setTabShape(QTabWidget::Rounded);
+        tabWidget->setIconSize(QSize(50, 30));
         tabWidget->setElideMode(Qt::ElideLeft);
         todoTab = new QWidget();
         todoTab->setObjectName(QStringLiteral("todoTab"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(todoTab->sizePolicy().hasHeightForWidth());
-        todoTab->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(todoTab->sizePolicy().hasHeightForWidth());
+        todoTab->setSizePolicy(sizePolicy2);
         todoListWidget = new TodoListWidget(todoTab);
         todoListWidget->setObjectName(QStringLiteral("todoListWidget"));
         todoListWidget->setGeometry(QRect(0, 60, 401, 671));
@@ -82,8 +92,8 @@ public:
         horizontalWidget = new QWidget(todoTab);
         horizontalWidget->setObjectName(QStringLiteral("horizontalWidget"));
         horizontalWidget->setGeometry(QRect(0, 10, 401, 41));
-        sizePolicy.setHeightForWidth(horizontalWidget->sizePolicy().hasHeightForWidth());
-        horizontalWidget->setSizePolicy(sizePolicy);
+        sizePolicy2.setHeightForWidth(horizontalWidget->sizePolicy().hasHeightForWidth());
+        horizontalWidget->setSizePolicy(sizePolicy2);
         buttonLayout = new QHBoxLayout(horizontalWidget);
         buttonLayout->setSpacing(4);
         buttonLayout->setContentsMargins(11, 11, 11, 11);
@@ -107,8 +117,8 @@ public:
 
         addBtn = new QPushButton(horizontalWidget);
         addBtn->setObjectName(QStringLiteral("addBtn"));
-        sizePolicy.setHeightForWidth(addBtn->sizePolicy().hasHeightForWidth());
-        addBtn->setSizePolicy(sizePolicy);
+        sizePolicy2.setHeightForWidth(addBtn->sizePolicy().hasHeightForWidth());
+        addBtn->setSizePolicy(sizePolicy2);
         addBtn->setMinimumSize(QSize(0, 0));
         addBtn->setMaximumSize(QSize(50, 40));
         addBtn->setAcceptDrops(false);
@@ -124,8 +134,8 @@ public:
 
         doneBtn = new QPushButton(horizontalWidget);
         doneBtn->setObjectName(QStringLiteral("doneBtn"));
-        sizePolicy.setHeightForWidth(doneBtn->sizePolicy().hasHeightForWidth());
-        doneBtn->setSizePolicy(sizePolicy);
+        sizePolicy2.setHeightForWidth(doneBtn->sizePolicy().hasHeightForWidth());
+        doneBtn->setSizePolicy(sizePolicy2);
         doneBtn->setMaximumSize(QSize(50, 40));
         doneBtn->setAcceptDrops(false);
         QIcon icon1;
@@ -140,8 +150,8 @@ public:
 
         sortBtn = new QPushButton(horizontalWidget);
         sortBtn->setObjectName(QStringLiteral("sortBtn"));
-        sizePolicy.setHeightForWidth(sortBtn->sizePolicy().hasHeightForWidth());
-        sortBtn->setSizePolicy(sizePolicy);
+        sizePolicy2.setHeightForWidth(sortBtn->sizePolicy().hasHeightForWidth());
+        sortBtn->setSizePolicy(sizePolicy2);
         sortBtn->setMinimumSize(QSize(0, 0));
         sortBtn->setMaximumSize(QSize(50, 40));
         sortBtn->setAcceptDrops(false);
@@ -155,7 +165,9 @@ public:
 
         buttonLayout->addWidget(sortBtn);
 
-        tabWidget->addTab(todoTab, QString());
+        QIcon icon3;
+        icon3.addFile(QStringLiteral("image/todo_list_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(todoTab, icon3, QString());
         doneTab = new QWidget();
         doneTab->setObjectName(QStringLiteral("doneTab"));
         doneTreeWidget = new DoneTreeWidget(doneTab);
@@ -177,18 +189,10 @@ public:
         doneTreeWidget->header()->setCascadingSectionResizes(false);
         doneTreeWidget->header()->setHighlightSections(false);
         doneTreeWidget->header()->setProperty("showSortIndicator", QVariant(true));
-        tabWidget->addTab(doneTab, QString());
+        QIcon icon4;
+        icon4.addFile(QStringLiteral("image/done_tree_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(doneTab, icon4, QString());
         TodoClass->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(TodoClass);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 462, 26));
-        TodoClass->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(TodoClass);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        TodoClass->addToolBar(Qt::TopToolBarArea, mainToolBar);
-        statusBar = new QStatusBar(TodoClass);
-        statusBar->setObjectName(QStringLiteral("statusBar"));
-        TodoClass->setStatusBar(statusBar);
 
         retranslateUi(TodoClass);
 
