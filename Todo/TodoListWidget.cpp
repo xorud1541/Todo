@@ -14,14 +14,19 @@ bool TodoListWidget::loadFile = false;
 TodoListWidget::TodoListWidget(QWidget* parent)
 	:QListWidget(parent), 
 	currentRow_(-1),
-	showDetailAction_(QString::fromLocal8Bit("상세보기"), this)
+	showDetailAction_(QString::fromLocal8Bit("상세보기"), this),
+	deleteAction_(QString::fromLocal8Bit("삭제"), this)
 {
 	font_.setPointSize(fontSize);
 	
 	connect(this, &QListWidget::itemDoubleClicked, this, &TodoListWidget::OnDbClickListItem);
+
+	//context menu
 	connect(&showDetailAction_, &QAction::triggered, this, &TodoListWidget::OnShowDetailAction);
+	connect(&deleteAction_, &QAction::triggered, this, &TodoListWidget::OnDeleteAction);
 
 	contextMenu_.addAction(&showDetailAction_);
+	contextMenu_.addAction(&deleteAction_);
 }
 
 TodoListWidget::~TodoListWidget()
@@ -163,6 +168,7 @@ void TodoListWidget::ShowContextMenu(const QPoint& globalPos)
 	if (selectedCount == 0) return;
 
 	showDetailAction_.setEnabled(selectedCount == 1);
+	deleteAction_.setEnabled(selectedCount == 1);
 
 	contextMenu_.move(globalPos);
 	contextMenu_.show();
@@ -183,6 +189,12 @@ void TodoListWidget::OnShowDetailAction()
 		data.SetDetail(todoDlg.GetTodoDetail());
 		item->setText(todoDlg.GetTodoTitle());
 	}
+}
+
+void TodoListWidget::OnDeleteAction()
+{
+	QListWidgetItem* item = takeItem(currentRow());
+	dataMap_.remove(item);
 }
 
 void TodoListWidget::AddTodo(TodoData& todo)

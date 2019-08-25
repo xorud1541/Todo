@@ -19,7 +19,6 @@
     - qt-vsaddin-msvc2017-2.3.2.vsix
 
 ## 추가될 기능
-- TodoList위젯의 삭제기능 추가
 
 ## 알려진 버그들
 - TodoList위젯의 방향키 단축키 버그

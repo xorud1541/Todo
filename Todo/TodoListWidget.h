@@ -38,11 +38,13 @@ protected:
 private:
 	void ShowContextMenu(const QPoint& globalPos);
 	void OnShowDetailAction();
+	void OnDeleteAction();
 
 private:
 	QMap<QListWidgetItem*, TodoData> dataMap_;
 	QFont font_;
 	QAction showDetailAction_;
+	QAction deleteAction_;
 	QMenu contextMenu_;
 	int currentRow_;
 };
