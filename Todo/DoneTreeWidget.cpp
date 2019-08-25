@@ -109,6 +109,8 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 void DoneTreeWidget::LoadDetailData(const QTreeWidgetItem& item)
 {
 	QString date = item.parent()->text(0);
+	if (date == QString::fromLocal8Bit("¿À´Ã"))
+		date = dateMng.GetCurDate();
 	QString title = item.text(0);
 
 	TodoData data;
