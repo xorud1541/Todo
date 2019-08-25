@@ -18,18 +18,22 @@ public:
 	QString GetTodoDetail() { return detail_; };
 	void SetTodoDetail(QString detail);
 
-	enum
-	{
-		fontSize = 13
-	};
-
 protected:
 	void resizeEvent(QResizeEvent* e);
 	void showEvent(QShowEvent* e);
 
 private:
-	Ui::ToDoDlg ui;
+	void OnOkAction();
+	void OnCancelAction();
 
+private:
+	enum
+	{
+		fontSize = 13
+	};
+
+	Ui::ToDoDlg ui;
+	QFont font_;
 	QString title_;
 	QString detail_;
 };

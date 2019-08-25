@@ -26,11 +26,6 @@ public:
 
 	static bool loadFile;
 
-	enum
-	{
-		fontSize = 13
-	};
-
 protected:
 	void keyPressEvent(QKeyEvent* e);
 	void mouseReleaseEvent(QMouseEvent* e);
@@ -41,6 +36,11 @@ private:
 	void OnDeleteAction();
 
 private:
+	enum
+	{
+		fontSize = 13
+	};
+
 	QMap<QListWidgetItem*, TodoData> dataMap_;
 	QFont font_;
 	QAction showDetailAction_;

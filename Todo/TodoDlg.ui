@@ -71,19 +71,6 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="Line" name="line_3">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>118</width>
-     <height>3</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
   <widget class="QWidget" name="centerWidget" native="true">
    <property name="geometry">
     <rect>
@@ -125,7 +112,7 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>120</width>
+          <width>100</width>
           <height>0</height>
          </size>
         </property>
@@ -139,8 +126,42 @@
          </item>
          <item>
           <widget class="QPushButton" name="deadLineBtn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
            <property name="text">
-            <string>날짜</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>image/schedule_icon.png</normaloff>image/schedule_icon.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>50</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -184,17 +205,6 @@
     </item>
    </layout>
   </widget>
-  <zorder>toDoEdit</zorder>
-  <zorder>toDoLabel</zorder>
-  <zorder>line</zorder>
-  <zorder>line_3</zorder>
-  <zorder>centerWidget</zorder>
-  <zorder>okBtn</zorder>
-  <zorder>deadLineBtn</zorder>
-  <zorder>line_2</zorder>
-  <zorder>line_6</zorder>
-  <zorder>line_5</zorder>
-  <zorder>line_4</zorder>
  </widget>
  <resources/>
  <connections/>

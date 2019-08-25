@@ -3,18 +3,26 @@
 #include <QFont>
 #include <QCurSor>
 #include <QScrollBar>
+#include <QAction>
 TodoDlg::TodoDlg(QWidget* parent)
 	:QDialog(parent)
 {
 	ui.setupUi(this);
+	font_.setPointSize(fontSize);
+	ui.detailEdit->setFont(font_);
 
+	QAction* okAction = new QAction(this);
+	okAction->setShortcut(Qt::CTRL + Qt::Key_Return);
+	addAction(okAction);
+
+	QAction* cancelAction = new QAction(this);
+	cancelAction->setShortcut(Qt::CTRL + Qt::Key_W);
+	addAction(cancelAction);
+	
+	connect(okAction, &QAction::triggered, this, &TodoDlg::OnOkAction);
 	connect(ui.okBtn, &QPushButton::clicked, this, &TodoDlg::OnClickOkBtn);
-
-	QFont font;
-	font.setPointSize(fontSize);
-	ui.detailEdit->setFont(font);
+	connect(cancelAction, &QAction::triggered, this, &TodoDlg::OnCancelAction);
 }
-
 
 TodoDlg::~TodoDlg()
 {
@@ -59,10 +67,22 @@ void TodoDlg::resizeEvent(QResizeEvent* e)
 	QRect edit = ui.detailEdit->geometry();
 
 	ui.centerWidget->setFixedWidth(width);
-	ui.centerWidget->setFixedHeight(height - centerW.top() );
+	ui.centerWidget->setFixedHeight(height - centerW.top());
+
+	ui.line->setFixedWidth(width - 20);
 }
 
 void TodoDlg::showEvent(QShowEvent* e)
 {
 	ui.detailEdit->verticalScrollBar()->setValue(ui.detailEdit->verticalScrollBar()->maximum());
+}
+
+void TodoDlg::OnOkAction()
+{
+	this->OnClickOkBtn();
+}
+
+void TodoDlg::OnCancelAction()
+{
+	QDialog::close();
 }

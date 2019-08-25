@@ -33,7 +33,6 @@ public:
     QLineEdit *toDoEdit;
     QLabel *toDoLabel;
     QFrame *line;
-    QFrame *line_3;
     QWidget *centerWidget;
     QGridLayout *gridLayout;
     QLabel *detailLabel;
@@ -74,11 +73,6 @@ public:
         line->setMinimumSize(QSize(400, 0));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
-        line_3 = new QFrame(ToDoDlg);
-        line_3->setObjectName(QStringLiteral("line_3"));
-        line_3->setGeometry(QRect(0, 0, 118, 3));
-        line_3->setFrameShape(QFrame::HLine);
-        line_3->setFrameShadow(QFrame::Sunken);
         centerWidget = new QWidget(ToDoDlg);
         centerWidget->setObjectName(QStringLiteral("centerWidget"));
         centerWidget->setGeometry(QRect(10, 70, 581, 421));
@@ -105,7 +99,7 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
         widget_2->setSizePolicy(sizePolicy1);
-        widget_2->setMinimumSize(QSize(120, 0));
+        widget_2->setMinimumSize(QSize(100, 0));
         verticalLayout_2 = new QVBoxLayout(widget_2);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         line_2 = new QFrame(widget_2);
@@ -117,6 +111,19 @@ public:
 
         deadLineBtn = new QPushButton(widget_2);
         deadLineBtn->setObjectName(QStringLiteral("deadLineBtn"));
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(deadLineBtn->sizePolicy().hasHeightForWidth());
+        deadLineBtn->setSizePolicy(sizePolicy2);
+        deadLineBtn->setMinimumSize(QSize(0, 0));
+        deadLineBtn->setMaximumSize(QSize(100, 30));
+        deadLineBtn->setLayoutDirection(Qt::LeftToRight);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral("image/schedule_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        deadLineBtn->setIcon(icon1);
+        deadLineBtn->setIconSize(QSize(50, 30));
+        deadLineBtn->setFlat(true);
 
         verticalLayout_2->addWidget(deadLineBtn);
 
@@ -142,15 +149,6 @@ public:
 
         gridLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
 
-        toDoEdit->raise();
-        toDoLabel->raise();
-        line->raise();
-        line_3->raise();
-        centerWidget->raise();
-        okBtn->raise();
-        deadLineBtn->raise();
-        line_2->raise();
-        line_4->raise();
 
         retranslateUi(ToDoDlg);
 
@@ -165,7 +163,7 @@ public:
         ToDoDlg->setWindowTitle(QApplication::translate("ToDoDlg", "TODO", Q_NULLPTR));
         toDoLabel->setText(QApplication::translate("ToDoDlg", "\355\225\240 \354\235\274", Q_NULLPTR));
         detailLabel->setText(QApplication::translate("ToDoDlg", "\354\203\201\354\204\270\353\202\264\354\232\251", Q_NULLPTR));
-        deadLineBtn->setText(QApplication::translate("ToDoDlg", "\353\202\240\354\247\234", Q_NULLPTR));
+        deadLineBtn->setText(QString());
         okBtn->setText(QApplication::translate("ToDoDlg", "\355\231\225\354\235\270", Q_NULLPTR));
     } // retranslateUi
 
