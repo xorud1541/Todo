@@ -147,6 +147,10 @@ void Todo::closeEvent(QCloseEvent* e)
 		this->hide();
 		e->ignore();
 	}
+	else
+	{
+		ui.todoListWidget->CloseWindow();
+	}
 }
 
 void Todo::showEvent(QShowEvent* e)
