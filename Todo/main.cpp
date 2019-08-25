@@ -2,13 +2,23 @@
 #include "ProjectManager.h"
 
 #include <QtWidgets/QApplication>
+#include <QSharedMemory>
 #include <QMessageBox>
-
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	QString appPath = a.applicationDirPath();
-	ProjectManager::GetInstance().InitDB(appPath);
+
+	QSharedMemory shared("TODO");
+	if (!shared.create(512, QSharedMemory::ReadWrite))
+	{
+		QMessageBox msgBox;
+		msgBox.setText("Already Running Program");
+		msgBox.setStandardButtons(QMessageBox::Ok);
+		msgBox.exec();
+		exit(0);
+	}
+
+	ProjectManager::GetInstance().InitDB(a.applicationDirPath());
 
 	Todo w;
 	w.show();
