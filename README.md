@@ -4,7 +4,7 @@
 ## 개발환경
 1. 개발툴 : Visual Studio 2017
 2. 프레임워크 : Qt5(5.9.1)
-3. OS : Window10
+3. OS : Windows 10
 
 ## 설치순서
 - visual studio 설치
@@ -19,7 +19,13 @@
     - qt-vsaddin-msvc2017-2.3.2.vsix
 
 ## 추가될 기능
+- 날짜 DeadLine 설정기능
+- TodoList의 DeadLine 선 그리기
+- 시작프로그램 설정하기
 
 ## 알려진 버그들
+- setting, todo.db program files 에서 Local로 이동 시키기 
 - TodoList위젯의 방향키 단축키 버그
+- 배포판에 트레이 아이콘 안생기는 이유
+- 날짜 변경됐을 때 자동 갱신하기 
 
