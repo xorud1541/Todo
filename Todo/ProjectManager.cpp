@@ -5,22 +5,29 @@
 
 #include <QtSql/qsqlquery.h>
 #include <QMessageBox>
-
+#include <QStandardPaths>
+#include <QDir>
 ProjectManager* ProjectManager::instance = nullptr;
 
 ProjectManager::ProjectManager()
 {
+	QString localPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+	
+	QDir localDir(localPath);
+	if(!localDir.exists())
+		localDir.mkdir(localPath);
+	dbPath_ = localPath + QString("/%0").arg(DB::dbFile);
+	todoListPath_ = localPath + "/TodoList";
 }
 
 ProjectManager::~ProjectManager()
 {
 }
 
-void ProjectManager::InitDB(const QString& path)
+void ProjectManager::InitDB()
 {
-	appPath_ = path;
 	db_ = QSqlDatabase::addDatabase(DB::dbDriver);
-	db_.setDatabaseName(QString("%0/%1").arg(appPath_).arg(DB::dbFile));
+	db_.setDatabaseName(dbPath_);
 
 	if (!db_.open())
 	{
@@ -65,7 +72,7 @@ bool ProjectManager::CreateTable()
 }
 bool ProjectManager::SaveTodoList(TodoData& data)
 {
-	QSettings settings("setting", QSettings::IniFormat);
+	QSettings settings(todoListPath_, QSettings::IniFormat);
 	
 	QString group = data.GetTitle();
 	settings.beginGroup(group);
@@ -78,7 +85,7 @@ bool ProjectManager::SaveTodoList(TodoData& data)
 
 bool ProjectManager::LoadTodoList(TodoListWidget* list)
 {
-	QSettings settings("setting", QSettings::IniFormat);
+	QSettings settings(todoListPath_, QSettings::IniFormat);
 	QStringList groups = settings.childGroups();
 
 	for (const QString& group : groups)

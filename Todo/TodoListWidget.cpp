@@ -216,7 +216,7 @@ void TodoListWidget::AddTodo(TodoData& todo)
 
 void TodoListWidget::CloseWindow()
 {
-	QFile file("setting");
+	QFile file(ProjectManager::GetInstance().GetTodoListPath());
 	if (file.exists())
 		file.remove();
 
@@ -231,7 +231,7 @@ void TodoListWidget::CloseWindow()
 
 void TodoListWidget::ShowWindow()
 {
-	QFile file("setting");
+	QFile file(ProjectManager::GetInstance().GetTodoListPath());
 	if (!file.exists()) return;
 	
 	if (!loadFile)

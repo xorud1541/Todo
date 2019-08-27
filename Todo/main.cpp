@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 
-	ProjectManager::GetInstance().InitDB(a.applicationDirPath());
+	ProjectManager::GetInstance().InitDB();
 
 	Todo w;
 	w.show();

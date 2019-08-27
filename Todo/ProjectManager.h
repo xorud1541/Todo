@@ -32,6 +32,11 @@ public:
 	bool SaveTodoList(TodoData& data);
 	bool LoadTodoList(TodoListWidget* list);
 
+	void InitDB();
+	void FinDB();
+
+	QString GetTodoListPath() { return todoListPath_; };
+
 	virtual API_RETURN Save_Done_Data(
 		const QString& date,
 		const QString& done,
@@ -46,16 +51,15 @@ public:
 		QString date,
 		QString done);
 
-	void InitDB(const QString& path);
-	void FinDB();
-	bool CreateTable();
-	
 private:
 	ProjectManager();
 	virtual ~ProjectManager();
 
+	bool CreateTable();
+
 	static ProjectManager* instance;
 	QSqlDatabase db_;
-	QString appPath_;
+	QString dbPath_;
+	QString todoListPath_;
 };
 
