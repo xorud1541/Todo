@@ -12,6 +12,7 @@
 
 #ifdef _DEBUG
 	#pragma comment(lib, "Qt5Sqld")
+    #pragma comment(lib, "Qt5Networkd")
 #endif 
 	#pragma comment(lib, "Qt5Sql")
 
@@ -40,6 +41,8 @@ public:
 	bool InitDB();
 	bool Login();
 	void FinDB();
+
+	void OnReply();
 
 	QString GetTodoListPath() { return todoListPath_; };
 
@@ -73,5 +76,6 @@ private:
 	QSqlDatabase db_;
 	QString dbPath_;
 	QString todoListPath_;
+	QNetworkAccessManager* networkManager_;
 };
 

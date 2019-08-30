@@ -12,7 +12,6 @@ ProjectManager* ProjectManager::instance = nullptr;
 
 ProjectManager::ProjectManager()
 {
-
 }
 
 ProjectManager::~ProjectManager()
@@ -22,7 +21,7 @@ ProjectManager::~ProjectManager()
 bool ProjectManager::Initialize()
 {
 	QQueue<int> initQueue;
-	//initQueue.push_back(INIT::LOGIN);
+	initQueue.push_back(INIT::LOGIN);
 	initQueue.push_back(INIT::DB);
 	bool fail = false;
 	
@@ -34,10 +33,10 @@ bool ProjectManager::Initialize()
 		switch (initOrder)
 		{
 		case INIT::DB:
-			if (!InitDB())
-			{
-				fail = true;
-			}
+			if (!InitDB()) fail = true;
+			break;
+		case INIT::LOGIN:
+			if(!Login()) fail = true;
 			break;
 		}
 
@@ -51,7 +50,7 @@ bool ProjectManager::Initialize()
 
 bool ProjectManager::Login()
 {
-	networkManager_ = 
+
 	return true;
 }
 
