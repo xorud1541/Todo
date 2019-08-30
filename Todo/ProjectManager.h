@@ -2,6 +2,9 @@
 
 #include <QObject>
 #include <QtSql/qsqldatabase.h>
+#include <QtNetwork/QNetworkAccessManager.h>
+#include <QtNetwork/QNetworkReply.h>
+#include <QtNetwork/QNetworkRequest.h>
 
 #include "TodoData.h"
 #include "TodoListWidget.h"
@@ -32,7 +35,10 @@ public:
 	bool SaveTodoList(TodoData& data);
 	bool LoadTodoList(TodoListWidget* list);
 
-	void InitDB();
+	bool Initialize();
+
+	bool InitDB();
+	bool Login();
 	void FinDB();
 
 	QString GetTodoListPath() { return todoListPath_; };
@@ -52,6 +58,12 @@ public:
 		QString done);
 
 private:
+	enum INIT
+	{
+		LOGIN = 0,
+		DB
+	};
+
 	ProjectManager();
 	virtual ~ProjectManager();
 
