@@ -1,13 +1,14 @@
 #include "ProjectManager.h"
+#include "LogInDlg.h"
+
 #include <QSettings>
 #include <QFile>
 #include <QDebug>
-
-#include <QtSql/qsqlquery.h>
 #include <QMessageBox>
 #include <QStandardPaths>
 #include <QDir>
 #include <Qqueue>
+
 ProjectManager* ProjectManager::instance = nullptr;
 
 ProjectManager::ProjectManager()
@@ -50,8 +51,14 @@ bool ProjectManager::Initialize()
 
 bool ProjectManager::Login()
 {
-
-	return true;
+	LogInDlg logInDlg;
+	
+	if (logInDlg.exec() == QDialog::Accepted)
+	{
+		return true;
+	}
+	else
+		return false;
 }
 
 bool ProjectManager::InitDB()

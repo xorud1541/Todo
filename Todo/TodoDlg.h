@@ -1,7 +1,7 @@
 #pragma once
 #include <QDialog.h>
 
-#include "ui_TodoDlg.h";
+#include "ui_TodoDlg.h"
 
 class TodoDlg : public QDialog
 {

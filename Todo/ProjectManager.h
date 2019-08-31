@@ -1,7 +1,8 @@
 #pragma once
 
 #include <QObject>
-#include <QtSql/qsqldatabase.h>
+#include <QtSql/QsqlDatabase.h>
+#include <QtSql/QsqlQuery.h>
 #include <QtNetwork/QNetworkAccessManager.h>
 #include <QtNetwork/QNetworkReply.h>
 #include <QtNetwork/QNetworkRequest.h>
@@ -41,8 +42,6 @@ public:
 	bool InitDB();
 	bool Login();
 	void FinDB();
-
-	void OnReply();
 
 	QString GetTodoListPath() { return todoListPath_; };
 

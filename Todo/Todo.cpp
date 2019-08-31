@@ -27,14 +27,14 @@ Todo::Todo(QWidget *parent)
 	ui.doneTreeWidget->LoadDoneData(dataFromDB);
 
 	ui.tabWidget->setCurrentIndex(0);
-
+#ifndef _DEBUG
 	trayIcon_ = new QSystemTrayIcon(this);
 
 	trayIconMenu_.addAction(&trayShowAction_);
 	trayIcon_->setContextMenu(&trayIconMenu_);
 	trayIcon_->setIcon(QIcon("./image/myIcon.ico"));
 	trayIcon_->show();
-
+#endif
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
 	connect(ui.sortBtn, &QPushButton::clicked, this, &Todo::OnClickSortBtn);
