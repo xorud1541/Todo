@@ -5,7 +5,12 @@
 #include <QtNetwork/QNetworkRequest.h>
 
 #include "ui_TodoLogIn.h"
-#pragma comment(lib, "Qt5Networkd")
+#ifdef _DEBUG
+	#pragma comment(lib, "Qt5Networkd")
+#else
+#pragma comment(lib, "Qt5Network")
+#endif // _DEBUG
+
 const QString IPPORT = "http://172.30.1.55:8080/";
 class LogInDlg : public QDialog
 {

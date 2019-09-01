@@ -25,29 +25,16 @@ QString LogInDlg::GetPW()
 
 void LogInDlg::replyFinished(QNetworkReply *reply)
 {
-	int a = 5;
-	qDebug() << "REQWE";
-	QUrl url = reply->url();
-	if (reply->error())
+	QVariant status_code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
+	if (status_code == 200)
 	{
-		qDebug() << "Download of " << url.toEncoded().constData()
-			<< " failed: " << reply->errorString();
-	}
-	else
-	{
-		QString path = url.path();
-
+		QDialog::accept();
 	}
 }
 
 void LogInDlg::OnClickLogIn()
 {
-	QString requ = QString("%0?id=%1&pw=%2")
-		.arg(IPPORT)
-		.arg("xorud1541")
-		.arg("Secret091!");
-
-	QUrl url("http://172.30.1.55:3000/");
+	QUrl url("http://172.30.1.55:3000/users/Secret091!");
 
 	networkManager_->get(QNetworkRequest(url));
 }
