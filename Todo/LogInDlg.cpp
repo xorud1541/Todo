@@ -1,5 +1,6 @@
 #include "LogInDlg.h"
 
+#include <QMessageBox>
 LogInDlg::LogInDlg(QWidget* parent)
 	:QDialog(parent)
 {
@@ -30,11 +31,30 @@ void LogInDlg::replyFinished(QNetworkReply *reply)
 	{
 		QDialog::accept();
 	}
+	else
+	{
+		QMessageBox msgBox;
+		msgBox.setText("Incorrect Password");
+		msgBox.setStandardButtons(QMessageBox::Ok);
+		msgBox.exec();
+	}
 }
 
 void LogInDlg::OnClickLogIn()
 {
-	QUrl url("http://172.30.1.55:3000/users/Secret091!");
+	if (ui.pwEdit->text().isEmpty())
+	{
+		QMessageBox msgBox;
+		msgBox.setText("Input Password");
+		msgBox.setStandardButtons(QMessageBox::Ok);
+		msgBox.exec();
+		return;
+	}
+
+	pw_ = ui.pwEdit->text();
+
+	QString request = QString("%0/users/%1").arg(HOST).arg(pw_);
+	QUrl url(request);
 
 	networkManager_->get(QNetworkRequest(url));
 }
