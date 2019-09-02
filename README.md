@@ -19,6 +19,7 @@
     - qt-vsaddin-msvc2017-2.3.2.vsix
 
 ## 추가될 기능
+- TodoList로 저장할 때 순서보장
 - 날짜 DeadLine 설정기능
 - TodoList의 DeadLine 선 그리기
 - 시작프로그램 설정하기
