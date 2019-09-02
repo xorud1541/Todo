@@ -11,7 +11,7 @@
 #pragma comment(lib, "Qt5Network")
 #endif // _DEBUG
 
-const QString HOST = "http://211.184.106.214:3000";
+const QString HOST = "http://211.184.106.214";
 class LogInDlg : public QDialog
 {
 	Q_OBJECT
