@@ -28,25 +28,25 @@ Todo::Todo(QWidget *parent)
 	ui.doneTreeWidget->LoadDoneData(dataFromDB);
 
 	ui.tabWidget->setCurrentIndex(0);
-#ifdef _DEBUG
+#ifndef _DEBUG
 	trayIcon_ = new QSystemTrayIcon(this);
 
 	trayIconMenu_.addAction(&trayShowAction_);
 	trayIcon_->setContextMenu(&trayIconMenu_);
 	trayIcon_->setIcon(QIcon("./image/myIcon.ico"));
 	trayIcon_->show();
-#endif 
-	dateTimer_ = new QTimer(this);
-	dateTimer_->start(600000);
-
-	connect(dateTimer_, &QTimer::timeout, this, &Todo::RefreshCurrentDate);
-
+#endif
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
 	connect(ui.sortBtn, &QPushButton::clicked, this, &Todo::OnClickSortBtn);
 
 	connect(trayIcon_, &QSystemTrayIcon::activated, this, &Todo::OnTrayIconClicked);
 	connect(&trayShowAction_, &QAction::triggered, this, &Todo::OnClickTrayExit);
+
+	connect(dateTimer_, &QTimer::timeout, this, &Todo::RefreshCurrentDate);
+
+	dateTimer_ = new QTimer(this);
+	dateTimer_->start(600000);
 }
 
 Todo::~Todo()
