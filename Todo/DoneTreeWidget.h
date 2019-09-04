@@ -17,6 +17,7 @@ public:
 	void LoadDetailData(const QTreeWidgetItem& item);
 
 	void OnShowDetailAction();
+	void OnDbClickItem();
 
 protected:
 	void mouseReleaseEvent(QMouseEvent* e);

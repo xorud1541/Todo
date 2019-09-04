@@ -21,6 +21,7 @@ public:
 
 	void SetCurrentDate();
 	QString GetCurrentDate();
+	void InitDate();
 
 private:
 	DateManager();

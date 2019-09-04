@@ -16,6 +16,8 @@ DoneTreeWidget::DoneTreeWidget(QWidget* parent)
 	connect(&showDetailAction_, &QAction::triggered,
 		this, &DoneTreeWidget::OnShowDetailAction);
 
+	connect(this, &QTreeWidget::itemDoubleClicked, this, &DoneTreeWidget::OnDbClickItem);
+
 	contextMenu_.addAction(&showDetailAction_);
 }
 
@@ -143,6 +145,15 @@ void DoneTreeWidget::OnShowDetailAction()
 
 	if (item)
 		if(item->childCount() == 0)
+			LoadDetailData(*item);
+}
+
+void DoneTreeWidget::OnDbClickItem()
+{
+	QTreeWidgetItem *item = currentItem();
+
+	if (item)
+		if (item->childCount() == 0)
 			LoadDetailData(*item);
 }
 

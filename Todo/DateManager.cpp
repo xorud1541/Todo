@@ -43,6 +43,11 @@ void DateManager::SetCurrentDate()
 	currentDate_ = GetYearToStr() + GetMonthToStr() + GetDayToStr();
 }
 
+void DateManager::InitDate()
+{
+	SetCurrentDate();
+}
+
 QString DateManager::GetCurrentDate()
 {
 	return currentDate_;

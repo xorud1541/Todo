@@ -41,6 +41,7 @@ public:
 
 	bool InitDB();
 	bool Login();
+	bool InitDate();
 	void FinDB();
 
 	QString GetTodoListPath() { return todoListPath_; };
@@ -62,8 +63,9 @@ public:
 private:
 	enum INIT
 	{
-		LOGIN = 0,
-		DB
+		//LOGIN = 0,
+		DB = 0,
+		DATE
 	};
 
 	ProjectManager();

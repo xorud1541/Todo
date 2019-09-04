@@ -19,10 +19,14 @@ Todo::Todo(QWidget *parent)
 	ui.setupUi(this);
 	ui.doneBtn->setDisabled(false);
 
-	dateMng.SetCurrentDate();
+	dateTimer_ = new QTimer(this);
+	dateTimer_->start(600000);
+
+	//date
 	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());
 	ui.dateLabel->setText(dateStr);
 
+	//done_data
 	QVector<TodoData> dataFromDB;
 	ProjectManager::GetInstance().Load_Done_Data(dataFromDB);
 	ui.doneTreeWidget->LoadDoneData(dataFromDB);
@@ -44,9 +48,6 @@ Todo::Todo(QWidget *parent)
 	connect(&trayShowAction_, &QAction::triggered, this, &Todo::OnClickTrayExit);
 
 	connect(dateTimer_, &QTimer::timeout, this, &Todo::RefreshCurrentDate);
-
-	dateTimer_ = new QTimer(this);
-	dateTimer_->start(600000);
 }
 
 Todo::~Todo()

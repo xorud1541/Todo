@@ -1,5 +1,6 @@
 #include "ProjectManager.h"
 #include "LogInDlg.h"
+#include "DateManager.h"
 
 #include <QSettings>
 #include <QFile>
@@ -22,8 +23,9 @@ ProjectManager::~ProjectManager()
 bool ProjectManager::Initialize()
 {
 	QQueue<int> initQueue;
-	initQueue.push_back(INIT::LOGIN);
+	//initQueue.push_back(INIT::LOGIN);
 	initQueue.push_back(INIT::DB);
+	initQueue.push_back(INIT::DATE);
 	bool fail = false;
 	
 	while (!initQueue.empty())
@@ -36,9 +38,12 @@ bool ProjectManager::Initialize()
 		case INIT::DB:
 			if (!InitDB()) fail = true;
 			break;
-		case INIT::LOGIN:
-			if(!Login()) fail = true;
+		case INIT::DATE:
+			if(!InitDate()) fail = true;
 			break;
+		//case INIT::LOGIN:
+		//	if(!Login()) fail = true;
+		//	break;
 		}
 
 		if (fail) break;
@@ -92,6 +97,12 @@ bool ProjectManager::InitDB()
 		return false;
 	}
 
+	return true;
+}
+
+bool ProjectManager::InitDate()
+{
+	DateManager::GetInstance().SetCurrentDate();
 	return true;
 }
 
