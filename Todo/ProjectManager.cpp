@@ -1,31 +1,76 @@
 #include "ProjectManager.h"
+#include "LogInDlg.h"
+
 #include <QSettings>
 #include <QFile>
 #include <QDebug>
-
-#include <QtSql/qsqlquery.h>
 #include <QMessageBox>
 #include <QStandardPaths>
 #include <QDir>
+#include <Qqueue>
+
 ProjectManager* ProjectManager::instance = nullptr;
 
 ProjectManager::ProjectManager()
 {
-	QString localPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-	
-	QDir localDir(localPath);
-	if(!localDir.exists())
-		localDir.mkdir(localPath);
-	dbPath_ = localPath + QString("/%0").arg(DB::dbFile);
-	todoListPath_ = localPath + "/TodoList";
 }
 
 ProjectManager::~ProjectManager()
 {
 }
 
-void ProjectManager::InitDB()
+bool ProjectManager::Initialize()
 {
+	QQueue<int> initQueue;
+	initQueue.push_back(INIT::LOGIN);
+	initQueue.push_back(INIT::DB);
+	bool fail = false;
+	
+	while (!initQueue.empty())
+	{
+		int initOrder = initQueue.front();
+		initQueue.pop_front();
+
+		switch (initOrder)
+		{
+		case INIT::DB:
+			if (!InitDB()) fail = true;
+			break;
+		case INIT::LOGIN:
+			if(!Login()) fail = true;
+			break;
+		}
+
+		if (fail) break;
+	}
+
+	if (fail) return false;
+	else
+		return true;
+}
+
+bool ProjectManager::Login()
+{
+	LogInDlg logInDlg;
+	
+	if (logInDlg.exec() == QDialog::Accepted)
+	{
+		return true;
+	}
+	else
+		return false;
+}
+
+bool ProjectManager::InitDB()
+{
+	QString localPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+
+	QDir localDir(localPath);
+	if (!localDir.exists())
+		localDir.mkdir(localPath);
+	dbPath_ = localPath + QString("/%0").arg(DB::dbFile);
+	todoListPath_ = localPath + "/TodoList";
+
 	db_ = QSqlDatabase::addDatabase(DB::dbDriver);
 	db_.setDatabaseName(dbPath_);
 
@@ -35,6 +80,7 @@ void ProjectManager::InitDB()
 		msgBox.setText("Failed to open DB");
 		msgBox.setStandardButtons(QMessageBox::Ok);
 		msgBox.exec();
+		return false;
 	}
 
 	if (!CreateTable())
@@ -43,7 +89,10 @@ void ProjectManager::InitDB()
 		msgBox.setText("Failed to create DB");
 		msgBox.setStandardButtons(QMessageBox::Ok);
 		msgBox.exec();
+		return false;
 	}
+
+	return true;
 }
 
 void ProjectManager::FinDB()

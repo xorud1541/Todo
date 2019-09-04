@@ -18,9 +18,12 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 
-	ProjectManager::GetInstance().InitDB();
+	if (ProjectManager::GetInstance().Initialize())
+	{
+		Todo w;
+		w.show();
+		return a.exec();
+	}
 
-	Todo w;
-	w.show();
-	return a.exec();
+	return 0;
 }

@@ -1,7 +1,11 @@
 #pragma once
 
 #include <QObject>
-#include <QtSql/qsqldatabase.h>
+#include <QtSql/QsqlDatabase.h>
+#include <QtSql/QsqlQuery.h>
+#include <QtNetwork/QNetworkAccessManager.h>
+#include <QtNetwork/QNetworkReply.h>
+#include <QtNetwork/QNetworkRequest.h>
 
 #include "TodoData.h"
 #include "TodoListWidget.h"
@@ -9,6 +13,7 @@
 
 #ifdef _DEBUG
 	#pragma comment(lib, "Qt5Sqld")
+    #pragma comment(lib, "Qt5Networkd")
 #endif 
 	#pragma comment(lib, "Qt5Sql")
 
@@ -32,7 +37,10 @@ public:
 	bool SaveTodoList(TodoData& data);
 	bool LoadTodoList(TodoListWidget* list);
 
-	void InitDB();
+	bool Initialize();
+
+	bool InitDB();
+	bool Login();
 	void FinDB();
 
 	QString GetTodoListPath() { return todoListPath_; };
@@ -52,6 +60,12 @@ public:
 		QString done);
 
 private:
+	enum INIT
+	{
+		LOGIN = 0,
+		DB
+	};
+
 	ProjectManager();
 	virtual ~ProjectManager();
 
@@ -61,5 +75,6 @@ private:
 	QSqlDatabase db_;
 	QString dbPath_;
 	QString todoListPath_;
+	QNetworkAccessManager* networkManager_;
 };
 

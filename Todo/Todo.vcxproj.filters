@@ -51,6 +51,9 @@
     <ClCompile Include="DoneTreeWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LogInDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Todo.h">
@@ -68,12 +71,18 @@
     <QtMoc Include="DoneTreeWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="LogInDlg.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Todo.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="TodoDlg.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="TodoLogIn.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
