@@ -3,14 +3,9 @@
 DateManager* DateManager::instance = nullptr;
 DateManager::DateManager()
 {
-	timer_ = new QTimer(this);
-	connect(timer_, &QTimer::timeout, this, &DateManager::CheckCurrentDate);
-	CheckCurrentDate();
-
-	timer_->start(600000);
 }
 
-void DateManager::CheckCurrentDate()
+void DateManager::SetCurrentDate()
 {
 	date_ = QDate::currentDate();
 	day_ = date_.day();
@@ -45,7 +40,12 @@ void DateManager::CheckCurrentDate()
 		break;
 	}
 
-	currentStrDate_ = GetYearToStr() + GetMonthToStr() + GetDayToStr();
+	currentDate_ = GetYearToStr() + GetMonthToStr() + GetDayToStr();
+}
+
+QString DateManager::GetCurrentDate()
+{
+	return currentDate_;
 }
 
 DateManager::~DateManager()

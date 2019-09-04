@@ -66,7 +66,7 @@ void TodoListWidget::GetDoneItem(QVector<TodoData>& doneData)
 		if (dataMap_[item(i)].IsChecked())
 		{
 			TodoData data = dataMap_[item(i)];
-			data.SetDate(dateMng.GetCurDate());
+			data.SetDate(dateMng.GetCurrentDate());
 			doneData.push_back(data);
 		}
 	}

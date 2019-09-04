@@ -19,6 +19,7 @@ Todo::Todo(QWidget *parent)
 	ui.setupUi(this);
 	ui.doneBtn->setDisabled(false);
 
+	dateMng.SetCurrentDate();
 	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());
 	ui.dateLabel->setText(dateStr);
 
@@ -29,11 +30,15 @@ Todo::Todo(QWidget *parent)
 	ui.tabWidget->setCurrentIndex(0);
 
 	trayIcon_ = new QSystemTrayIcon(this);
-
 	trayIconMenu_.addAction(&trayShowAction_);
 	trayIcon_->setContextMenu(&trayIconMenu_);
 	trayIcon_->setIcon(QIcon("./image/myIcon.ico"));
 	trayIcon_->show();
+
+	dateTimer_ = new QTimer(this);
+	dateTimer_->start(600000);
+
+	connect(dateTimer_, &QTimer::timeout, this, &Todo::RefreshCurrentDate);
 
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
@@ -67,6 +72,13 @@ void Todo::OnTrayIconClicked(QSystemTrayIcon::ActivationReason reason)
 		this->show();
 		break;
 	}
+}
+
+void Todo::RefreshCurrentDate()
+{
+	dateMng.SetCurrentDate();
+	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());
+	ui.dateLabel->setText(dateStr);
 }
 
 void Todo::OnClickAddBtn()

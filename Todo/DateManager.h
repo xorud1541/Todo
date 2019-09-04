@@ -1,7 +1,7 @@
 #pragma once
 #include <QDate>
 #include <QObject>
-#include <QTimer>
+
 class DateManager : public QObject
 {
 	Q_OBJECT
@@ -19,13 +19,13 @@ public:
 	int GetYear() { return year_; };
 	int GetMonth() { return month_; };
 
-	QString GetCurDate() const { return currentStrDate_; };
+	void SetCurrentDate();
+	QString GetCurrentDate();
 
 private:
 	DateManager();
 	virtual ~DateManager();
 
-	void CheckCurrentDate();
 	QString GetDayToStr();
 	QString GetYearToStr();
 	QString GetMonthToStr();
@@ -37,7 +37,6 @@ private:
 	int month_;
 
 	static DateManager* instance;
-	QString currentStrDate_;
-	QTimer* timer_;
+	QString currentDate_;
 };
 

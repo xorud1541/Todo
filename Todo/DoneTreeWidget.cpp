@@ -110,7 +110,7 @@ void DoneTreeWidget::LoadDetailData(const QTreeWidgetItem& item)
 {
 	QString date = item.parent()->text(0);
 	if (date == QString::fromLocal8Bit("¿À´Ã"))
-		date = dateMng.GetCurDate();
+		date = dateMng.GetCurrentDate();
 	QString title = item.text(0);
 
 	TodoData data;

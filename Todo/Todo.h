@@ -4,6 +4,7 @@
 #include <QDate>
 #include <QSystemTrayIcon>
 #include <QMenu>
+#include <QTimer>
 
 #include "DateManager.h"
 #include "ui_Todo.h"
@@ -29,6 +30,7 @@ protected:
 
 private:
 	void OnTrayIconClicked(QSystemTrayIcon::ActivationReason);
+	void RefreshCurrentDate();
 
 private:
 	Ui::TodoClass ui;
@@ -36,4 +38,5 @@ private:
 	QSystemTrayIcon* trayIcon_;
 	QMenu trayIconMenu_;
 	QAction trayShowAction_;
+	QTimer* dateTimer_;
 };
