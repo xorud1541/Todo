@@ -66,7 +66,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="iconSize">
      <size>
@@ -338,9 +338,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>1</y>
+        <y>60</y>
         <width>401</width>
-        <height>721</height>
+        <height>671</height>
        </rect>
       </property>
       <property name="rootIsDecorated">
@@ -387,6 +387,76 @@
         <string notr="true">1</string>
        </property>
       </column>
+     </widget>
+     <widget class="QPushButton" name="searchBtn">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>10</y>
+        <width>50</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>image/search_done.png</normaloff>image/search_done.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="searchEdit">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>301</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="placeholderText">
+       <string>찾으실 내용을 입력해주세요.</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="refreshBtn">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>11</y>
+        <width>50</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>image/refresh_done.png</normaloff>image/refresh_done.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
      </widget>
     </widget>
    </widget>

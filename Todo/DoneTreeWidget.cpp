@@ -168,6 +168,28 @@ void DoneTreeWidget::RefreshTodayDate(QString date)
 	IsThereTodayDone_ = false;
 }
 
+void DoneTreeWidget::SearchText(QString text)
+{
+	int count = topLevelItemCount();
+	for (int i = 0; i < count; i++)
+	{
+		QTreeWidgetItem* item = topLevelItem(i);
+		if (item->text(0) == "¿À´Ã")
+		{
+
+		}
+		else
+		{
+
+		}
+	}
+}
+
+void DoneTreeWidget::RefreshDoneItems()
+{
+
+}
+
 void DoneTreeWidget::mouseReleaseEvent(QMouseEvent* e)
 {
 	QTreeWidget::mouseReleaseEvent(e);

@@ -43,6 +43,8 @@ Todo::Todo(QWidget *parent)
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
 	connect(ui.sortBtn, &QPushButton::clicked, this, &Todo::OnClickSortBtn);
+	connect(ui.searchBtn, &QPushButton::clicked, this, &Todo::OnClickSearchBtn);
+	connect(ui.refreshBtn, &QPushButton::clicked, this, &Todo::OnClickDoneRefreshBtn);
 
 	connect(trayIcon_, &QSystemTrayIcon::activated, this, &Todo::OnTrayIconClicked);
 	connect(&trayShowAction_, &QAction::triggered, this, &Todo::OnClickTrayExit);
@@ -74,6 +76,18 @@ void Todo::OnTrayIconClicked(QSystemTrayIcon::ActivationReason reason)
 		this->show();
 		break;
 	}
+}
+
+void Todo::OnClickSearchBtn()
+{
+	QString search = ui.searchEdit->text();
+	if(!search.isEmpty())
+		ui.doneTreeWidget->SearchText(search);
+}
+
+void Todo::OnClickDoneRefreshBtn()
+{
+	ui.doneTreeWidget->RefreshDoneItems();
 }
 
 void Todo::RefreshCurrentDate()

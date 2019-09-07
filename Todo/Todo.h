@@ -22,6 +22,8 @@ public:
 	void OnClickDoneBtn();
 	void OnClickSortBtn();
 	void OnClickTrayExit();
+	void OnClickSearchBtn();
+	void OnClickDoneRefreshBtn();
 
 protected:
 	void resizeEvent(QResizeEvent *e);

@@ -19,6 +19,8 @@ public:
 	void OnShowDetailAction();
 	void OnDbClickItem();
 	void RefreshTodayDate(QString date);
+	void SearchText(QString text);
+	void RefreshDoneItems();
 
 protected:
 	void mouseReleaseEvent(QMouseEvent* e);
