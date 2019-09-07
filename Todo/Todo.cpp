@@ -78,7 +78,14 @@ void Todo::OnTrayIconClicked(QSystemTrayIcon::ActivationReason reason)
 
 void Todo::RefreshCurrentDate()
 {
+	QString today = dateMng.GetCurrentDate();
 	dateMng.SetCurrentDate();
+
+	if (today != dateMng.GetCurrentDate())
+	{
+		ui.doneTreeWidget->RefreshTodayDate(dateMng.GetCurrentDate());
+	}
+
 	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());
 	ui.dateLabel->setText(dateStr);
 }
@@ -104,7 +111,7 @@ void Todo::OnClickDoneBtn()
 
 	if (!doneData.isEmpty())
 	{
-		ui.doneTreeWidget->AddDoneItem(doneData);
+		ui.doneTreeWidget->AddTodayDoneItem(doneData);
 
 		for (int i = 0; i < doneData.size(); i++)
 		{

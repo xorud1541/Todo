@@ -11,11 +11,11 @@
 DoneTreeWidget::DoneTreeWidget(QWidget* parent)
 	:QTreeWidget(parent)
 	, showDetailAction_(QString::fromLocal8Bit("상세보기"), this)
-	, treeParent_(NULL)
 {
-	connect(&showDetailAction_, &QAction::triggered,
-		this, &DoneTreeWidget::OnShowDetailAction);
+	treeParent_ = new QTreeWidgetItem(this);
+	IsThereTodayDone_ = false;
 
+	connect(&showDetailAction_, &QAction::triggered, this, &DoneTreeWidget::OnShowDetailAction);
 	connect(this, &QTreeWidget::itemDoubleClicked, this, &DoneTreeWidget::OnDbClickItem);
 
 	contextMenu_.addAction(&showDetailAction_);
@@ -23,20 +23,19 @@ DoneTreeWidget::DoneTreeWidget(QWidget* parent)
 
 DoneTreeWidget::~DoneTreeWidget()
 {
-	delete treeParent_;
 }
 
-void DoneTreeWidget::AddDoneItem(QVector<TodoData>& doneData)
+void DoneTreeWidget::AddTodayDoneItem(QVector<TodoData>& doneData)
 {
 	QFont font;
-	if (treeParent_ == NULL)
+	if (!IsThereTodayDone_ )
 	{
 		QString date = QString::fromLocal8Bit("오늘");
-		treeParent_ = new QTreeWidgetItem(this);
 		font.setPointSize(13);
 		treeParent_->setText(0, date);
 		treeParent_->setFont(0, font);
 		insertTopLevelItem(0, treeParent_);
+		IsThereTodayDone_ = true;
 	}
 
 	for (int i = 0; i < doneData.size(); i++)
@@ -111,6 +110,8 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 void DoneTreeWidget::LoadDetailData(const QTreeWidgetItem& item)
 {
 	QString date = item.parent()->text(0);
+	
+	//"오늘" 이라는 날짜이면 현재날짜로 대체하는 코드  
 	if (date == QString::fromLocal8Bit("오늘"))
 		date = dateMng.GetCurrentDate();
 	QString title = item.text(0);
@@ -155,6 +156,16 @@ void DoneTreeWidget::OnDbClickItem()
 	if (item)
 		if (item->childCount() == 0)
 			LoadDetailData(*item);
+}
+
+void DoneTreeWidget::RefreshTodayDate(QString date)
+{
+	QFont font;
+	font.setPointSize(13);
+	treeParent_->setText(0, date);
+	treeParent_->setFont(0, font);
+
+	IsThereTodayDone_ = false;
 }
 
 void DoneTreeWidget::mouseReleaseEvent(QMouseEvent* e)
