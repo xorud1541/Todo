@@ -46,6 +46,8 @@ void DoneTreeWidget::AddTodayDoneItem(QVector<TodoData>& doneData)
 		item->setFont(0, font);
 		item->setText(0, data.GetTitle());
 		treeParent_->addChild(item);
+
+		doneHistory_.push_back(data);
 	}
 }
 
@@ -107,10 +109,10 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 	}
 }
 
-void DoneTreeWidget::LoadDetailData(const QTreeWidgetItem& item)
+void DoneTreeWidget::ShowDetailData(const QTreeWidgetItem& item)
 {
 	QString date = item.parent()->text(0);
-	
+
 	//"오늘" 이라는 날짜이면 현재날짜로 대체하는 코드  
 	if (date == QString::fromLocal8Bit("오늘"))
 		date = dateMng.GetCurrentDate();
@@ -122,7 +124,7 @@ void DoneTreeWidget::LoadDetailData(const QTreeWidgetItem& item)
 	TodoDlg todoDlg;
 	todoDlg.SetTodoTitle(data.GetTitle());
 	todoDlg.SetTodoDetail(data.GetDetail());
-	
+
 	QList<QWidget *> widgets = todoDlg.findChildren<QWidget *>();
 	foreach(QWidget* widget, widgets) {
 		if (strcmp(widget->metaObject()->className(), "QTextEdit") == 0)
@@ -146,7 +148,7 @@ void DoneTreeWidget::OnShowDetailAction()
 
 	if (item)
 		if(item->childCount() == 0)
-			LoadDetailData(*item);
+			ShowDetailData(*item);
 }
 
 void DoneTreeWidget::OnDbClickItem()
@@ -155,7 +157,7 @@ void DoneTreeWidget::OnDbClickItem()
 
 	if (item)
 		if (item->childCount() == 0)
-			LoadDetailData(*item);
+			ShowDetailData(*item);
 }
 
 void DoneTreeWidget::RefreshTodayDate(QString date)
@@ -170,24 +172,27 @@ void DoneTreeWidget::RefreshTodayDate(QString date)
 
 void DoneTreeWidget::SearchText(QString text)
 {
-	int count = topLevelItemCount();
-	for (int i = 0; i < count; i++)
+	if (!text.isEmpty())
 	{
-		QTreeWidgetItem* item = topLevelItem(i);
-		if (item->text(0) == "오늘")
-		{
+		int totalCount = doneHistory_.size();
 
-		}
-		else
+		for (int i = 0; i < totalCount; i++)
 		{
+			TodoData data = doneHistory_[i];
+			if (data.hasText(text))
+			{
 
+			}
 		}
 	}
 }
-
+// 다시 원래 상태로 돌리는 코드
 void DoneTreeWidget::RefreshDoneItems()
 {
-
+	for (int i = 0; i < doneHistory_.size(); i++)
+	{
+		takeTopLevelItem(0);
+	}
 }
 
 void DoneTreeWidget::mouseReleaseEvent(QMouseEvent* e)
@@ -214,4 +219,12 @@ void DoneTreeWidget::ShowContextMenu(const QPoint& globalPos)
 
 	contextMenu_.move(globalPos);
 	contextMenu_.show();
+}
+
+void DoneTreeWidget::SetDoneHistroy(const QVector<TodoData>& data)
+{
+	for (int i = 0; i < data.size(); i++)
+	{
+		doneHistory_.push_back(data[i]);
+	}
 }

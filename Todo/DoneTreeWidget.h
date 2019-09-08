@@ -12,9 +12,9 @@ public:
 	DoneTreeWidget(QWidget* parent);
 	~DoneTreeWidget();
 
+	void ShowDetailData(const QTreeWidgetItem& item);
 	void AddTodayDoneItem(QVector<TodoData>& done);
 	void LoadDoneData(const QVector<TodoData>& data);
-	void LoadDetailData(const QTreeWidgetItem& item);
 
 	void OnShowDetailAction();
 	void OnDbClickItem();
@@ -27,10 +27,12 @@ protected:
 
 private:
 	void ShowContextMenu(const QPoint& globalPos);
+	void SetDoneHistroy(const QVector<TodoData>& data);
 
 	bool IsThereTodayDone_;
 
 private:
+	QVector<TodoData> doneHistory_;
 	QTreeWidgetItem* treeParent_;
 	QMenu contextMenu_;
 	QAction showDetailAction_;

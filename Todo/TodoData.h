@@ -22,6 +22,15 @@ public:
 	QString GetDate() const { return date_; };
 	void SetDate(QString date) { date_ = date; };
 
+	bool hasText(QString text)
+	{
+		if (title_.contains(text)) return true;
+
+		if (detail_.contains(text)) return true;
+
+		return false;
+	}
+
 private:
 	QString title_;
 	QString detail_;
