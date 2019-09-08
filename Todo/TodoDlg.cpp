@@ -84,5 +84,15 @@ void TodoDlg::OnOkAction()
 
 void TodoDlg::OnCancelAction()
 {
+	QString title = ui.toDoEdit->text();
+	QString detail = ui.detailEdit->toPlainText();
+
+	if (!title.isEmpty())
+	{
+		title_ = title;
+		detail_ = detail;
+		QDialog::accept();
+	}
+
 	QDialog::close();
 }
