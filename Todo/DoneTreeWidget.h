@@ -20,7 +20,7 @@ public:
 	void OnDbClickItem();
 	void RefreshTodayDate(QString date);
 	void SearchText(QString text);
-	void RefreshDoneItems();
+	void ReLoadDoneItems();
 
 protected:
 	void mouseReleaseEvent(QMouseEvent* e);
@@ -28,6 +28,9 @@ protected:
 private:
 	void ShowContextMenu(const QPoint& globalPos);
 	void SetDoneHistroy(const QVector<TodoData>& data);
+	void LoadDoneItems(const QVector<TodoData>& data);
+	void DeleteAllItems();
+
 
 	bool IsThereTodayDone_;
 

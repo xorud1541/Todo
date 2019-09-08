@@ -51,7 +51,7 @@ void DoneTreeWidget::AddTodayDoneItem(QVector<TodoData>& doneData)
 	}
 }
 
-void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
+void DoneTreeWidget::LoadDoneItems(const QVector<TodoData>& data)
 {
 	QFont font;
 	QTreeWidgetItem* parent = NULL;
@@ -107,6 +107,12 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 			}
 		}
 	}
+}
+
+void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
+{
+	LoadDoneItems(data);
+	SetDoneHistroy(data);
 }
 
 void DoneTreeWidget::ShowDetailData(const QTreeWidgetItem& item)
@@ -174,6 +180,7 @@ void DoneTreeWidget::SearchText(QString text)
 {
 	if (!text.isEmpty())
 	{
+		QVector<TodoData> searchData;
 		int totalCount = doneHistory_.size();
 
 		for (int i = 0; i < totalCount; i++)
@@ -181,18 +188,18 @@ void DoneTreeWidget::SearchText(QString text)
 			TodoData data = doneHistory_[i];
 			if (data.hasText(text))
 			{
-
+				searchData.push_back(data);
 			}
 		}
+
+		DeleteAllItems();
+		LoadDoneItems(searchData);
 	}
 }
 // 다시 원래 상태로 돌리는 코드
-void DoneTreeWidget::RefreshDoneItems()
+void DoneTreeWidget::ReLoadDoneItems()
 {
-	for (int i = 0; i < doneHistory_.size(); i++)
-	{
-		takeTopLevelItem(0);
-	}
+	LoadDoneItems(doneHistory_);
 }
 
 void DoneTreeWidget::mouseReleaseEvent(QMouseEvent* e)
@@ -226,5 +233,13 @@ void DoneTreeWidget::SetDoneHistroy(const QVector<TodoData>& data)
 	for (int i = 0; i < data.size(); i++)
 	{
 		doneHistory_.push_back(data[i]);
+	}
+}
+
+void DoneTreeWidget::DeleteAllItems()
+{
+	for (int i = 0; i < doneHistory_.size(); i++)
+	{
+		takeTopLevelItem(0);
 	}
 }

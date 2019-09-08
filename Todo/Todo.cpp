@@ -81,13 +81,16 @@ void Todo::OnTrayIconClicked(QSystemTrayIcon::ActivationReason reason)
 void Todo::OnClickSearchBtn()
 {
 	QString search = ui.searchEdit->text();
-	if(!search.isEmpty())
+	if (!search.isEmpty())
+	{
 		ui.doneTreeWidget->SearchText(search);
+	}
 }
 
 void Todo::OnClickDoneRefreshBtn()
 {
-	ui.doneTreeWidget->RefreshDoneItems();
+	ui.doneTreeWidget->ReLoadDoneItems();
+	ui.searchEdit->clear();
 }
 
 void Todo::RefreshCurrentDate()
