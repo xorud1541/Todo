@@ -22,6 +22,12 @@ public:
 	void SearchText(QString text);
 	void ReLoadDoneItems();
 
+	enum MODE
+	{
+		SHOWLIST = 0,
+		SEARCH
+	};
+
 protected:
 	void mouseReleaseEvent(QMouseEvent* e);
 
@@ -39,5 +45,6 @@ private:
 	QTreeWidgetItem* treeParent_;
 	QMenu contextMenu_;
 	QAction showDetailAction_;
+	int mode_;
 };
 

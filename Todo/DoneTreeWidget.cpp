@@ -11,6 +11,7 @@
 DoneTreeWidget::DoneTreeWidget(QWidget* parent)
 	:QTreeWidget(parent)
 	, showDetailAction_(QString::fromLocal8Bit("상세보기"), this)
+	, mode_(MODE::SHOWLIST)
 {
 	treeParent_ = new QTreeWidgetItem(this);
 	IsThereTodayDone_ = false;
@@ -28,7 +29,7 @@ DoneTreeWidget::~DoneTreeWidget()
 void DoneTreeWidget::AddTodayDoneItem(QVector<TodoData>& doneData)
 {
 	QFont font;
-	if (!IsThereTodayDone_ )
+	if (!IsThereTodayDone_  && mode_ == MODE::SHOWLIST)
 	{
 		QString date = QString::fromLocal8Bit("오늘");
 		font.setPointSize(13);
@@ -41,13 +42,16 @@ void DoneTreeWidget::AddTodayDoneItem(QVector<TodoData>& doneData)
 	for (int i = 0; i < doneData.size(); i++)
 	{
 		TodoData data = doneData[i];
-		QTreeWidgetItem* item = new QTreeWidgetItem(treeParent_);
-		font.setPointSize(12);
-		item->setFont(0, font);
-		item->setText(0, data.GetTitle());
-		treeParent_->addChild(item);
-
 		doneHistory_.push_back(data);
+
+		if (mode_ == MODE::SHOWLIST)
+		{
+			QTreeWidgetItem* item = new QTreeWidgetItem(treeParent_);
+			font.setPointSize(12);
+			item->setFont(0, font);
+			item->setText(0, data.GetTitle());
+			treeParent_->addChild(item);
+		}
 	}
 }
 
@@ -59,12 +63,13 @@ void DoneTreeWidget::LoadDoneItems(const QVector<TodoData>& data)
 	for (int i = 0; i < data.size(); i++)
 	{
 		TodoData todoData = data[i];
-		QString date = todoData.GetDate();
-		QString done = todoData.GetTitle();
-		QString detail = todoData.GetDetail();
+		QString date = todoData.GetDate(); //날짜
+		QString done = todoData.GetTitle(); //한 일
+		QString detail = todoData.GetDetail(); //상세내용
 
-		if (currentDate.isEmpty())
-			currentDate = date;
+		if (date == dateMng.GetCurrentDate()) date = QString::fromLocal8Bit("오늘");
+
+		if (currentDate.isEmpty()) currentDate = date;
 
 		if (parent == NULL)
 		{
@@ -82,6 +87,7 @@ void DoneTreeWidget::LoadDoneItems(const QVector<TodoData>& data)
 		}
 		else
 		{
+			//한일이 현재 등록중인 날짜랑 같으면 
 			if (currentDate.compare(date, Qt::CaseInsensitive) == 0)
 			{
 				QTreeWidgetItem* item = new QTreeWidgetItem(parent);
@@ -90,7 +96,7 @@ void DoneTreeWidget::LoadDoneItems(const QVector<TodoData>& data)
 				item->setText(0, done);
 				parent->addChild(item);
 			}
-			else
+			else //다른 날짜이면
 			{
 				currentDate = date;
 				parent = new QTreeWidgetItem(this);
@@ -194,11 +200,14 @@ void DoneTreeWidget::SearchText(QString text)
 
 		DeleteAllItems();
 		LoadDoneItems(searchData);
+		mode_ = MODE::SEARCH;
 	}
 }
 // 다시 원래 상태로 돌리는 코드
 void DoneTreeWidget::ReLoadDoneItems()
 {
+	DeleteAllItems();
+	mode_ = MODE::SHOWLIST;
 	LoadDoneItems(doneHistory_);
 }
 
