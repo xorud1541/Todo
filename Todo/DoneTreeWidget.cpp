@@ -80,7 +80,7 @@ void DoneTreeWidget::AddTodayDoneItem(QVector<TodoData>& doneData)
 	}
 }
 
-void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
+void DoneTreeWidget::SetItems(const QVector<TodoData>& data)
 {
 	QFont font;
 	QTreeWidgetItem* parent = NULL;
@@ -142,7 +142,13 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 	}
 }
 
-void DoneTreeWidget::LoadDetailData(const QTreeWidgetItem& item)
+void DoneTreeWidget::LoadDoneHistory(const QVector<TodoData>& data)
+{
+	SetItems(data);
+	SetDoneHistroy(data);
+}
+
+void DoneTreeWidget::ShowDetailData(const QTreeWidgetItem& item)
 {
 	QString date = item.parent()->text(0);
 	
@@ -181,7 +187,7 @@ void DoneTreeWidget::OnShowDetailAction()
 
 	if (item)
 		if(item->childCount() == 0)
-			LoadDetailData(*item);
+			ShowDetailData(*item);
 }
 
 void DoneTreeWidget::OnDbClickItem()
@@ -190,7 +196,7 @@ void DoneTreeWidget::OnDbClickItem()
 
 	if (item)
 		if (item->childCount() == 0)
-			LoadDetailData(*item);
+			ShowDetailData(*item);
 }
 
 void DoneTreeWidget::SetMostTopDate(QString date)
@@ -220,16 +226,21 @@ void DoneTreeWidget::SearchText(QString text)
 		}
 
 		DeleteAllItems();
-		LoadDoneData(searchData);
+		LoadDoneSearch(searchData);
 		mode_ = MODE::SEARCH;
 	}
+}
+
+void DoneTreeWidget::LoadDoneSearch(const QVector<TodoData>& data)
+{
+	SetItems(data);
 }
 
 void DoneTreeWidget::ReLoadDoneItems()
 {
 	DeleteAllItems();
 	mode_ = MODE::SHOWLIST;
-	LoadDoneData(doneHistory_);
+	SetItems(doneHistory_);
 }
 
 void DoneTreeWidget::mouseReleaseEvent(QMouseEvent* e)
@@ -268,7 +279,8 @@ void DoneTreeWidget::SetDoneHistroy(const QVector<TodoData>& data)
 
 void DoneTreeWidget::DeleteAllItems()
 {
-	for (int i = 0; i < doneHistory_.size(); i++)
+	int cnt = topLevelItemCount();
+	for (int i = 0; i < cnt; i++)
 	{
 		takeTopLevelItem(0);
 	}

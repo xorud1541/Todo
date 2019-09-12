@@ -48,10 +48,10 @@
     <ClCompile Include="DateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DoneTreeWidget.cpp">
+    <ClCompile Include="LogInDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LogInDlg.cpp">
+    <ClCompile Include="DoneTreeWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

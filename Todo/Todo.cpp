@@ -30,7 +30,7 @@ Todo::Todo(QWidget *parent)
 	//done_data
 	QVector<TodoData> dataFromDB;
 	ProjectManager::GetInstance().Load_Done_Data(dataFromDB);
-	ui.doneTreeWidget->LoadDoneData(dataFromDB);
+	ui.doneTreeWidget->LoadDoneHistory(dataFromDB);
 
 	ui.tabWidget->setCurrentIndex(0);
 #ifndef _DEBUG

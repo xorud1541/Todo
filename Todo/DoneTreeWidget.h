@@ -13,8 +13,10 @@ public:
 	~DoneTreeWidget();
 
 	void AddTodayDoneItem(QVector<TodoData>& done);
-	void LoadDetailData(const QTreeWidgetItem& item);
-	void LoadDoneData(const QVector<TodoData>& data);
+	void ShowDetailData(const QTreeWidgetItem& item);
+	void SetItems(const QVector<TodoData>& data);
+	void LoadDoneHistory(const QVector<TodoData>& data);
+	void LoadDoneSearch(const QVector<TodoData>& data);
 	void OnShowDetailAction();
 	void OnDbClickItem();
 	void SetMostTopDate(QString date);
