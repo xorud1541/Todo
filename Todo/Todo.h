@@ -23,7 +23,7 @@ public:
 	void OnClickSortBtn();
 	void OnClickTrayExit();
 	void OnClickSearchBtn();
-	void OnClickDoneRefreshBtn();
+	void OnClearSearchEdit();
 
 protected:
 	void resizeEvent(QResizeEvent *e);

@@ -429,7 +429,7 @@
        </font>
       </property>
       <property name="placeholderText">
-       <string>찾으실 내용을 입력해주세요.</string>
+       <string>검색어를 입력하세요.</string>
       </property>
      </widget>
      <widget class="QPushButton" name="refreshBtn">

@@ -238,7 +238,7 @@ public:
         sortBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(todoTab), QApplication::translate("TodoClass", "\355\225\240 \354\235\274", Q_NULLPTR));
         searchBtn->setText(QString());
-        searchEdit->setPlaceholderText(QApplication::translate("TodoClass", "\354\260\276\354\234\274\354\213\244 \353\202\264\354\232\251\354\235\204 \354\236\205\353\240\245\355\225\264\354\243\274\354\204\270\354\232\224.", Q_NULLPTR));
+        searchEdit->setPlaceholderText(QApplication::translate("TodoClass", "\352\262\200\354\203\211\354\226\264\353\245\274 \354\236\205\353\240\245\355\225\230\354\204\270\354\232\224.", Q_NULLPTR));
         refreshBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(doneTab), QApplication::translate("TodoClass", "\354\231\204\353\243\214\355\225\234 \354\235\274", Q_NULLPTR));
     } // retranslateUi

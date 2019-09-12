@@ -33,6 +33,8 @@ Todo::Todo(QWidget *parent)
 	ui.doneTreeWidget->LoadDoneHistory(dataFromDB);
 
 	ui.tabWidget->setCurrentIndex(0);
+
+	ui.searchEdit->setClearButtonEnabled(true);
 #ifndef _DEBUG
 	trayIcon_ = new QSystemTrayIcon(this);
 
@@ -45,7 +47,8 @@ Todo::Todo(QWidget *parent)
 	connect(ui.doneBtn, &QPushButton::clicked, this, &Todo::OnClickDoneBtn);
 	connect(ui.sortBtn, &QPushButton::clicked, this, &Todo::OnClickSortBtn);
 	connect(ui.searchBtn, &QPushButton::clicked, this, &Todo::OnClickSearchBtn);
-	connect(ui.refreshBtn, &QPushButton::clicked, this, &Todo::OnClickDoneRefreshBtn);
+	connect(ui.searchEdit, &QLineEdit::textChanged, this, &Todo::OnClearSearchEdit);
+	connect(ui.searchEdit, &QLineEdit::returnPressed, this, &Todo::OnClickSearchBtn);
 
 	connect(trayIcon_, &QSystemTrayIcon::activated, this, &Todo::OnTrayIconClicked);
 	connect(&trayShowAction_, &QAction::triggered, this, &Todo::OnClickTrayExit);
@@ -88,10 +91,10 @@ void Todo::OnClickSearchBtn()
 	}
 }
 
-void Todo::OnClickDoneRefreshBtn()
+void Todo::OnClearSearchEdit()
 {
-	ui.doneTreeWidget->ReLoadDoneItems();
-	ui.searchEdit->clear();
+	if(ui.searchEdit->text().isEmpty())
+		ui.doneTreeWidget->ReLoadDoneItems();
 }
 
 void Todo::RefreshCurrentDate()
