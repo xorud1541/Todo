@@ -16,6 +16,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
@@ -42,6 +43,9 @@ public:
     QPushButton *sortBtn;
     QWidget *doneTab;
     DoneTreeWidget *doneTreeWidget;
+    QPushButton *searchBtn;
+    QLineEdit *searchEdit;
+    QPushButton *refreshBtn;
 
     void setupUi(QMainWindow *TodoClass)
     {
@@ -175,7 +179,7 @@ public:
         __qtreewidgetitem->setText(0, QStringLiteral("1"));
         doneTreeWidget->setHeaderItem(__qtreewidgetitem);
         doneTreeWidget->setObjectName(QStringLiteral("doneTreeWidget"));
-        doneTreeWidget->setGeometry(QRect(0, 1, 401, 721));
+        doneTreeWidget->setGeometry(QRect(0, 60, 401, 671));
         doneTreeWidget->setRootIsDecorated(true);
         doneTreeWidget->setUniformRowHeights(false);
         doneTreeWidget->setItemsExpandable(true);
@@ -189,14 +193,36 @@ public:
         doneTreeWidget->header()->setCascadingSectionResizes(false);
         doneTreeWidget->header()->setHighlightSections(false);
         doneTreeWidget->header()->setProperty("showSortIndicator", QVariant(true));
+        searchBtn = new QPushButton(doneTab);
+        searchBtn->setObjectName(QStringLiteral("searchBtn"));
+        searchBtn->setGeometry(QRect(300, 10, 50, 40));
         QIcon icon4;
-        icon4.addFile(QStringLiteral("image/done_tree_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(doneTab, icon4, QString());
+        icon4.addFile(QStringLiteral("image/search_done.png"), QSize(), QIcon::Normal, QIcon::Off);
+        searchBtn->setIcon(icon4);
+        searchBtn->setIconSize(QSize(50, 40));
+        searchBtn->setFlat(true);
+        searchEdit = new QLineEdit(doneTab);
+        searchEdit->setObjectName(QStringLiteral("searchEdit"));
+        searchEdit->setGeometry(QRect(0, 10, 301, 41));
+        QFont font1;
+        font1.setPointSize(13);
+        searchEdit->setFont(font1);
+        refreshBtn = new QPushButton(doneTab);
+        refreshBtn->setObjectName(QStringLiteral("refreshBtn"));
+        refreshBtn->setGeometry(QRect(350, 11, 50, 40));
+        QIcon icon5;
+        icon5.addFile(QStringLiteral("image/refresh_done.png"), QSize(), QIcon::Normal, QIcon::Off);
+        refreshBtn->setIcon(icon5);
+        refreshBtn->setIconSize(QSize(50, 30));
+        refreshBtn->setFlat(true);
+        QIcon icon6;
+        icon6.addFile(QStringLiteral("image/done_tree_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(doneTab, icon6, QString());
         TodoClass->setCentralWidget(centralWidget);
 
         retranslateUi(TodoClass);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         doneBtn->setDefault(false);
 
 
@@ -211,6 +237,9 @@ public:
         doneBtn->setText(QString());
         sortBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(todoTab), QApplication::translate("TodoClass", "\355\225\240 \354\235\274", Q_NULLPTR));
+        searchBtn->setText(QString());
+        searchEdit->setPlaceholderText(QApplication::translate("TodoClass", "\354\260\276\354\234\274\354\213\244 \353\202\264\354\232\251\354\235\204 \354\236\205\353\240\245\355\225\264\354\243\274\354\204\270\354\232\224.", Q_NULLPTR));
+        refreshBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(doneTab), QApplication::translate("TodoClass", "\354\231\204\353\243\214\355\225\234 \354\235\274", Q_NULLPTR));
     } // retranslateUi
 

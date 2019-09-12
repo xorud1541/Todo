@@ -11,6 +11,7 @@
 DoneTreeWidget::DoneTreeWidget(QWidget* parent)
 	:QTreeWidget(parent)
 	, showDetailAction_(QString::fromLocal8Bit("상세보기"), this)
+	, mode_(MODE::SHOWLIST)
 {
 	mostTopItem_ = new QTreeWidgetItem(this);
 	IsThereTodayDone_ = false;
@@ -28,7 +29,7 @@ DoneTreeWidget::~DoneTreeWidget()
 void DoneTreeWidget::AddTodayDoneItem(QVector<TodoData>& doneData)
 {
 	QFont font;
-	if (!IsThereTodayDone_ )
+	if (!IsThereTodayDone_  && mode_ == MODE::SHOWLIST)
 	{
 		QString date = QString::fromLocal8Bit("오늘");
 		font.setPointSize(13);
@@ -41,15 +42,28 @@ void DoneTreeWidget::AddTodayDoneItem(QVector<TodoData>& doneData)
 	for (int i = 0; i < doneData.size(); i++)
 	{
 		TodoData data = doneData[i];
+<<<<<<< HEAD
 		QTreeWidgetItem* item = new QTreeWidgetItem(mostTopItem_);
 		font.setPointSize(12);
 		item->setFont(0, font);
 		item->setText(0, data.GetTitle());
 		mostTopItem_->addChild(item);
+=======
+		doneHistory_.push_back(data);
+
+		if (mode_ == MODE::SHOWLIST)
+		{
+			QTreeWidgetItem* item = new QTreeWidgetItem(treeParent_);
+			font.setPointSize(12);
+			item->setFont(0, font);
+			item->setText(0, data.GetTitle());
+			treeParent_->addChild(item);
+		}
+>>>>>>> feature/search
 	}
 }
 
-void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
+void DoneTreeWidget::LoadDoneItems(const QVector<TodoData>& data)
 {
 	QFont font;
 	QTreeWidgetItem* parent = NULL;
@@ -57,12 +71,13 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 	for (int i = 0; i < data.size(); i++)
 	{
 		TodoData todoData = data[i];
-		QString date = todoData.GetDate();
-		QString done = todoData.GetTitle();
-		QString detail = todoData.GetDetail();
+		QString date = todoData.GetDate(); //날짜
+		QString done = todoData.GetTitle(); //한 일
+		QString detail = todoData.GetDetail(); //상세내용
 
-		if (currentDate.isEmpty())
-			currentDate = date;
+		if (date == dateMng.GetCurrentDate()) date = QString::fromLocal8Bit("오늘");
+
+		if (currentDate.isEmpty()) currentDate = date;
 
 		if (parent == NULL)
 		{
@@ -80,6 +95,7 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 		}
 		else
 		{
+			//한일이 현재 등록중인 날짜랑 같으면 
 			if (currentDate.compare(date, Qt::CaseInsensitive) == 0)
 			{
 				QTreeWidgetItem* item = new QTreeWidgetItem(parent);
@@ -88,7 +104,7 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 				item->setText(0, done);
 				parent->addChild(item);
 			}
-			else
+			else //다른 날짜이면
 			{
 				currentDate = date;
 				parent = new QTreeWidgetItem(this);
@@ -107,10 +123,16 @@ void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
 	}
 }
 
-void DoneTreeWidget::LoadDetailData(const QTreeWidgetItem& item)
+void DoneTreeWidget::LoadDoneData(const QVector<TodoData>& data)
+{
+	LoadDoneItems(data);
+	SetDoneHistroy(data);
+}
+
+void DoneTreeWidget::ShowDetailData(const QTreeWidgetItem& item)
 {
 	QString date = item.parent()->text(0);
-	
+
 	//"오늘" 이라는 날짜이면 현재날짜로 대체하는 코드  
 	if (date == QString::fromLocal8Bit("오늘"))
 		date = dateMng.GetCurrentDate();
@@ -122,7 +144,7 @@ void DoneTreeWidget::LoadDetailData(const QTreeWidgetItem& item)
 	TodoDlg todoDlg;
 	todoDlg.SetTodoTitle(data.GetTitle());
 	todoDlg.SetTodoDetail(data.GetDetail());
-	
+
 	QList<QWidget *> widgets = todoDlg.findChildren<QWidget *>();
 	foreach(QWidget* widget, widgets) {
 		if (strcmp(widget->metaObject()->className(), "QTextEdit") == 0)
@@ -146,7 +168,7 @@ void DoneTreeWidget::OnShowDetailAction()
 
 	if (item)
 		if(item->childCount() == 0)
-			LoadDetailData(*item);
+			ShowDetailData(*item);
 }
 
 void DoneTreeWidget::OnDbClickItem()
@@ -155,7 +177,7 @@ void DoneTreeWidget::OnDbClickItem()
 
 	if (item)
 		if (item->childCount() == 0)
-			LoadDetailData(*item);
+			ShowDetailData(*item);
 }
 
 void DoneTreeWidget::SetMostTopDate(QString date)
@@ -168,6 +190,35 @@ void DoneTreeWidget::SetMostTopDate(QString date)
 		mostTopItem_->setFont(0, font);
 		IsThereTodayDone_ = false;
 	}
+}
+
+void DoneTreeWidget::SearchText(QString text)
+{
+	if (!text.isEmpty())
+	{
+		QVector<TodoData> searchData;
+		int totalCount = doneHistory_.size();
+
+		for (int i = 0; i < totalCount; i++)
+		{
+			TodoData data = doneHistory_[i];
+			if (data.hasText(text))
+			{
+				searchData.push_back(data);
+			}
+		}
+
+		DeleteAllItems();
+		LoadDoneItems(searchData);
+		mode_ = MODE::SEARCH;
+	}
+}
+// 다시 원래 상태로 돌리는 코드
+void DoneTreeWidget::ReLoadDoneItems()
+{
+	DeleteAllItems();
+	mode_ = MODE::SHOWLIST;
+	LoadDoneItems(doneHistory_);
 }
 
 void DoneTreeWidget::mouseReleaseEvent(QMouseEvent* e)
@@ -194,4 +245,20 @@ void DoneTreeWidget::ShowContextMenu(const QPoint& globalPos)
 
 	contextMenu_.move(globalPos);
 	contextMenu_.show();
+}
+
+void DoneTreeWidget::SetDoneHistroy(const QVector<TodoData>& data)
+{
+	for (int i = 0; i < data.size(); i++)
+	{
+		doneHistory_.push_back(data[i]);
+	}
+}
+
+void DoneTreeWidget::DeleteAllItems()
+{
+	for (int i = 0; i < doneHistory_.size(); i++)
+	{
+		takeTopLevelItem(0);
+	}
 }

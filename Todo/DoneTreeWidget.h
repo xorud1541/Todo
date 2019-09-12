@@ -20,6 +20,12 @@ public:
 	void OnDbClickItem();
 	void SetMostTopDate(QString date);
 
+	enum MODE
+	{
+		SHOWLIST = 0,
+		SEARCH
+	};
+
 protected:
 	void mouseReleaseEvent(QMouseEvent* e);
 
@@ -30,6 +36,7 @@ private:
 
 private:
 	QTreeWidgetItem* mostTopItem_;
+	QVector<TodoData> doneHistory_;
 	QMenu contextMenu_;
 	QAction showDetailAction_;
 };
