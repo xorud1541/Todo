@@ -53,7 +53,7 @@ public:
 
 	virtual API_RETURN Load_Done_Data(
 		QVector<TodoData>& data,
-		bool hasDetail = false);
+		bool hasDetail = true);
 
 	virtual API_RETURN Load_Done_Data(
 		TodoData& data,
