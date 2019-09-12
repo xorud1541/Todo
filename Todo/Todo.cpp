@@ -20,8 +20,8 @@ Todo::Todo(QWidget *parent)
 	ui.doneBtn->setDisabled(false);
 
 	dateTimer_ = new QTimer(this);
-	//dateTimer_->start(1000 * 60 * 60); //60분
-	dateTimer_->start(1000 * 60 * 1); //1분
+	dateTimer_->start(1000 * 60 * 60); //60분
+	//dateTimer_->start(1000 * 60 * 1); //1분
 
 	//date
 	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());

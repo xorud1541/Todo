@@ -1,5 +1,6 @@
 #pragma once
 #include <QDialog.h>
+#include <QCalendarWidget>
 
 #include "ui_TodoDlg.h"
 
@@ -12,6 +13,9 @@ public:
 	~TodoDlg();
 
 	void OnClickOkBtn();
+	void OnClickDeadLineBtn();
+	void OnClickDeadLineDate(const QDate& date);
+
 	QString GetTodoTitle() { return title_; };
 	void SetTodoTitle(QString title);
 
@@ -36,5 +40,8 @@ private:
 	QFont font_;
 	QString title_;
 	QString detail_;
+	QCalendarWidget* calendar_;
+	bool isShowCalendar_;
+	QDate deadLine_;
 };
 

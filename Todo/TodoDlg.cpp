@@ -4,8 +4,12 @@
 #include <QCurSor>
 #include <QScrollBar>
 #include <QAction>
+#include <QMessageBox>
+
 TodoDlg::TodoDlg(QWidget* parent)
-	:QDialog(parent)
+	: QDialog(parent)
+	, calendar_(NULL)
+	, isShowCalendar_(false)
 {
 	ui.setupUi(this);
 	font_.setPointSize(fontSize);
@@ -22,6 +26,7 @@ TodoDlg::TodoDlg(QWidget* parent)
 	connect(okAction, &QAction::triggered, this, &TodoDlg::OnOkAction);
 	connect(ui.okBtn, &QPushButton::clicked, this, &TodoDlg::OnClickOkBtn);
 	connect(cancelAction, &QAction::triggered, this, &TodoDlg::OnCancelAction);
+	connect(ui.deadLineBtn, &QPushButton::clicked, this, &TodoDlg::OnClickDeadLineBtn);
 }
 
 TodoDlg::~TodoDlg()
@@ -41,6 +46,50 @@ void TodoDlg::OnClickOkBtn()
 	}
 
 	QDialog::close();
+}
+
+void TodoDlg::OnClickDeadLineBtn()
+{
+	if (calendar_)
+	{
+		if (isShowCalendar_)
+		{
+			calendar_->close();
+			isShowCalendar_ = false;
+		}
+		else
+		{
+			calendar_->show();
+			isShowCalendar_ = true;
+		}
+	}
+	else
+	{
+		//초기 생성
+		calendar_ = new QCalendarWidget(this);
+		connect(calendar_, &QCalendarWidget::clicked, this, &TodoDlg::OnClickDeadLineDate);
+		isShowCalendar_ = true;
+		calendar_->show();
+	}
+}
+
+void TodoDlg::OnClickDeadLineDate(const QDate& date)
+{
+	deadLine_ = date;
+
+	int year, month, day;
+	deadLine_.getDate(&year, &month, &day);
+
+	QMessageBox::StandardButton reply;
+	reply = QMessageBox::question(this, QString::fromLocal8Bit("날짜 선택하기"), 
+		QString::fromLocal8Bit("%0년 %1월 %2일 로 선택하시겠습니까?")
+		.arg(year).arg(month).arg(day), 
+		QMessageBox::Yes | QMessageBox::No);
+	if (reply == QMessageBox::Yes) 
+	{
+		calendar_->close();
+		isShowCalendar_ = false;
+	}
 }
 
 void TodoDlg::SetTodoTitle(QString title)
