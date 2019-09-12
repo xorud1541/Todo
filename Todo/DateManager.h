@@ -19,7 +19,7 @@ public:
 	int GetYear() { return year_; };
 	int GetMonth() { return month_; };
 
-	void SetCurrentDate();
+	void UpdateCurrentDate();
 	QString GetCurrentDate();
 	void InitDate();
 

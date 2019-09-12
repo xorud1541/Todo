@@ -102,7 +102,7 @@ bool ProjectManager::InitDB()
 
 bool ProjectManager::InitDate()
 {
-	DateManager::GetInstance().SetCurrentDate();
+	DateManager::GetInstance().UpdateCurrentDate();
 	return true;
 }
 

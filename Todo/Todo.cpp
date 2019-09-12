@@ -20,7 +20,7 @@ Todo::Todo(QWidget *parent)
 	ui.doneBtn->setDisabled(false);
 
 	dateTimer_ = new QTimer(this);
-	dateTimer_->start(1000 * 60 * 60);
+	dateTimer_->start(1000 * 60 * 60); //60Ка
 
 	//date
 	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());
@@ -78,12 +78,13 @@ void Todo::OnTrayIconClicked(QSystemTrayIcon::ActivationReason reason)
 
 void Todo::RefreshCurrentDate()
 {
-	QString today = dateMng.GetCurrentDate();
-	dateMng.SetCurrentDate();
+	QString beforeUpdate = dateMng.GetCurrentDate();
+	dateMng.UpdateCurrentDate();
+	QString afterUpdate = dateMng.GetCurrentDate();
 
-	if (today != dateMng.GetCurrentDate())
+	if (beforeUpdate != afterUpdate)
 	{
-		ui.doneTreeWidget->RefreshTodayDate(dateMng.GetCurrentDate());
+		ui.doneTreeWidget->SetMostTopDate(beforeUpdate);
 	}
 
 	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());

@@ -18,7 +18,7 @@ public:
 
 	void OnShowDetailAction();
 	void OnDbClickItem();
-	void RefreshTodayDate(QString date);
+	void SetMostTopDate(QString date);
 
 protected:
 	void mouseReleaseEvent(QMouseEvent* e);
@@ -29,7 +29,7 @@ private:
 	bool IsThereTodayDone_;
 
 private:
-	QTreeWidgetItem* treeParent_;
+	QTreeWidgetItem* mostTopItem_;
 	QMenu contextMenu_;
 	QAction showDetailAction_;
 };

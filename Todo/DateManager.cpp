@@ -5,7 +5,7 @@ DateManager::DateManager()
 {
 }
 
-void DateManager::SetCurrentDate()
+void DateManager::UpdateCurrentDate()
 {
 	date_ = QDate::currentDate();
 	day_ = date_.day();
@@ -45,7 +45,7 @@ void DateManager::SetCurrentDate()
 
 void DateManager::InitDate()
 {
-	SetCurrentDate();
+	UpdateCurrentDate();
 }
 
 QString DateManager::GetCurrentDate()

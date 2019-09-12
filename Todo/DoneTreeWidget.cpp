@@ -12,7 +12,7 @@ DoneTreeWidget::DoneTreeWidget(QWidget* parent)
 	:QTreeWidget(parent)
 	, showDetailAction_(QString::fromLocal8Bit("상세보기"), this)
 {
-	treeParent_ = new QTreeWidgetItem(this);
+	mostTopItem_ = new QTreeWidgetItem(this);
 	IsThereTodayDone_ = false;
 
 	connect(&showDetailAction_, &QAction::triggered, this, &DoneTreeWidget::OnShowDetailAction);
@@ -32,20 +32,20 @@ void DoneTreeWidget::AddTodayDoneItem(QVector<TodoData>& doneData)
 	{
 		QString date = QString::fromLocal8Bit("오늘");
 		font.setPointSize(13);
-		treeParent_->setText(0, date);
-		treeParent_->setFont(0, font);
-		insertTopLevelItem(0, treeParent_);
+		mostTopItem_->setText(0, date);
+		mostTopItem_->setFont(0, font);
+		insertTopLevelItem(0, mostTopItem_);
 		IsThereTodayDone_ = true;
 	}
 
 	for (int i = 0; i < doneData.size(); i++)
 	{
 		TodoData data = doneData[i];
-		QTreeWidgetItem* item = new QTreeWidgetItem(treeParent_);
+		QTreeWidgetItem* item = new QTreeWidgetItem(mostTopItem_);
 		font.setPointSize(12);
 		item->setFont(0, font);
 		item->setText(0, data.GetTitle());
-		treeParent_->addChild(item);
+		mostTopItem_->addChild(item);
 	}
 }
 
@@ -158,14 +158,16 @@ void DoneTreeWidget::OnDbClickItem()
 			LoadDetailData(*item);
 }
 
-void DoneTreeWidget::RefreshTodayDate(QString date)
+void DoneTreeWidget::SetMostTopDate(QString date)
 {
-	QFont font;
-	font.setPointSize(13);
-	treeParent_->setText(0, date);
-	treeParent_->setFont(0, font);
-
-	IsThereTodayDone_ = false;
+	if (mostTopItem_)
+	{
+		QFont font;
+		font.setPointSize(13);
+		mostTopItem_->setText(0, date);
+		mostTopItem_->setFont(0, font);
+		IsThereTodayDone_ = false;
+	}
 }
 
 void DoneTreeWidget::mouseReleaseEvent(QMouseEvent* e)
