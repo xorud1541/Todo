@@ -25,7 +25,11 @@ public:
 	QString GetTodoDeadLine() { return deadLine_; };
 	void SetTodoDeadLine(QString date);
 
+	bool IsChecked() { return isChecked_; };
+	void SetTodoChecked(bool checked);
+
 	void SetDataFromTodoData(TodoData& data);
+	TodoData GetTodoDataFromTodoDlg();
 
 protected:
 	void resizeEvent(QResizeEvent* e);
@@ -47,6 +51,7 @@ private:
 	QString detail_;
 	QCalendarWidget* calendar_;
 	bool isShowCalendar_;
+	bool isChecked_;
 	QString deadLine_;
 };
 

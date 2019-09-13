@@ -20,9 +20,10 @@ public:
 	void GetDoneItem(QVector<TodoData>& data);
 	void SortTodoItems();
 	void AddTodo(TodoData& todo);
-	void SetItemFromDeadLine(QListWidgetItem* item, const QString& deadLine);
+	void SetItemTextFromDeadLine(QListWidgetItem* item, const QString& deadLine);
 	void CloseWindow();
 	void ShowWindow();
+	void SetTodoData(QListWidgetItem* item, const TodoData& data);
 
 	QMap<QListWidgetItem*, TodoData>& GetDataMap() { return dataMap_; };
 

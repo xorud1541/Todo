@@ -173,6 +173,35 @@ void TodoListWidget::ShowContextMenu(const QPoint& globalPos)
 	contextMenu_.show();
 }
 
+void TodoListWidget::SetTodoData(QListWidgetItem* item, const TodoData& data)
+{
+	if (item)
+	{
+		TodoData& dstData = dataMap_[item];
+		QString title = data.GetTitle(); //할 일
+		QString detail = data.GetDetail(); //상세내용
+		QString deadLine = data.GetDeadLine(); //마감
+		bool checked = data.IsChecked();
+
+		//취소선
+		if (checked)
+			font_.setStrikeOut(true);
+		else
+			font_.setStrikeOut(false);
+		item->setFont(font_);
+
+		dstData.SetTitle(title); 
+		dstData.SetDetail(detail);
+		dstData.SetDeadLine(deadLine);
+		dstData.SetChecked(checked);
+
+		SetItemTextFromDeadLine(item, deadLine);
+
+		//화면에 보여줄 타이틀
+		item->setText(title);
+	}
+}
+
 void TodoListWidget::OnShowDetailAction()
 {
 	QListWidgetItem* item = currentItem();
@@ -183,15 +212,8 @@ void TodoListWidget::OnShowDetailAction()
 
 	if (todoDlg.exec() == QDialog::Accepted)
 	{
-		data.SetTitle(todoDlg.GetTodoTitle());
-		data.SetDetail(todoDlg.GetTodoDetail());
-
-		QString deadLine = todoDlg.GetTodoDeadLine();
-		data.SetDeadLine(deadLine);
-
-		SetItemFromDeadLine(item, deadLine);
-
-		item->setText(todoDlg.GetTodoTitle());
+		TodoData tempData = todoDlg.GetTodoDataFromTodoDlg();
+		SetTodoData(item, tempData);
 	}
 }
 
@@ -205,26 +227,13 @@ void TodoListWidget::AddTodo(TodoData& todo)
 {
 	QListWidgetItem* item = new QListWidgetItem(this);
 
-	// item 메인 텍스트
-	item->setText(todo.GetTitle());
+	SetTodoData(item, todo);
 
-	//취소선
-	if (todo.IsChecked())
-		font_.setStrikeOut(true);
-	else
-		font_.setStrikeOut(false);
-	item->setFont(font_);
-
-	//마감
-	QString deadLine = todo.GetDeadLine();
-	SetItemFromDeadLine(item, deadLine);
-
-	//item data 추가
 	addItem(item);
 	dataMap_.insert(item, todo);
 }
 
-void TodoListWidget::SetItemFromDeadLine(QListWidgetItem* item, const QString& deadLine)
+void TodoListWidget::SetItemTextFromDeadLine(QListWidgetItem* item, const QString& deadLine)
 {
 	if (item && !deadLine.isEmpty())
 	{

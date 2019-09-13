@@ -14,7 +14,7 @@ public:
 	QString GetTitle() const { return title_; };
 	void SetTitle(QString title) { title_ = title; };
 
-	bool IsChecked() { return checked_; };
+	bool IsChecked() const { return checked_; };
 	void SetChecked(bool checked) { checked_ = checked; };
 
 	void SetDetail(QString detail) { detail_ = detail; };

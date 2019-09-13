@@ -115,11 +115,28 @@ void TodoDlg::SetTodoDeadLine(QString date)
 	deadLine_ = date;
 }
 
+void TodoDlg::SetTodoChecked(bool checked)
+{
+	isChecked_ = checked;
+}
+
 void TodoDlg::SetDataFromTodoData(TodoData& data)
 {
 	SetTodoTitle(data.GetTitle());
 	SetTodoDetail(data.GetDetail());
 	SetTodoDeadLine(data.GetDeadLine());
+	SetTodoChecked(data.IsChecked());
+}
+
+TodoData TodoDlg::GetTodoDataFromTodoDlg()
+{
+	TodoData data;
+	data.SetTitle(title_);
+	data.SetDetail(detail_);
+	data.SetDeadLine(deadLine_);
+	data.SetChecked(isChecked_);
+
+	return data;
 }
 
 void TodoDlg::resizeEvent(QResizeEvent* e)
