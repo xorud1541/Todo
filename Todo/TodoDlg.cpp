@@ -115,6 +115,13 @@ void TodoDlg::SetTodoDeadLine(QString date)
 	deadLine_ = date;
 }
 
+void TodoDlg::SetDataFromTodoData(TodoData& data)
+{
+	SetTodoTitle(data.GetTitle());
+	SetTodoDetail(data.GetDetail());
+	SetTodoDeadLine(data.GetDeadLine());
+}
+
 void TodoDlg::resizeEvent(QResizeEvent* e)
 {
 	int height = this->height();

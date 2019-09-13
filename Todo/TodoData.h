@@ -1,6 +1,6 @@
 #pragma once
 #include <Qstring>
-#include "TodoDlg.h"
+
 class TodoData
 {
 public:
@@ -34,7 +34,6 @@ public:
 
 		return false;
 	}
-
 
 private:
 	QString title_;

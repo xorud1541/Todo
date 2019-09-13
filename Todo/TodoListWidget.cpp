@@ -1,7 +1,6 @@
 #include "TodoListWidget.h"
 #include "ProjectManager.h"
 #include "DateManager.h"
-#include "TodoDlg.h"
 
 #include <QCheckbox>
 #include <QVector>
@@ -180,13 +179,18 @@ void TodoListWidget::OnShowDetailAction()
 	TodoData& data = dataMap_[item];
 
 	TodoDlg todoDlg;
-	todoDlg.SetTodoTitle(data.GetTitle());
-	todoDlg.SetTodoDetail(data.GetDetail());
+	todoDlg.SetDataFromTodoData(data);
 
 	if (todoDlg.exec() == QDialog::Accepted)
 	{
 		data.SetTitle(todoDlg.GetTodoTitle());
 		data.SetDetail(todoDlg.GetTodoDetail());
+
+		QString deadLine = todoDlg.GetTodoDeadLine();
+		data.SetDeadLine(deadLine);
+
+		SetItemFromDeadLine(item, deadLine);
+
 		item->setText(todoDlg.GetTodoTitle());
 	}
 }
@@ -228,6 +232,10 @@ void TodoListWidget::SetItemFromDeadLine(QListWidgetItem* item, const QString& d
 		if (currentDate == deadLine)
 		{
 			item->setTextColor(QColor(216, 56, 29));
+		}
+		else
+		{
+			item->setTextColor(QColor(0, 0, 0));
 		}
 	}
 }

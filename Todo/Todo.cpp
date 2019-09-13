@@ -121,6 +121,8 @@ void Todo::OnClickAddBtn()
 
 		data.SetTitle(todoDlg.GetTodoTitle());
 		data.SetDetail(todoDlg.GetTodoDetail());
+		data.SetDeadLine(todoDlg.GetTodoDeadLine());
+
 		ui.todoListWidget->AddTodo(data);
 	}
 }

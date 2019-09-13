@@ -3,7 +3,7 @@
 #include <QCalendarWidget>
 
 #include "ui_TodoDlg.h"
-
+#include "TodoData.h"
 class TodoDlg : public QDialog
 {
 	Q_OBJECT
@@ -24,6 +24,8 @@ public:
 
 	QString GetTodoDeadLine() { return deadLine_; };
 	void SetTodoDeadLine(QString date);
+
+	void SetDataFromTodoData(TodoData& data);
 
 protected:
 	void resizeEvent(QResizeEvent* e);

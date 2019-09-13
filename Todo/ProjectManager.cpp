@@ -138,6 +138,7 @@ bool ProjectManager::SaveTodoList(TodoData& data)
 	settings.beginGroup(group);
 	settings.setValue("check", data.IsChecked());
 	settings.setValue("detail", data.GetDetail());
+	settings.setValue("deadline", data.GetDeadLine());
 	settings.endGroup();
 
 	return true;
@@ -172,6 +173,12 @@ bool ProjectManager::LoadTodoList(TodoListWidget* list)
 				QString value = settings.value(key).toString();
 				if (!value.isEmpty())
 					data.SetDetail(value);
+			}
+			else if (key == "deadline")
+			{
+				QString value = settings.value(key).toString();
+				if (!value.isEmpty())
+					data.SetDeadLine(value);
 			}
 		}
 		keys.clear();

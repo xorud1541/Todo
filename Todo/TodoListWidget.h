@@ -1,5 +1,6 @@
 #pragma once
 #include "TodoData.h"
+#include "TodoDlg.h"
 
 #include <QListwidget>
 #include <QMap>
