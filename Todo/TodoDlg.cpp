@@ -6,6 +6,8 @@
 #include <QAction>
 #include <QMessageBox>
 
+#include "DateManager.h"
+
 TodoDlg::TodoDlg(QWidget* parent)
 	: QDialog(parent)
 	, calendar_(NULL)
@@ -75,9 +77,12 @@ void TodoDlg::OnClickDeadLineBtn()
 
 void TodoDlg::OnClickDeadLineDate(const QDate& date)
 {
-	deadLine_ = date;
 	int year, month, day;
-	deadLine_.getDate(&year, &month, &day);
+	year = date.year();
+	month = date.month();
+	day = date.day();
+
+	deadLine_ = DateManager::GetInstance().GetTodoDateFormat(year, month, day);
 
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::question(this, QString::fromLocal8Bit("날짜 선택하기"), 
@@ -105,7 +110,7 @@ void TodoDlg::SetTodoDetail(QString detail)
 	ui.detailEdit->setText(detail_);
 }
 
-void TodoDlg::SetTodoDeadLine(QDate date)
+void TodoDlg::SetTodoDeadLine(QString date)
 {
 	deadLine_ = date;
 }

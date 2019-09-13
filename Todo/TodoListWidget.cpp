@@ -211,34 +211,23 @@ void TodoListWidget::AddTodo(TodoData& todo)
 		font_.setStrikeOut(false);
 	item->setFont(font_);
 
-	//마감확인
-	QDate deadLine = todo.GetDeadLine();
-	if (!deadLine.isNull())
-	{
-		int year = deadLine.year();
-		int month = deadLine.month();
-		int day = deadLine.day();
-
-		QString deadLineStr;
-		if (dateMng.GetTodoDateFormat(year, month, day, deadLineStr))
-		{
-			SetItemBorderFromDeadLine(item, deadLineStr);
-		}
-	}
+	//마감
+	QString deadLine = todo.GetDeadLine();
+	SetItemFromDeadLine(item, deadLine);
 
 	//item data 추가
 	addItem(item);
 	dataMap_.insert(item, todo);
 }
 
-void TodoListWidget::SetItemBorderFromDeadLine(QListWidgetItem* item, const QString& deadLine)
+void TodoListWidget::SetItemFromDeadLine(QListWidgetItem* item, const QString& deadLine)
 {
-	if (item)
+	if (item && !deadLine.isEmpty())
 	{
 		QString currentDate = dateMng.GetCurrentDate();
 		if (currentDate == deadLine)
 		{
-			item->setBackgroundColor(QColor(255, 0, 0));
+			item->setTextColor(QColor(216, 56, 29));
 		}
 	}
 }

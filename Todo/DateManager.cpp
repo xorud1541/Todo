@@ -78,11 +78,14 @@ QString DateManager::GetMonthToStr(int month)
 		return QString("%0").arg(month);
 }
 
-bool DateManager::GetTodoDateFormat(int year, int month, int day, QString& output)
+QString DateManager::GetTodoDateFormat(int year, int month, int day)
 {
+	QString date;
 	if (year < 0 || month < 0 || month > 12 || day < 0 || day > 31)
-		return false;
-
-	output = GetYearToStr(year) + GetMonthToStr(month) + GetDayToStr(day);
-	return true;
+		return "";
+	else
+	{
+		date = GetYearToStr(year) + GetMonthToStr(month) + GetDayToStr(day);
+		return date;
+	}
 }

@@ -27,7 +27,7 @@ public:
 	QString GetYearToStr(int year);
 	QString GetMonthToStr(int month);
 
-	bool GetTodoDateFormat(int year, int month, int day, QString& output);
+	QString GetTodoDateFormat(int year, int month, int day);
 
 private:
 	DateManager();

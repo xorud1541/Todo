@@ -22,8 +22,8 @@ public:
 	QString GetTodoDetail() { return detail_; };
 	void SetTodoDetail(QString detail);
 
-	QDate GetTodoDeadLine() { return deadLine_; };
-	void SetTodoDeadLine(QDate date);
+	QString GetTodoDeadLine() { return deadLine_; };
+	void SetTodoDeadLine(QString date);
 
 protected:
 	void resizeEvent(QResizeEvent* e);
@@ -45,6 +45,6 @@ private:
 	QString detail_;
 	QCalendarWidget* calendar_;
 	bool isShowCalendar_;
-	QDate deadLine_;
+	QString deadLine_;
 };
 

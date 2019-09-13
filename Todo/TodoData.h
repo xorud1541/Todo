@@ -9,14 +9,6 @@ public:
 	{
 	};
 
-	TodoData(TodoDlg& dlg)
-		:checked_(false)
-	{
-		title_ = dlg.GetTodoTitle();
-		detail_ = dlg.GetTodoDetail();
-		deadLine_ = dlg.GetTodoDeadLine();
-	};
-
 	~TodoData() {};
 
 	QString GetTitle() const { return title_; };
@@ -31,8 +23,8 @@ public:
 	QString GetDate() const { return date_; };
 	void SetDate(QString date) { date_ = date; };
 
-	QDate GetDeadLine() const { return deadLine_; };
-	void SetDeadLine(QDate deadLine) { deadLine_ = deadLine; };
+	QString GetDeadLine() const { return deadLine_; };
+	void SetDeadLine(QString deadLine) { deadLine_ = deadLine; };
 
 	bool hasText(QString text)
 	{
@@ -48,6 +40,6 @@ private:
 	QString title_;
 	QString detail_;
 	QString date_;
-	QDate deadLine_;
+	QString deadLine_;
 	bool checked_;
 };
