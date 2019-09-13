@@ -76,7 +76,6 @@ void TodoDlg::OnClickDeadLineBtn()
 void TodoDlg::OnClickDeadLineDate(const QDate& date)
 {
 	deadLine_ = date;
-
 	int year, month, day;
 	deadLine_.getDate(&year, &month, &day);
 
@@ -104,6 +103,11 @@ void TodoDlg::SetTodoDetail(QString detail)
 	detail_ = detail;
 
 	ui.detailEdit->setText(detail_);
+}
+
+void TodoDlg::SetTodoDeadLine(QDate date)
+{
+	deadLine_ = date;
 }
 
 void TodoDlg::resizeEvent(QResizeEvent* e)

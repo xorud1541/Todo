@@ -1,6 +1,6 @@
 #pragma once
 #include <Qstring>
-
+#include "TodoDlg.h"
 class TodoData
 {
 public:
@@ -8,6 +8,15 @@ public:
 		:checked_(false)
 	{
 	};
+
+	TodoData(TodoDlg& dlg)
+		:checked_(false)
+	{
+		title_ = dlg.GetTodoTitle();
+		detail_ = dlg.GetTodoDetail();
+		deadLine_ = dlg.GetTodoDeadLine();
+	};
+
 	~TodoData() {};
 
 	QString GetTitle() const { return title_; };
@@ -22,6 +31,9 @@ public:
 	QString GetDate() const { return date_; };
 	void SetDate(QString date) { date_ = date; };
 
+	QDate GetDeadLine() const { return deadLine_; };
+	void SetDeadLine(QDate deadLine) { deadLine_ = deadLine; };
+
 	bool hasText(QString text)
 	{
 		if (title_.contains(text)) return true;
@@ -31,9 +43,11 @@ public:
 		return false;
 	}
 
+
 private:
 	QString title_;
 	QString detail_;
 	QString date_;
+	QDate deadLine_;
 	bool checked_;
 };

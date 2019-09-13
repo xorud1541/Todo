@@ -40,7 +40,7 @@ void DateManager::UpdateCurrentDate()
 		break;
 	}
 
-	currentDate_ = GetYearToStr() + GetMonthToStr() + GetDayToStr();
+	currentDate_ = GetYearToStr(year_) + GetMonthToStr(month_) + GetDayToStr(day_);
 }
 
 void DateManager::InitDate()
@@ -57,23 +57,32 @@ DateManager::~DateManager()
 {
 }
 
-QString DateManager::GetDayToStr()
+QString DateManager::GetDayToStr(int day)
 {
-	if (day_ < 10)
-		return QString("0%0").arg(day_);
+	if (day < 10)
+		return QString("0%0").arg(day);
 	else
-		return QString("%0").arg(day_);
+		return QString("%0").arg(day);
 }
 
-QString DateManager::GetYearToStr()
+QString DateManager::GetYearToStr(int year)
 {
-	return QString("%0").arg(year_);
+	return QString("%0").arg(year);
 }
 
-QString DateManager::GetMonthToStr()
+QString DateManager::GetMonthToStr(int month)
 {
-	if (month_ < 10)
-		return QString("0%0").arg(month_);
+	if (month < 10)
+		return QString("0%0").arg(month);
 	else
-		return QString("%0").arg(month_);
+		return QString("%0").arg(month);
+}
+
+bool DateManager::GetTodoDateFormat(int year, int month, int day, QString& output)
+{
+	if (year < 0 || month < 0 || month > 12 || day < 0 || day > 31)
+		return false;
+
+	output = GetYearToStr(year) + GetMonthToStr(month) + GetDayToStr(day);
+	return true;
 }

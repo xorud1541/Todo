@@ -19,6 +19,7 @@ public:
 	void GetDoneItem(QVector<TodoData>& data);
 	void SortTodoItems();
 	void AddTodo(TodoData& todo);
+	void SetItemBorderFromDeadLine(QListWidgetItem* item, const QString& deadLine);
 	void CloseWindow();
 	void ShowWindow();
 

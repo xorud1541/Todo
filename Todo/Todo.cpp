@@ -117,10 +117,7 @@ void Todo::OnClickAddBtn()
 	TodoDlg todoDlg;
 	if (todoDlg.exec() == QDialog::Accepted)
 	{
-		TodoData data;
-
-		data.SetTitle(todoDlg.GetTodoTitle());
-		data.SetDetail(todoDlg.GetTodoDetail());
+		TodoData data(todoDlg);
 
 		ui.todoListWidget->AddTodo(data);
 	}

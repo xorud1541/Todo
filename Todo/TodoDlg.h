@@ -22,6 +22,9 @@ public:
 	QString GetTodoDetail() { return detail_; };
 	void SetTodoDetail(QString detail);
 
+	QDate GetTodoDeadLine() { return deadLine_; };
+	void SetTodoDeadLine(QDate date);
+
 protected:
 	void resizeEvent(QResizeEvent* e);
 	void showEvent(QShowEvent* e);
