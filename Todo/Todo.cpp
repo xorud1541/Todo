@@ -106,10 +106,12 @@ void Todo::RefreshCurrentDate()
 	if (beforeUpdate != afterUpdate)
 	{
 		ui.doneTreeWidget->SetMostTopDate(beforeUpdate);
-	}
 
-	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());
-	ui.dateLabel->setText(dateStr);
+		QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());
+		ui.dateLabel->setText(dateStr);
+
+		ui.todoListWidget->RefreshCurrentDate();
+	}
 }
 
 void Todo::OnClickAddBtn()

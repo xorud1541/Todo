@@ -24,6 +24,7 @@ public:
 	void CloseWindow();
 	void ShowWindow();
 	void SetTodoData(QListWidgetItem* item, const TodoData& data);
+	void RefreshCurrentDate(const QString& currentDate);
 
 	QMap<QListWidgetItem*, TodoData>& GetDataMap() { return dataMap_; };
 

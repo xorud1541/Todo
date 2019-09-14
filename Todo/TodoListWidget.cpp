@@ -202,6 +202,17 @@ void TodoListWidget::SetTodoData(QListWidgetItem* item, const TodoData& data)
 	}
 }
 
+void TodoListWidget::RefreshCurrentDate()
+{
+	int cnt = count();
+	for (int i = 0; i < cnt; i++)
+	{
+		QListWidgetItem* item = this->item(i);
+		TodoData& data = dataMap_[item];
+		SetItemTextFromDeadLine(item, data.GetDeadLine());
+	}
+}
+
 void TodoListWidget::OnShowDetailAction()
 {
 	QListWidgetItem* item = currentItem();
