@@ -95,19 +95,7 @@ void TodoListWidget::keyPressEvent(QKeyEvent* e)
 	{
 	case Qt::Key_Return:
 	{
-		QListWidgetItem* item = currentItem();
-		TodoData& data = dataMap_[item];
-
-		TodoDlg todoDlg;
-		todoDlg.SetTodoTitle(data.GetTitle());
-		todoDlg.SetTodoDetail(data.GetDetail());
-
-		if (todoDlg.exec() == QDialog::Accepted)
-		{
-			data.SetTitle(todoDlg.GetTodoTitle());
-			data.SetDetail(todoDlg.GetTodoDetail());
-			item->setText(todoDlg.GetTodoTitle());
-		}
+		ShowCurrentItemDlg();
 		break;
 	}
 	case Qt::Key_Up:
@@ -215,6 +203,11 @@ void TodoListWidget::RefreshCurrentDate()
 }
 
 void TodoListWidget::OnShowDetailAction()
+{
+	ShowCurrentItemDlg();
+}
+
+void TodoListWidget::ShowCurrentItemDlg()
 {
 	QListWidgetItem* item = currentItem();
 	TodoData& data = dataMap_[item];

@@ -37,6 +37,7 @@ protected:
 private:
 	void ShowContextMenu(const QPoint& globalPos);
 	void OnShowDetailAction();
+	void ShowCurrentItemDlg();
 	void OnDeleteAction();
 
 private:
