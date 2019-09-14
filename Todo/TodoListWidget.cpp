@@ -204,6 +204,7 @@ void TodoListWidget::SetTodoData(QListWidgetItem* item, const TodoData& data)
 
 void TodoListWidget::RefreshCurrentDate()
 {
+	// 날짜가 갱신이되면 데드라인을 갱신해주는 코드
 	int cnt = count();
 	for (int i = 0; i < cnt; i++)
 	{
