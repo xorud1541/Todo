@@ -23,13 +23,15 @@ public:
 	QString GetCurrentDate();
 	void InitDate();
 
+	QString GetDayToStr(int day);
+	QString GetYearToStr(int year);
+	QString GetMonthToStr(int month);
+
+	QString GetTodoDateFormat(int year, int month, int day);
+
 private:
 	DateManager();
 	virtual ~DateManager();
-
-	QString GetDayToStr();
-	QString GetYearToStr();
-	QString GetMonthToStr();
 
 	QDate date_;
 	QString week_;

@@ -1,7 +1,6 @@
 #include "TodoListWidget.h"
 #include "ProjectManager.h"
 #include "DateManager.h"
-#include "TodoDlg.h"
 
 #include <QCheckbox>
 #include <QVector>
@@ -174,20 +173,59 @@ void TodoListWidget::ShowContextMenu(const QPoint& globalPos)
 	contextMenu_.show();
 }
 
+void TodoListWidget::SetTodoData(QListWidgetItem* item, const TodoData& data)
+{
+	if (item)
+	{
+		TodoData& dstData = dataMap_[item];
+		QString title = data.GetTitle(); //할 일
+		QString detail = data.GetDetail(); //상세내용
+		QString deadLine = data.GetDeadLine(); //마감
+		bool checked = data.IsChecked();
+
+		//취소선
+		if (checked)
+			font_.setStrikeOut(true);
+		else
+			font_.setStrikeOut(false);
+		item->setFont(font_);
+
+		dstData.SetTitle(title); 
+		dstData.SetDetail(detail);
+		dstData.SetDeadLine(deadLine);
+		dstData.SetChecked(checked);
+
+		SetItemTextFromDeadLine(item, deadLine);
+
+		//화면에 보여줄 타이틀
+		item->setText(title);
+	}
+}
+
+void TodoListWidget::RefreshCurrentDate()
+{
+	// 날짜가 갱신이되면 데드라인을 갱신해주는 코드
+	int cnt = count();
+	for (int i = 0; i < cnt; i++)
+	{
+		QListWidgetItem* item = this->item(i);
+		TodoData& data = dataMap_[item];
+		SetItemTextFromDeadLine(item, data.GetDeadLine());
+	}
+}
+
 void TodoListWidget::OnShowDetailAction()
 {
 	QListWidgetItem* item = currentItem();
 	TodoData& data = dataMap_[item];
 
 	TodoDlg todoDlg;
-	todoDlg.SetTodoTitle(data.GetTitle());
-	todoDlg.SetTodoDetail(data.GetDetail());
+	todoDlg.SetDataFromTodoData(data);
 
 	if (todoDlg.exec() == QDialog::Accepted)
 	{
-		data.SetTitle(todoDlg.GetTodoTitle());
-		data.SetDetail(todoDlg.GetTodoDetail());
-		item->setText(todoDlg.GetTodoTitle());
+		TodoData tempData = todoDlg.GetTodoDataFromTodoDlg();
+		SetTodoData(item, tempData);
 	}
 }
 
@@ -201,17 +239,26 @@ void TodoListWidget::AddTodo(TodoData& todo)
 {
 	QListWidgetItem* item = new QListWidgetItem(this);
 
-	item->setText(todo.GetTitle());
-	
-	if (todo.IsChecked())
-		font_.setStrikeOut(true);
-	else
-		font_.setStrikeOut(false);
-	item->setFont(font_);
+	SetTodoData(item, todo);
 
-	//item data 추가
 	addItem(item);
 	dataMap_.insert(item, todo);
+}
+
+void TodoListWidget::SetItemTextFromDeadLine(QListWidgetItem* item, const QString& deadLine)
+{
+	if (item && !deadLine.isEmpty())
+	{
+		QString currentDate = dateMng.GetCurrentDate();
+		if (currentDate == deadLine)
+		{
+			item->setTextColor(QColor(216, 56, 29));
+		}
+		else
+		{
+			item->setTextColor(QColor(0, 0, 0));
+		}
+	}
 }
 
 void TodoListWidget::CloseWindow()

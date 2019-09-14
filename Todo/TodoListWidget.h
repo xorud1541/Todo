@@ -1,5 +1,6 @@
 #pragma once
 #include "TodoData.h"
+#include "TodoDlg.h"
 
 #include <QListwidget>
 #include <QMap>
@@ -19,8 +20,11 @@ public:
 	void GetDoneItem(QVector<TodoData>& data);
 	void SortTodoItems();
 	void AddTodo(TodoData& todo);
+	void SetItemTextFromDeadLine(QListWidgetItem* item, const QString& deadLine);
 	void CloseWindow();
 	void ShowWindow();
+	void SetTodoData(QListWidgetItem* item, const TodoData& data);
+	void RefreshCurrentDate();
 
 	QMap<QListWidgetItem*, TodoData>& GetDataMap() { return dataMap_; };
 
