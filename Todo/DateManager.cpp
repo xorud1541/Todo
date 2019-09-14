@@ -89,3 +89,18 @@ QString DateManager::GetTodoDateFormat(int year, int month, int day)
 		return date;
 	}
 }
+
+QDate DateManager::GetDateFromString(const QString& string)
+{
+	std::string stdString = string.toStdString();
+
+	std::string yearStr = stdString.substr(0, 4);
+	std::string monthStr = stdString.substr(4, 2);
+	std::string dayStr = stdString.substr(6, 2);
+
+	int year = atoi(yearStr.c_str());
+	int month = atoi(monthStr.c_str());
+	int day = atoi(dayStr.c_str());
+
+	return QDate(year, month, day);
+}

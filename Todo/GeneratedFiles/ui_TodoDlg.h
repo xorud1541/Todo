@@ -40,6 +40,7 @@ public:
     QTextEdit *detailEdit;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout_2;
+    QLabel *deadLineLabel;
     QFrame *line_2;
     QPushButton *deadLineBtn;
     QFrame *line_4;
@@ -102,6 +103,12 @@ public:
         widget_2->setMinimumSize(QSize(100, 0));
         verticalLayout_2 = new QVBoxLayout(widget_2);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        deadLineLabel = new QLabel(widget_2);
+        deadLineLabel->setObjectName(QStringLiteral("deadLineLabel"));
+        deadLineLabel->setMaximumSize(QSize(100, 30));
+
+        verticalLayout_2->addWidget(deadLineLabel);
+
         line_2 = new QFrame(widget_2);
         line_2->setObjectName(QStringLiteral("line_2"));
         line_2->setFrameShape(QFrame::HLine);
@@ -134,7 +141,7 @@ public:
 
         verticalLayout_2->addWidget(line_4);
 
-        verticalSpacer = new QSpacerItem(20, 260, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+        verticalSpacer = new QSpacerItem(20, 180, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
 
         verticalLayout_2->addItem(verticalSpacer);
 
@@ -163,6 +170,7 @@ public:
         ToDoDlg->setWindowTitle(QApplication::translate("ToDoDlg", "TODO", Q_NULLPTR));
         toDoLabel->setText(QApplication::translate("ToDoDlg", "\355\225\240 \354\235\274", Q_NULLPTR));
         detailLabel->setText(QApplication::translate("ToDoDlg", "\354\203\201\354\204\270\353\202\264\354\232\251", Q_NULLPTR));
+        deadLineLabel->setText(QString());
         deadLineBtn->setText(QString());
         okBtn->setText(QApplication::translate("ToDoDlg", "\355\231\225\354\235\270", Q_NULLPTR));
     } // retranslateUi

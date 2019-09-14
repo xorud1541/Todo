@@ -28,6 +28,7 @@ public:
 	QString GetMonthToStr(int month);
 
 	QString GetTodoDateFormat(int year, int month, int day);
+	QDate GetDateFromString(const QString& string);
 
 private:
 	DateManager();

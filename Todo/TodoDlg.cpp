@@ -93,6 +93,11 @@ void TodoDlg::OnClickDeadLineDate(const QDate& date)
 	{
 		calendar_->close();
 		isShowCalendar_ = false;
+
+		QString qDateStr = QString::fromLocal8Bit("%0년%1월%2일")
+			.arg(year).arg(month).arg(day);
+
+		ui.deadLineLabel->setText(qDateStr);
 	}
 }
 
@@ -113,6 +118,16 @@ void TodoDlg::SetTodoDetail(QString detail)
 void TodoDlg::SetTodoDeadLine(QString date)
 {
 	deadLine_ = date;
+
+	if (!date.isEmpty())
+	{
+		QDate qDate = DateManager::GetInstance().GetDateFromString(date);
+
+		QString qDateStr = QString::fromLocal8Bit("%0년%1월%2일")
+			.arg(qDate.year()).arg(qDate.month()).arg(qDate.day());
+
+		ui.deadLineLabel->setText(qDateStr);
+	}
 }
 
 void TodoDlg::SetTodoChecked(bool checked)
