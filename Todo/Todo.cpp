@@ -34,7 +34,12 @@ Todo::Todo(QWidget *parent)
 
 	ui.tabWidget->setCurrentIndex(0);
 
+	//searchedit
 	ui.searchEdit->setClearButtonEnabled(true);
+
+	ui.searchEdit->setStyleSheet("QLineEdit { background: rgb(234, 234, 234); selection-background-color: rgb(255, 255, 255); }");
+	ui.searchEdit->setFrame(false);
+
 #ifndef _DEBUG
 	trayIcon_ = new QSystemTrayIcon(this);
 

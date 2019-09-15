@@ -203,9 +203,10 @@ public:
         searchBtn->setFlat(true);
         searchEdit = new QLineEdit(doneTab);
         searchEdit->setObjectName(QStringLiteral("searchEdit"));
-        searchEdit->setGeometry(QRect(0, 10, 301, 41));
+        searchEdit->setGeometry(QRect(0, 15, 301, 32));
         QFont font1;
         font1.setPointSize(13);
+        font1.setKerning(true);
         searchEdit->setFont(font1);
         refreshBtn = new QPushButton(doneTab);
         refreshBtn->setObjectName(QStringLiteral("refreshBtn"));
@@ -238,7 +239,7 @@ public:
         sortBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(todoTab), QApplication::translate("TodoClass", "\355\225\240 \354\235\274", Q_NULLPTR));
         searchBtn->setText(QString());
-        searchEdit->setPlaceholderText(QApplication::translate("TodoClass", "\352\262\200\354\203\211\354\226\264\353\245\274 \354\236\205\353\240\245\355\225\230\354\204\270\354\232\224.", Q_NULLPTR));
+        searchEdit->setPlaceholderText(QApplication::translate("TodoClass", "\354\231\204\353\243\214\355\225\234 \354\235\274 \352\262\200\354\203\211", Q_NULLPTR));
         refreshBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(doneTab), QApplication::translate("TodoClass", "\354\231\204\353\243\214\355\225\234 \354\235\274", Q_NULLPTR));
     } // retranslateUi
