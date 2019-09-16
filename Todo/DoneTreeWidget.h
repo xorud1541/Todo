@@ -13,12 +13,13 @@ public:
 	~DoneTreeWidget();
 
 	void AddTodayDoneItem(QVector<TodoData>& done);
-	void LoadDoneData(const QVector<TodoData>& data);
 	void LoadDetailData(const QTreeWidgetItem& item);
-
+	void LoadDoneData(const QVector<TodoData>& data);
 	void OnShowDetailAction();
 	void OnDbClickItem();
 	void SetMostTopDate(QString date);
+	void SearchText(QString text);
+	void ReLoadDoneItems();
 
 	enum MODE
 	{
@@ -31,13 +32,15 @@ protected:
 
 private:
 	void ShowContextMenu(const QPoint& globalPos);
-
-	bool IsThereTodayDone_;
+	void SetDoneHistroy(const QVector<TodoData>& data);
+	void DeleteAllItems();
+	QString GetTodayString();
 
 private:
-	QTreeWidgetItem* mostTopItem_;
 	QVector<TodoData> doneHistory_;
 	QMenu contextMenu_;
 	QAction showDetailAction_;
+	int mode_;
+	bool IsThereTodayDone_;
 };
 

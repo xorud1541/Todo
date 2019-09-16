@@ -20,7 +20,8 @@ Todo::Todo(QWidget *parent)
 	ui.doneBtn->setDisabled(false);
 
 	dateTimer_ = new QTimer(this);
-	dateTimer_->start(1000 * 60 * 60); //60Ка
+	//dateTimer_->start(1000 * 60 * 60); //60Ка
+	dateTimer_->start(1000 * 60 * 1); //1Ка
 
 	//date
 	QString dateStr = QString("%0(%1)").arg(dateMng.GetDay()).arg(dateMng.GetWeek());
