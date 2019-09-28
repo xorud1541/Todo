@@ -297,21 +297,7 @@ void TodoListWidget::ShowWindow()
 
 void TodoListWidget::OnDbClickListItem(QListWidgetItem* item)
 {
-/*
-	TodoData& data = dataMap_[item];
-	if (data.IsChecked())
-	{
-		font_.setStrikeOut(false);
-		data.SetChecked(false);
-	}
-	else
-	{
-		font_.setStrikeOut(true);
-		data.SetChecked(true);
-	}
-
-	item->setFont(font_);
-*/
+	ShowCurrentItemDlg();
 }
 
 void TodoListWidget::OnClickedItem(QListWidgetItem* item)
