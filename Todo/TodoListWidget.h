@@ -25,6 +25,13 @@ public:
 	void SetItemTextFromDeadLine(QListWidgetItem* item, const QString& deadLine);
 	void CloseWindow();
 	void ShowWindow();
+
+	/*
+	* Function Name : SetTodoData
+	* Parameters 
+	* @para1 item : todolist에 넣을 아이템 인스턴스
+	* @para2 data : item에 넣을 아이템 정보들
+	*/
 	void SetTodoData(QListWidgetItem* item, const TodoData& data);
 	void RefreshCurrentDate();
 

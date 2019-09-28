@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QShortcut>
 #include <QKeyEvent>
+
 #define dateMng		DateManager::GetInstance()
 bool TodoListWidget::loadFile = false;
 
@@ -171,18 +172,30 @@ void TodoListWidget::SetTodoData(QListWidgetItem* item, const TodoData& data)
 		QString deadLine = data.GetDeadLine(); //마감
 		bool checked = data.IsChecked();
 
-		//취소선
+		//취소선설정
+		item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+		item->setData(Qt::CheckStateRole, Qt::Checked);
 		if (checked)
+		{
 			font_.setStrikeOut(true);
+			item->setData(Qt::CheckStateRole, Qt::Checked);
+		}
 		else
+		{
 			font_.setStrikeOut(false);
+			item->setData(Qt::CheckStateRole, Qt::Unchecked);
+		}
+
 		item->setFont(font_);
 
-		dstData.SetTitle(title); 
-		dstData.SetDetail(detail);
-		dstData.SetDeadLine(deadLine);
-		dstData.SetChecked(checked);
+		//아이템 데이터들 세팅
+		dstData.SetTitle(title); //할 일 
+		dstData.SetDetail(detail); //상세 정보
+		dstData.SetDeadLine(deadLine); //마감날짜
+		dstData.SetChecked(checked); //체크여부
 
+		//아이템 디자인
+		// 1. 할 일 색깔
 		SetItemTextFromDeadLine(item, deadLine);
 
 		//화면에 보여줄 타이틀
