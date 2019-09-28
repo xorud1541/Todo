@@ -33,8 +33,6 @@ public:
 	void SetTodoData(QListWidgetItem* item, const TodoData& data);
 	void RefreshCurrentDate();
 
-	QMap<QListWidgetItem*, TodoData>& GetDataMap() { return dataMap_; };
-
 	static bool loadFile;
 
 protected:
@@ -57,7 +55,7 @@ private:
 		fontSize = 13
 	};
 
-	QMap<QListWidgetItem*, TodoData> dataMap_;
+	QMap<QListWidgetItem*, TodoData> itemDataMap_;
 	QFont font_;
 	QAction showDetailAction_;
 	QAction deleteAction_;

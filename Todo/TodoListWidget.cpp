@@ -32,7 +32,7 @@ TodoListWidget::TodoListWidget(QWidget* parent)
 
 TodoListWidget::~TodoListWidget()
 {
-	dataMap_.clear();
+	itemDataMap_.clear();
 }
 
 void TodoListWidget::SortTodoItems()
@@ -41,7 +41,7 @@ void TodoListWidget::SortTodoItems()
 	for (int i = 0; i < count(); i++)
 	{
 		QListWidgetItem* item = this->item(i);
-		TodoData data = dataMap_[item];
+		TodoData data = itemDataMap_[item];
 
 		if (data.IsChecked())
 			dataVec.push_back(item);
@@ -64,9 +64,9 @@ void TodoListWidget::GetDoneItem(QVector<TodoData>& doneData)
 {
 	for (int i = 0; i < count(); i++)
 	{
-		if (dataMap_[item(i)].IsChecked())
+		if (itemDataMap_[item(i)].IsChecked())
 		{
-			TodoData data = dataMap_[item(i)];
+			TodoData data = itemDataMap_[item(i)];
 			data.SetDate(dateMng.GetCurrentDate());
 			doneData.push_back(data);
 		}
@@ -78,9 +78,9 @@ void TodoListWidget::DeleteDoneItem( )
 	int i = 0;
 	for (;i < count();)
 	{
-		if (dataMap_[item(i)].IsChecked())
+		if (itemDataMap_[item(i)].IsChecked())
 		{
-			dataMap_.remove(item(i));
+			itemDataMap_.remove(item(i));
 			takeItem(i);
 
 			i = 0;
@@ -167,7 +167,7 @@ void TodoListWidget::SetTodoData(QListWidgetItem* item, const TodoData& data)
 {
 	if (item)
 	{
-		TodoData& dstData = dataMap_[item];
+		TodoData& dstData = itemDataMap_[item];
 		QString title = data.GetTitle(); //할 일
 		QString detail = data.GetDetail(); //상세내용
 		QString deadLine = data.GetDeadLine(); //마감
@@ -211,7 +211,7 @@ void TodoListWidget::RefreshCurrentDate()
 	for (int i = 0; i < cnt; i++)
 	{
 		QListWidgetItem* item = this->item(i);
-		TodoData& data = dataMap_[item];
+		TodoData& data = itemDataMap_[item];
 		SetItemTextFromDeadLine(item, data.GetDeadLine());
 	}
 }
@@ -224,7 +224,7 @@ void TodoListWidget::OnShowDetailAction()
 void TodoListWidget::ShowCurrentItemDlg()
 {
 	QListWidgetItem* item = currentItem();
-	TodoData& data = dataMap_[item];
+	TodoData& data = itemDataMap_[item];
 
 	TodoDlg todoDlg;
 	todoDlg.SetDataFromTodoData(data);
@@ -239,7 +239,7 @@ void TodoListWidget::ShowCurrentItemDlg()
 void TodoListWidget::OnDeleteAction()
 {
 	QListWidgetItem* item = takeItem(currentRow());
-	dataMap_.remove(item);
+	itemDataMap_.remove(item);
 }
 
 void TodoListWidget::AddTodo(TodoData& todo)
@@ -249,7 +249,7 @@ void TodoListWidget::AddTodo(TodoData& todo)
 	SetTodoData(item, todo);
 
 	addItem(item);
-	dataMap_.insert(item, todo);
+	itemDataMap_.insert(item, todo);
 }
 
 void TodoListWidget::SetItemTextFromDeadLine(QListWidgetItem* item, const QString& deadLine)
@@ -277,7 +277,7 @@ void TodoListWidget::CloseWindow()
 	for (int i = 0; i < count(); i++)
 	{
 		QListWidgetItem* witem = item(i);
-		TodoData data = dataMap_[witem];
+		TodoData data = itemDataMap_[witem];
 		ProjectManager::GetInstance().SaveTodoList(data);
 	}
 }
@@ -315,7 +315,7 @@ void TodoListWidget::OnClickedItem(QListWidgetItem* item)
 
 void TodoListWidget::OnCheckedBox(QListWidgetItem* item)
 {
-	TodoData& data = dataMap_[item];
+	TodoData& data = itemDataMap_[item];
 	data.SetChecked(true);
 	font_.setStrikeOut(true);
 
@@ -324,7 +324,7 @@ void TodoListWidget::OnCheckedBox(QListWidgetItem* item)
 
 void TodoListWidget::OnUncheckedBox(QListWidgetItem* item)
 {
-	TodoData& data = dataMap_[item];
+	TodoData& data = itemDataMap_[item];
 	data.SetChecked(false);
 	font_.setStrikeOut(false);
 
