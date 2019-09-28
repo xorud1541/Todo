@@ -1,11 +1,13 @@
 #pragma once
 #include "TodoData.h"
 #include "TodoDlg.h"
-
-#include <QListwidget>
 #include <QMap>
 #include <QVector>
 #include <QMenu>
+#include <QListWidget>
+
+class QListWidgetItem;
+
 class TodoListWidget : public QListWidget
 {
 	Q_OBJECT

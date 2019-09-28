@@ -195,7 +195,8 @@ public:
         doneTreeWidget->header()->setProperty("showSortIndicator", QVariant(true));
         searchBtn = new QPushButton(doneTab);
         searchBtn->setObjectName(QStringLiteral("searchBtn"));
-        searchBtn->setGeometry(QRect(300, 10, 50, 40));
+        searchBtn->setEnabled(false);
+        searchBtn->setGeometry(QRect(290, 10, 50, 40));
         QIcon icon4;
         icon4.addFile(QStringLiteral("image/search_done.png"), QSize(), QIcon::Normal, QIcon::Off);
         searchBtn->setIcon(icon4);
@@ -203,7 +204,7 @@ public:
         searchBtn->setFlat(true);
         searchEdit = new QLineEdit(doneTab);
         searchEdit->setObjectName(QStringLiteral("searchEdit"));
-        searchEdit->setGeometry(QRect(0, 15, 301, 32));
+        searchEdit->setGeometry(QRect(10, 15, 281, 32));
         QFont font1;
         font1.setPointSize(13);
         font1.setKerning(true);
@@ -239,7 +240,7 @@ public:
         sortBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(todoTab), QApplication::translate("TodoClass", "\355\225\240 \354\235\274", Q_NULLPTR));
         searchBtn->setText(QString());
-        searchEdit->setPlaceholderText(QApplication::translate("TodoClass", "\354\231\204\353\243\214\355\225\234 \354\235\274 \352\262\200\354\203\211", Q_NULLPTR));
+        searchEdit->setPlaceholderText(QApplication::translate("TodoClass", " \354\231\204\353\243\214\355\225\234 \354\235\274 \352\262\200\354\203\211", Q_NULLPTR));
         refreshBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(doneTab), QApplication::translate("TodoClass", "\354\231\204\353\243\214\355\225\234 \354\235\274", Q_NULLPTR));
     } // retranslateUi

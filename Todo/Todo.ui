@@ -389,9 +389,12 @@
       </column>
      </widget>
      <widget class="QPushButton" name="searchBtn">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>290</x>
         <y>10</y>
         <width>50</width>
         <height>40</height>
@@ -417,9 +420,9 @@
      <widget class="QLineEdit" name="searchEdit">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>10</x>
         <y>15</y>
-        <width>301</width>
+        <width>281</width>
         <height>32</height>
        </rect>
       </property>
@@ -430,7 +433,7 @@
        </font>
       </property>
       <property name="placeholderText">
-       <string>완료한 일 검색</string>
+       <string> 완료한 일 검색</string>
       </property>
      </widget>
      <widget class="QPushButton" name="refreshBtn">
