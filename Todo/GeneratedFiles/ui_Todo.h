@@ -57,7 +57,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(TodoClass->sizePolicy().hasHeightForWidth());
         TodoClass->setSizePolicy(sizePolicy);
-        TodoClass->setMinimumSize(QSize(0, 0));
+        TodoClass->setMinimumSize(QSize(350, 0));
         centralWidget = new QWidget(TodoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
