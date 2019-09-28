@@ -71,6 +71,7 @@ void TodoDlg::OnClickDeadLineBtn()
 		calendar_ = new QCalendarWidget(this);
 		connect(calendar_, &QCalendarWidget::clicked, this, &TodoDlg::OnClickDeadLineDate);
 		isShowCalendar_ = true;
+		calendar_->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
 		calendar_->show();
 	}
 }

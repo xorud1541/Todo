@@ -43,6 +43,7 @@ public:
     QLabel *deadLineLabel;
     QFrame *line_2;
     QPushButton *deadLineBtn;
+    QPushButton *savedFileBtn;
     QFrame *line_4;
     QSpacerItem *verticalSpacer;
     QPushButton *okBtn;
@@ -100,7 +101,7 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
         widget_2->setSizePolicy(sizePolicy1);
-        widget_2->setMinimumSize(QSize(100, 0));
+        widget_2->setMinimumSize(QSize(120, 0));
         verticalLayout_2 = new QVBoxLayout(widget_2);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         deadLineLabel = new QLabel(widget_2);
@@ -134,6 +135,19 @@ public:
 
         verticalLayout_2->addWidget(deadLineBtn);
 
+        savedFileBtn = new QPushButton(widget_2);
+        savedFileBtn->setObjectName(QStringLiteral("savedFileBtn"));
+        sizePolicy2.setHeightForWidth(savedFileBtn->sizePolicy().hasHeightForWidth());
+        savedFileBtn->setSizePolicy(sizePolicy2);
+        savedFileBtn->setMinimumSize(QSize(100, 30));
+        QIcon icon2;
+        icon2.addFile(QStringLiteral("image/file_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        savedFileBtn->setIcon(icon2);
+        savedFileBtn->setIconSize(QSize(50, 30));
+        savedFileBtn->setFlat(true);
+
+        verticalLayout_2->addWidget(savedFileBtn);
+
         line_4 = new QFrame(widget_2);
         line_4->setObjectName(QStringLiteral("line_4"));
         line_4->setFrameShape(QFrame::HLine);
@@ -141,7 +155,7 @@ public:
 
         verticalLayout_2->addWidget(line_4);
 
-        verticalSpacer = new QSpacerItem(20, 180, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+        verticalSpacer = new QSpacerItem(20, 150, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
 
         verticalLayout_2->addItem(verticalSpacer);
 
@@ -172,6 +186,7 @@ public:
         detailLabel->setText(QApplication::translate("ToDoDlg", "\354\203\201\354\204\270\353\202\264\354\232\251", Q_NULLPTR));
         deadLineLabel->setText(QString());
         deadLineBtn->setText(QString());
+        savedFileBtn->setText(QString());
         okBtn->setText(QApplication::translate("ToDoDlg", "\355\231\225\354\235\270", Q_NULLPTR));
     } // retranslateUi
 
