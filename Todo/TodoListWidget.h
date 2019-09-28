@@ -16,8 +16,6 @@ public:
 	TodoListWidget(QWidget* parent);
 	~TodoListWidget();
 
-	void OnDbClickListItem(QListWidgetItem* item);
-
 	void DeleteDoneItem();
 	void GetDoneItem(QVector<TodoData>& data);
 	void SortTodoItems();
@@ -48,6 +46,10 @@ private:
 	void OnShowDetailAction();
 	void ShowCurrentItemDlg();
 	void OnDeleteAction();
+	void OnDbClickListItem(QListWidgetItem* item);
+	void OnClickedItem(QListWidgetItem* item);
+	void OnCheckedBox(QListWidgetItem* item);
+	void OnUncheckedBox(QListWidgetItem* item);
 
 private:
 	enum

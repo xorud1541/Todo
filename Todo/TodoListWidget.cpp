@@ -20,8 +20,9 @@ TodoListWidget::TodoListWidget(QWidget* parent)
 	font_.setPointSize(fontSize);
 	
 	connect(this, &QListWidget::itemDoubleClicked, this, &TodoListWidget::OnDbClickListItem);
+	connect(this, &QListWidget::itemClicked, this, &TodoListWidget::OnClickedItem);
 
-	//context menu
+	//context menus
 	connect(&showDetailAction_, &QAction::triggered, this, &TodoListWidget::OnShowDetailAction);
 	connect(&deleteAction_, &QAction::triggered, this, &TodoListWidget::OnDeleteAction);
 
@@ -296,6 +297,7 @@ void TodoListWidget::ShowWindow()
 
 void TodoListWidget::OnDbClickListItem(QListWidgetItem* item)
 {
+/*
 	TodoData& data = dataMap_[item];
 	if (data.IsChecked())
 	{
@@ -307,6 +309,38 @@ void TodoListWidget::OnDbClickListItem(QListWidgetItem* item)
 		font_.setStrikeOut(true);
 		data.SetChecked(true);
 	}
+
+	item->setFont(font_);
+*/
+}
+
+void TodoListWidget::OnClickedItem(QListWidgetItem* item)
+{
+	auto isChecked = item->data(Qt::CheckStateRole);
+	if (isChecked == Qt::Checked)
+	{
+		OnCheckedBox(item);
+	}
+	else
+	{
+		OnUncheckedBox(item);
+	}
+}
+
+void TodoListWidget::OnCheckedBox(QListWidgetItem* item)
+{
+	TodoData& data = dataMap_[item];
+	data.SetChecked(true);
+	font_.setStrikeOut(true);
+
+	item->setFont(font_);
+}
+
+void TodoListWidget::OnUncheckedBox(QListWidgetItem* item)
+{
+	TodoData& data = dataMap_[item];
+	data.SetChecked(false);
+	font_.setStrikeOut(false);
 
 	item->setFont(font_);
 }
