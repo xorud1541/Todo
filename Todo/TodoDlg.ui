@@ -100,7 +100,7 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QTextEdit" name="detailEdit"/>
+       <widget class="detailEdit" name="detailEdit"/>
       </item>
       <item>
        <widget class="QWidget" name="widget_2" native="true">
@@ -251,6 +251,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>detailEdit</class>
+   <extends>QTextEdit</extends>
+   <header location="global">DetailEdit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

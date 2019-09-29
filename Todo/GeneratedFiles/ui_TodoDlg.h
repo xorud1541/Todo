@@ -9,6 +9,7 @@
 #ifndef UI_TODODLG_H
 #define UI_TODODLG_H
 
+#include <DetailEdit.h>
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
@@ -21,7 +22,6 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -37,7 +37,7 @@ public:
     QGridLayout *gridLayout;
     QLabel *detailLabel;
     QHBoxLayout *horizontalLayout;
-    QTextEdit *detailEdit;
+    DetailEdit *detailEdit;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout_2;
     QLabel *deadLineLabel;
@@ -89,7 +89,7 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(0);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        detailEdit = new QTextEdit(centerWidget);
+        detailEdit = new DetailEdit(centerWidget);
         detailEdit->setObjectName(QStringLiteral("detailEdit"));
 
         horizontalLayout->addWidget(detailEdit);
