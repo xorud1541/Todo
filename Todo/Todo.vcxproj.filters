@@ -57,6 +57,9 @@
     <ClCompile Include="DetailEdit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Todo.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="DetailEdit.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FileManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -1,4 +1,6 @@
 #include "DetailEdit.h"
+#include "FileManager.h"
+
 #include <QDropEvent>
 #include <QMimeData>
 
@@ -20,5 +22,11 @@ void DetailEdit::dropEvent(QDropEvent* e)
 	{
 		QList<QUrl> paths = mimeData->urls();
 		QString filePath = paths[0].toLocalFile();
+
+		FileManager fileMgr;
+		if (!fileMgr.CopyFileToStorage(filePath))
+		{
+			//½ÇÆÐ
+		}
 	}
 }
