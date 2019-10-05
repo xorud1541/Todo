@@ -45,9 +45,6 @@ void TodoDlg::OnClickOkBtn()
 		title_ = title;
 		detail_ = detail;
 
-		QDateTime date = QDateTime::currentDateTime();
-		QTime startTime = date.time();
-		int a = startTime.msecsSinceStartOfDay();
 		QDialog::accept();
 	}
 
@@ -184,6 +181,12 @@ void TodoDlg::resizeEvent(QResizeEvent* e)
 void TodoDlg::showEvent(QShowEvent* e)
 {
 	ui.detailEdit->verticalScrollBar()->setValue(ui.detailEdit->verticalScrollBar()->maximum());
+	if (startTime_.isEmpty())
+	{
+		QDateTime date = QDateTime::currentDateTime();
+		QTime startTime = date.time();
+		startTime_ = QString::number(startTime.msecsSinceStartOfDay());
+	}
 }
 
 void TodoDlg::OnOkAction()
