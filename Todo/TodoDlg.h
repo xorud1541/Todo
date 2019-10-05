@@ -28,6 +28,9 @@ public:
 	bool IsChecked() { return isChecked_; };
 	void SetTodoChecked(bool checked);
 
+	QString GetStartTime() { return startTime_; };
+	void SetTodoStartTime(QString startTime);
+
 	void SetDataFromTodoData(TodoData& data);
 	TodoData GetTodoDataFromTodoDlg();
 
@@ -53,5 +56,6 @@ private:
 	bool isShowCalendar_;
 	bool isChecked_;
 	QString deadLine_;
+	QString startTime_;
 };
 

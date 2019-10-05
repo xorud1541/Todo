@@ -44,6 +44,10 @@ void TodoDlg::OnClickOkBtn()
 	{
 		title_ = title;
 		detail_ = detail;
+
+		QDateTime date = QDateTime::currentDateTime();
+		QTime startTime = date.time();
+		int a = startTime.msecsSinceStartOfDay();
 		QDialog::accept();
 	}
 
@@ -136,12 +140,18 @@ void TodoDlg::SetTodoChecked(bool checked)
 	isChecked_ = checked;
 }
 
+void TodoDlg::SetTodoStartTime(QString startTime)
+{
+	startTime_ = startTime;
+}
+
 void TodoDlg::SetDataFromTodoData(TodoData& data)
 {
 	SetTodoTitle(data.GetTitle());
 	SetTodoDetail(data.GetDetail());
 	SetTodoDeadLine(data.GetDeadLine());
 	SetTodoChecked(data.IsChecked());
+	SetTodoStartTime(data.GetStartTime());
 }
 
 TodoData TodoDlg::GetTodoDataFromTodoDlg()
@@ -151,6 +161,7 @@ TodoData TodoDlg::GetTodoDataFromTodoDlg()
 	data.SetDetail(detail_);
 	data.SetDeadLine(deadLine_);
 	data.SetChecked(isChecked_);
+	data.SetStartTime(startTime_);
 
 	return data;
 }
@@ -182,15 +193,5 @@ void TodoDlg::OnOkAction()
 
 void TodoDlg::OnCancelAction()
 {
-	QString title = ui.toDoEdit->text();
-	QString detail = ui.detailEdit->toPlainText();
-
-	if (!title.isEmpty())
-	{
-		title_ = title;
-		detail_ = detail;
-		QDialog::accept();
-	}
-
-	QDialog::close();
+	this->OnClickOkBtn();
 }

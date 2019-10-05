@@ -26,6 +26,9 @@ public:
 	QString GetDeadLine() const { return deadLine_; };
 	void SetDeadLine(QString deadLine) { deadLine_ = deadLine; };
 
+	QString GetStartTime() const { return startTime_; };
+	void SetStartTime(QString startTime) { startTime_ = startTime; };
+
 	bool hasText(QString text)
 	{
 		if (title_.contains(text)) return true;
@@ -40,5 +43,6 @@ private:
 	QString detail_;
 	QString date_;
 	QString deadLine_;
+	QString startTime_;
 	bool checked_;
 };
