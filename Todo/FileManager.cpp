@@ -10,7 +10,7 @@ FileManager::~FileManager()
 {
 }
 
-bool FileManager::CopyFileToStorage(const QString& path)
+bool FileManager::CopyFileToStorage(const QString& path, const QString &storageName)
 {
 	return true;
 }

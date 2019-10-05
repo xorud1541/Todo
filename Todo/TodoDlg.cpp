@@ -187,6 +187,8 @@ void TodoDlg::showEvent(QShowEvent* e)
 		QTime startTime = date.time();
 		startTime_ = QString::number(startTime.msecsSinceStartOfDay());
 	}
+
+	ui.detailEdit->SetStartTime(startTime_);
 }
 
 void TodoDlg::OnOkAction()

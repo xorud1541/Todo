@@ -9,7 +9,7 @@ public:
 	FileManager();
 	~FileManager();
 
-	bool CopyFileToStorage(const QString& path);
+	bool CopyFileToStorage(const QString& path, const QString& storageName);
 
 private:
 	const QString storagePath_;

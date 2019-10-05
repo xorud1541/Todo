@@ -22,9 +22,9 @@ void DetailEdit::dropEvent(QDropEvent* e)
 	{
 		QList<QUrl> paths = mimeData->urls();
 		QString filePath = paths[0].toLocalFile();
-
+		QString storageName = startTime_;
 		FileManager fileMgr;
-		if (!fileMgr.CopyFileToStorage(filePath))
+		if (!fileMgr.CopyFileToStorage(filePath, storageName));
 		{
 			//½ÇÆÐ
 		}
