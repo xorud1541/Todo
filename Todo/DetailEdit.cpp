@@ -1,9 +1,10 @@
 #include "DetailEdit.h"
 #include "FileManager.h"
+#include "DateManager.h"
 
 #include <QDropEvent>
 #include <QMimeData>
-
+#include <QMessageBox>
 DetailEdit::DetailEdit(QWidget* parent)
 	: QTextEdit(parent)
 {
@@ -21,12 +22,20 @@ void DetailEdit::dropEvent(QDropEvent* e)
 	if (mimeData->hasUrls())
 	{
 		QList<QUrl> paths = mimeData->urls();
-		QString filePath = paths[0].toLocalFile();
-		QString storageName = startTime_;
-		FileManager fileMgr;
-		if (!fileMgr.CopyFileToStorage(filePath, storageName));
+		QString curDate = DateManager::GetInstance().GetCurrentDate();
+		for (auto path : paths)
 		{
-			//½ÇÆÐ
+			QString filePath = path.toLocalFile();
+			QString storageName = curDate + "_" + startTime_;
+			FileManager fileMgr;
+			if (!fileMgr.CopyFileToStorage(filePath, storageName));
+			{
+				QMessageBox msgBox;
+				QString msg = QString("Failed to copy file : %0").arg(filePath);
+				msgBox.setText(msg);
+				msgBox.setStandardButtons(QMessageBox::Ok);
+				msgBox.exec();
+			}
 		}
 	}
 }
