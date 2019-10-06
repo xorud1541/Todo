@@ -22,11 +22,10 @@ void DetailEdit::dropEvent(QDropEvent* e)
 	if (mimeData->hasUrls())
 	{
 		QList<QUrl> paths = mimeData->urls();
-		QString curDate = DateManager::GetInstance().GetCurrentDate();
 		for (auto path : paths)
 		{
 			QString filePath = path.toLocalFile();
-			QString storageName = curDate + "_" + startTime_;
+			QString storageName = startTime_;
 			FileManager fileMgr;
 			if (!fileMgr.CopyFileToStorage(filePath, storageName));
 			{

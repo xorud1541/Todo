@@ -186,6 +186,7 @@ void TodoDlg::showEvent(QShowEvent* e)
 		QDateTime date = QDateTime::currentDateTime();
 		QTime startTime = date.time();
 		startTime_ = QString::number(startTime.msecsSinceStartOfDay());
+		startTime_ = DateManager::GetInstance().GetCurrentDate() + "_" + startTime_;
 	}
 
 	ui.detailEdit->SetStartTime(startTime_);
