@@ -171,6 +171,7 @@ void TodoListWidget::SetTodoData(QListWidgetItem* item, const TodoData& data)
 		QString title = data.GetTitle(); //할 일
 		QString detail = data.GetDetail(); //상세내용
 		QString deadLine = data.GetDeadLine(); //마감
+		QString startTime = data.GetStartTime();
 		bool checked = data.IsChecked();
 
 		//취소선설정
@@ -194,6 +195,7 @@ void TodoListWidget::SetTodoData(QListWidgetItem* item, const TodoData& data)
 		dstData.SetDetail(detail); //상세 정보
 		dstData.SetDeadLine(deadLine); //마감날짜
 		dstData.SetChecked(checked); //체크여부
+		dstData.SetStartTime(startTime); //할일 시작시각
 
 		//아이템 디자인
 		// 1. 할 일 색깔

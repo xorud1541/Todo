@@ -139,6 +139,7 @@ bool ProjectManager::SaveTodoList(TodoData& data)
 	settings.setValue("check", data.IsChecked());
 	settings.setValue("detail", data.GetDetail());
 	settings.setValue("deadline", data.GetDeadLine());
+	settings.setValue("starttime", data.GetStartTime());
 	settings.endGroup();
 
 	return true;
@@ -179,6 +180,12 @@ bool ProjectManager::LoadTodoList(TodoListWidget* list)
 				QString value = settings.value(key).toString();
 				if (!value.isEmpty())
 					data.SetDeadLine(value);
+			}
+			else if (key == "starttime")
+			{
+				QString value = settings.value(key).toString();
+				if (!value.isEmpty())
+					data.SetStartTime(value);
 			}
 		}
 		keys.clear();

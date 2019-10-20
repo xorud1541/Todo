@@ -27,7 +27,7 @@ void DetailEdit::dropEvent(QDropEvent* e)
 			QString filePath = path.toLocalFile();
 			QString storageName = startTime_;
 			FileManager fileMgr;
-			if (!fileMgr.CopyFileToStorage(filePath, storageName));
+			if (!fileMgr.CopyFileToStorage(filePath, storageName))
 			{
 				QMessageBox msgBox;
 				QString msg = QString("Failed to copy file : %0").arg(filePath);
