@@ -42,6 +42,9 @@ private:
 	void OnOkAction();
 	void OnCancelAction();
 
+public slots:
+	void OnSavedFile();
+
 private:
 	enum
 	{

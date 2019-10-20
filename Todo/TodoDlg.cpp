@@ -5,6 +5,7 @@
 #include <QScrollBar>
 #include <QAction>
 #include <QMessageBox>
+#include <QDir>
 
 #include "DateManager.h"
 
@@ -24,11 +25,12 @@ TodoDlg::TodoDlg(QWidget* parent)
 	QAction* cancelAction = new QAction(this);
 	cancelAction->setShortcut(Qt::CTRL + Qt::Key_W);
 	addAction(cancelAction);
-	
+
 	connect(okAction, &QAction::triggered, this, &TodoDlg::OnOkAction);
 	connect(ui.okBtn, &QPushButton::clicked, this, &TodoDlg::OnClickOkBtn);
 	connect(cancelAction, &QAction::triggered, this, &TodoDlg::OnCancelAction);
 	connect(ui.deadLineBtn, &QPushButton::clicked, this, &TodoDlg::OnClickDeadLineBtn);
+	connect(ui.detailEdit, SIGNAL(sig_savedfile()), this, SLOT(OnSavedFile()));
 }
 
 TodoDlg::~TodoDlg()
@@ -187,6 +189,17 @@ void TodoDlg::showEvent(QShowEvent* e)
 		QTime startTime = date.time();
 		startTime_ = QString::number(startTime.msecsSinceStartOfDay());
 		startTime_ = DateManager::GetInstance().GetCurrentDate() + "_" + startTime_;
+
+		ui.savedFileBtn->setDisabled(true);
+	}
+	else
+	{
+		QString storagePath = QString("D:\\Todo\\%0").arg(startTime_);
+		QDir copyDir(storagePath);
+		if (!copyDir.exists())
+			ui.savedFileBtn->setDisabled(true);
+		else
+			ui.savedFileBtn->setDisabled(false);
 	}
 
 	ui.detailEdit->SetStartTime(startTime_);
@@ -200,4 +213,9 @@ void TodoDlg::OnOkAction()
 void TodoDlg::OnCancelAction()
 {
 	this->OnClickOkBtn();
+}
+
+void TodoDlg::OnSavedFile()
+{
+	ui.savedFileBtn->setDisabled(false);
 }

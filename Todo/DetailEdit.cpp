@@ -35,6 +35,8 @@ void DetailEdit::dropEvent(QDropEvent* e)
 				msgBox.setStandardButtons(QMessageBox::Ok);
 				msgBox.exec();
 			}
+			else
+				emit sig_savedfile();
 		}
 	}
 }

@@ -15,6 +15,9 @@ public:
 		startTime_ = startTime;
 	}
 
+signals:
+	void sig_savedfile();
+
 protected:
 	void dropEvent(QDropEvent* e);
 
