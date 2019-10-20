@@ -19,6 +19,7 @@ DetailEdit::~DetailEdit()
 void DetailEdit::dropEvent(QDropEvent* e)
 {
 	const QMimeData* mimeData = e->mimeData();
+	bool isSaved = false;
 	if (mimeData->hasUrls())
 	{
 		QList<QUrl> paths = mimeData->urls();
@@ -36,7 +37,10 @@ void DetailEdit::dropEvent(QDropEvent* e)
 				msgBox.exec();
 			}
 			else
-				emit sig_savedfile();
+				isSaved = true;
 		}
 	}
+
+	if (isSaved)
+		emit sig_savedfile();
 }

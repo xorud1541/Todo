@@ -41,7 +41,7 @@ protected:
 private:
 	void OnOkAction();
 	void OnCancelAction();
-
+	void OnClickSavedFileBtn();
 public slots:
 	void OnSavedFile();
 

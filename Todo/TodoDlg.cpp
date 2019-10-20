@@ -6,6 +6,7 @@
 #include <QAction>
 #include <QMessageBox>
 #include <QDir>
+#include <QFileDialog>
 
 #include "DateManager.h"
 
@@ -31,6 +32,7 @@ TodoDlg::TodoDlg(QWidget* parent)
 	connect(cancelAction, &QAction::triggered, this, &TodoDlg::OnCancelAction);
 	connect(ui.deadLineBtn, &QPushButton::clicked, this, &TodoDlg::OnClickDeadLineBtn);
 	connect(ui.detailEdit, SIGNAL(sig_savedfile()), this, SLOT(OnSavedFile()));
+	connect(ui.savedFileBtn, &QPushButton::clicked, this, &TodoDlg::OnClickSavedFileBtn);
 }
 
 TodoDlg::~TodoDlg()
@@ -218,4 +220,12 @@ void TodoDlg::OnCancelAction()
 void TodoDlg::OnSavedFile()
 {
 	ui.savedFileBtn->setDisabled(false);
+}
+
+void TodoDlg::OnClickSavedFileBtn()
+{
+	const QString root = "D:\\Todo\\";
+	QString path = root + startTime_;
+	QFileDialog fileViewer;
+	fileViewer.getOpenFileName(this, "FileViewer", path, "");
 }
