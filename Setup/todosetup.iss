@@ -6,6 +6,7 @@
 #define MyAppPublisher "TK Company, Inc."
 #define MyAppURL "http:/github.com/xorud1541/Todo"
 #define MyAppExeName "Todo.exe"
+#define MyWorkspace "C:\Users\xorud\OneDrive\πŸ≈¡ »≠∏È\workspace\Todo"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -21,9 +22,9 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-OutputDir=D:\git\Todo\Setup
+OutputDir={#MyWorkspace}\Setup
 OutputBaseFilename=TODO Setup
-SetupIconFile=D:\git\Todo\x64\Release\image\myicon.ico
+SetupIconFile={#MyWorkspace}\x64\Release\image\myicon.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -34,7 +35,7 @@ Name: "korean"; MessagesFile: "compiler:Languages\Korean.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\git\Todo\x64\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyWorkspace}\x64\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
