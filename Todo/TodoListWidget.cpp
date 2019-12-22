@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QShortcut>
 #include <QKeyEvent>
+#include <QCoreapplication>
 
 #define dateMng		DateManager::GetInstance()
 bool TodoListWidget::loadFile = false;
@@ -28,6 +29,9 @@ TodoListWidget::TodoListWidget(QWidget* parent)
 
 	contextMenu_.addAction(&showDetailAction_);
 	contextMenu_.addAction(&deleteAction_);
+
+	qCoreApp_ = QCoreApplication::instance();
+	connect(qCoreApp_, &QCoreApplication::aboutToQuit, this, &TodoListWidget::CloseWindow);
 }
 
 TodoListWidget::~TodoListWidget()

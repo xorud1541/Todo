@@ -7,6 +7,7 @@
 #include <QListWidget>
 
 class QListWidgetItem;
+class QCoreApplication;
 
 class TodoListWidget : public QListWidget
 {
@@ -60,6 +61,7 @@ private:
 	QAction showDetailAction_;
 	QAction deleteAction_;
 	QMenu contextMenu_;
+	QCoreApplication* qCoreApp_;
 	int currentRow_;
 };
 
