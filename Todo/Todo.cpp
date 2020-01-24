@@ -47,7 +47,7 @@ Todo::Todo(QWidget *parent)
 
 	trayIconMenu_.addAction(&trayShowAction_);
 	trayIcon_->setContextMenu(&trayIconMenu_);
-	trayIcon_->setIcon(QIcon("./image/myIcon.ico"));
+	trayIcon_->setIcon(QIcon("./image/trayicon.ico"));
 	trayIcon_->show();
 #endif
 	connect(ui.addBtn, &QPushButton::clicked, this, &Todo::OnClickAddBtn);
